@@ -1,0 +1,4 @@
+vendor/
+xml
+*.swp
+public/js/app.js

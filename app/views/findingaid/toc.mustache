@@ -1,0 +1,22 @@
+<div class="col-md-6 navbar-fixed-top fa-toc">
+  <div class="panel panel-default" id="{{id}}">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{label}}</h4>
+    </div>
+    <div class="panel-body">
+      <ul class="list-unstyled">
+        {{#entries}}
+        <li><a href="#{{id}}">{{label}}</a>
+          {{#subentries}}
+          <ul>
+            {{#contents_entries}}
+            <li><a href="#{{id}}">{{label}}</a></li>
+            {{/contents_entries}}
+          </ul>
+          {{/subentries}}
+        </li>
+        {{/entries}}
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="col-md-6 navbar-fixed-top fa-request-summary">
+  <div class="panel panel-default" id="{{id}}">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{label}}</h4>
+    </div>
+    <div class="panel-body">
+      <h4 class="fa-request-summary-note fa-request-hidden">
+        No items have been requested.
+      </h4>
+      <ul class="fa-request-ul list-unstyled" id="{{list_id}}">
+      </ul>
+      <div class="fa-request-options fa-request-hidden">
+        <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Schedule Retrieval</button>
+        <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
+        <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
+      </div>
+      <br>
+      <div id="fa-schedule-retrieval-options" class="fa-request-option fa-request-hidden" data-options="schedule-retrival">
+        options for schedule-retrieval
+      </div>
+      <div id="fa-save-for-later-options" class="fa-request-option fa-request-hidden" data-options="schedule-retrival">
+        options for save-for-later
+      </div>
+      <div id="fa-request-reproductions-options" class="fa-request-option fa-request-hidden" data-options="schedule-retrival">
+        options for request-reproductions
+      </div>
+      <br>
+      <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/remoteauth/aeon.dll?Action=10&Form=20&Value=DefaultRequest" method="post">
+      <input type="hidden" name="RequestType" value="Loan">
+      <input type="hidden" name="FormValidationOverride" value="AllRequests">
+      <input type="hidden" name="ItemTitle" value="{{title}}">
+      <input type="hidden" name="CallNumber" value="{{call_number}}">
+      <input type="hidden" name="ItemAuthor" value="{{item_author}}">
+      <input type="hidden" name="ItemDate" value="{{item_date}}">
+      <input type="hidden" name="ItemInfo2" value="{{item_url}}">
+      <button id="fa-request-submit" class="btn btn-success" type="submit" disabled="disabled">Submit Request</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+{{=<% %>=}}
+jQuery(document).ready(function () {
+    requests.init({title: "<% title %>"});
+});
+<%={{ }}=%>
+</script>
