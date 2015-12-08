@@ -1,0 +1,132 @@
+{
+    "panels": [
+        {
+            "label": "Abstract",
+            "id": "abstract",
+            "in_toc": true,
+            "field": "abstract"
+        },
+        {
+            "label": "Descriptive Summary",
+            "id": "descriptive-summary",
+            "in_toc": true,
+            "collapsible": true,
+            "fields": [
+                {
+                    "label": "Author",
+                    "id": "author",
+                    "field": "descriptive_summary/author"
+                },
+                {
+                    "label": "Title",
+                    "id": "ds-title",
+                    "field": "descriptive_summary/title"
+                },
+                {
+                    "label": "Date",
+                    "id": "date",
+                    "field": "descriptive_summary/date"
+                },
+                {
+                    "label": "Creator",
+                    "id": "creator",
+                    "field": "descriptive_summary/creator"
+                },
+                {
+                    "label": "Extent",
+                    "id": "extent",
+                    "field": "descriptive_summary/extent"
+                },
+                {
+                    "label": "Arrangement",
+                    "id": "arrangement",
+                    "field": "descriptive_summary/arrangement"
+                },
+                {
+                    "label": "Subjects",
+                    "id": "subject",
+                    "field": "descriptive_summary/subjects/subject"
+                },
+                {
+                    "label": "Preferred Citation",
+                    "id": "prefercite",
+                    "field": "descriptive_summary/prefercite",
+                    "in_toc": true
+                }
+            ]
+        },
+        {
+            "label": "Collection Overview",
+            "id": "collection-overview",
+            "collapsible": true,
+            "fields": [
+                {
+                    "label": "Biography / History",
+                    "id": "bioghist",
+                    "field": "collection_overview/bioghist/p",
+                    "in_toc": true
+                },
+                {
+                    "label": "Scope and Content",
+                    "id": "scopecontent",
+                    "field": "collection_overview/scopecontent/p",
+                    "in_toc": true
+                }
+            ]
+        },
+        {
+            "label": "Restrictions on Access and Use",
+            "id": "restrictions-on-access-and-use",
+            "in_toc": true,
+            "collapsible": true,
+            "fields": [
+                {
+                    "label": "Conditions Governing Access",
+                    "id": "accessrestrict",
+                    "field": "accessrestrict"
+                },
+                {
+                    "label": "Use Restrictions",
+                    "id": "userestrict",
+                    "field": "userestrict"
+                }
+            ]
+        },
+        {
+            "label": "Contents of the Collection",
+            "id": "contents-of-the-collection",
+            "in_toc": true,
+            "collapsible": true,
+            "subentries": true
+        }
+    ],
+    "toc": {
+        "label": "Table of Contents",
+        "id": "toc",
+        "entries": [
+            "abstract",
+            "descriptive-summary",
+            "bioghist",
+            "scopecontent",
+            "prefercite",
+            "restrictions-on-access-and-use",
+            "contents-of-the-collection"
+        ]
+    },
+    "contents": {
+        "anchor": "contents-of-the-collection",
+        "title": "title",
+        "scopecontent": "scopecontent/p",
+        "container": "did/container",
+        "component": "c|c01|c02|c03|c04|c05|c06|c07|c08|c09|c10|c11|c12"
+    },
+    "requests": {
+        "inactive": "Request",
+        "active": "Selected",
+        "summary": {
+          "id": "fa-requests-summary",
+          "label": "Requests",
+          "list_id": "fa-requests-list"
+        }
+    }
+}

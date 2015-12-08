@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
+  {{#css}}
+  <link rel="stylesheet" href="{{href}}">
+  {{/css}}
+  {{#js}}
+  <script src="{{href}}"></script>
+  {{/js}}
+</head>
+<body>
+  {{> nav}}
+  <div class='container-fluid'>
+    <div class='row'>
+      {{{content}}}
+      {{{toc}}}
+      {{{requests}}}
+    </div>
+  </div>
+</body>
+</html>
