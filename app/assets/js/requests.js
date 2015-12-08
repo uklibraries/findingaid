@@ -119,9 +119,12 @@ var requests = (function() {
         else {
             jid = '#' + id;
             target = $(jid).attr('data-target');
+            container_list = $('#' + target).val();
+            heading = $('#' + target).closest('.panel').find('.panel-title').html();
+            label = container_list + ' ' + heading;
             item = {
                 id: id,
-                label: $('#' + target).val()
+                label: label
             }
             pos = model.add(item);
             if (pos !== false) {
