@@ -95,15 +95,9 @@ var requests = (function() {
             else if ("request-reproductions" === request_type) {
                 $('form.fa-request-fieldset').attr('action', 'https://requests-libraries.uky.edu/remoteauth/aeon.dll?Action=10&Form=2&Value=PhotoduplicationRequest');
             }
-        }
-    }
-
-    function valid() {
-        if ("save-for-later" === request_type) {
-            return true;
-        }
-        else {
-            return false;
+            else if ("schedule-retrieval" === request_type) {
+                $('form.fa-request-fieldset').attr('action', 'https://requests-libraries.uky.edu/remoteauth/aeon.dll?Action=10&Form=20&Value=DefaultRequest');
+            }
         }
     }
 
@@ -228,15 +222,7 @@ var requests = (function() {
                 return false;
             },
             valid: function () {
-                if ("save-for-later" === request_type) {
-                    return true;
-                }
-                else if ("request-reproductions" === request_type) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return true;
             },
             init: function () {
                 request_type = default_request_type;
