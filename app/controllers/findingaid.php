@@ -160,11 +160,6 @@ class Findingaid extends Controller
         );
 
         $requests_config = $this->config->get('requests');
-       # $unitid = $model->metadata('//archdesc/did/unitid');
-       # if (count($unitid) > 0) {
-       #     $unitid = $unitid[0];
-       # }
-       # print "<!-- hz $unitid -->\n";
         $requests = $m->render(
             load_template('findingaid/requests'),
             array(

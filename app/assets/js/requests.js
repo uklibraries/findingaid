@@ -55,7 +55,6 @@ var requests = (function() {
                 blocks[block] = [];
                 block_pieces.push(block);
             }
-            //blocks[block].push(item);
             pieces.push(input_view.render(item));
         }
         if ('save-for-later' === model.get_request_type() ||
@@ -312,12 +311,6 @@ var requests = (function() {
 
             $('.fa-request').removeClass('fa-request-hidden');
             $('.fa-request-summary-note').removeClass('fa-request-hidden');
-
-/*
-            $('#fa-request-submit').click(function () {
-                reset_hidden_fields();
-            });
-            */
         }
     };
 })();
