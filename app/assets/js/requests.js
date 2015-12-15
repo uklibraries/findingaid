@@ -468,28 +468,6 @@ var requests = (function() {
         }
     })();
 
-    var input_view = (function () {
-        return {
-            render: function (item) {
-                var pieces = [];
-                pieces.push('<input class="fa-request-hidden-field" type="hidden" id="' + item["id"] + '-field">');
-                return pieces.join('');
-            }
-        }
-    })();
-
-    var generic_input_view = (function () {
-        return {
-            render: function (fields) {
-                var pieces = [];
-                for (var i = 0; i < fields.length; ++i) {
-                   pieces.push('<input class="fa-request-hidden-field" type="hidden" name="' + fields[i]["name"] + '" value="' + fields[i]["value"] + '">');
-                }
-                return pieces.join('');
-            }
-        }
-    })();
-
     return {
         init: function (options) {
             title = options["title"];
