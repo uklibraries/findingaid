@@ -2,3 +2,5 @@ vendor/
 xml
 *.swp
 public/js/app.js
+misc/
+public/minimal*
