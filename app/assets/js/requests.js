@@ -734,10 +734,7 @@ var requests = (function() {
             });
 
             $('form.fa-request-fieldset').submit(function () {
-                if (!model.valid()) {
-                    return false;
-                }
-                return true;
+                return model.valid();
             });
         }
     };
