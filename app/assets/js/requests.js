@@ -497,11 +497,7 @@ var requests = (function() {
                 return false;
             });
 
-            $('body').on('change', '.fa-request-reproductions-input', function () {
-                //update();
-            });
-
-            $('body').on('change', '#fa-pages', function () {
+            $('body').on('change keyup paste', '#fa-pages', function () {
                 update();
             });
 
@@ -517,7 +513,7 @@ var requests = (function() {
                 update();
             });
 
-            $('body').on('change', '#fa-project', function () {
+            $('body').on('change keyup paste', '#fa-project', function () {
                 update();
             });
 
