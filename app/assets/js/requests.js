@@ -9,6 +9,9 @@ var requests = (function() {
         highlight_request_type();
         reset_hidden_fields();
         revalidate();
+        if (0 === model.get_count()) {
+            model.disable_all();
+        }
     }
 
     function update_count() {
@@ -57,47 +60,7 @@ var requests = (function() {
         }
         $('input[name="Notes"]').val(pieces.join("\n"));
         $('.fa-request-hidden-field').remove();
-        if ('save-for-later' === model.get_request_type()) {
-            $('.fa-request-fieldset').append('<input type="hidden" class="fa-request-hidden-field" name="Visit" value="on"><input type="hidden" class="fa-request-hidden-field" name="UserReview" value="Yes">');
-            $('#fa-schedule-retrieval-options').hide();
-            $('#fa-datepicker').attr('name', '');
-            $('#fa-pages').attr('name', '');
-            $('#fa-format').attr('name', '');
-            $('#fa-service-level').attr('name', '');
-            $('#fa-project').attr('name', '');
-            $('#fa-request-reproductions-options').hide();
-        }
-        else if ('schedule-retrieval' === model.get_request_type()) {
-            if (!datepicker_initialized) {
-                $.getJSON("date.php", function (data) {
-                    $('#fa-datepicker').val(data.earliest);
-                    $('.fa-request-fieldset').append('<input type="hidden" class="fa-request-hidden-field" name="Visit" value="on"><input type="hidden" class="fa-request-hidden-field" name="UserReview" value="No">');
-                    $('#fa-datepicker').datepicker({
-                        showOn: "button",
-                        minDate: new Date(data.earliest),
-                        beforeShowDay: $.datepicker.noWeekends,
-                        dateFormat: "mm/dd/yy"
-                    });
-                    datepicker_initialized = true;
-                });
-            }
-            $('#fa-datepicker').attr('name', 'ScheduledDate');
-            $('#fa-schedule-retrieval-options').show();
-            $('#fa-pages').attr('name', '');
-            $('#fa-format').attr('name', '');
-            $('#fa-service-level').attr('name', '');
-            $('#fa-project').attr('name', '');
-            $('#fa-request-reproductions-options').hide();
-        }
-        else if ('request-reproductions' === model.get_request_type()) {
-            $('#fa-schedule-retrieval-options').hide();
-            $('#fa-datepicker').attr('name', '');
-            $('#fa-pages').attr('name', 'ItemInfo3');
-            $('#fa-format').attr('name', 'Format');
-            $('#fa-service-level').attr('name', 'ServiceLevel');
-            $('#fa-project').attr('name', 'ItemInfo4');
-            $('#fa-request-reproductions-options').show();
-        }
+        model.enable_current();
         $('.fa-volume-input').remove();
         volume_inputs = [];
         for (var i = 0; i < model.get_volume_count(); ++i) {
@@ -194,7 +157,7 @@ var requests = (function() {
 
     var model = (function () {
         /* Each item should specify the following metadata:
-         * 
+         *
          *   + id:        "fa-request-target-cid3644001-button"
          *   + label:     "Box 1, folder 1: Letter to Captain Russell Sturgis, aboard the Achilles, Washington D.C., 1862 March 18"
          *   + title:     "Letter to Captain Russel Sturgis, aboard the Achilles, Washington D.C., 1862 March 18"
@@ -228,6 +191,234 @@ var requests = (function() {
         ];
         var service_level = '';
 
+        var ids = [
+            'fa-datepicker',
+            'fa-save-for-later',
+            ''
+        ];
+
+        var subforms = [
+            /* Manage the datepicker.
+            *
+            * This maintains a few hidden fields.  It initializes
+            * the datepicker control, which must already appear in
+            * the DOM.
+            */
+            (function () {
+                var id;
+                var jid;
+                var hidden;
+                var enabled = false;
+                var initialized = false;
+                var hidden_fields = [
+                    '-visit',
+                    '-user-review'
+                ];
+                var hidden_names = {
+                    "-visit": "Visit",
+                    "-user-review": "UserReview"
+                };
+
+                function disable_form() {
+                    for (var i = 0; i < hidden_fields.length; ++i) {
+                        $('#' + hidden + hidden_fields[i]).attr(
+                            'name', ''
+                        );
+                    }
+                    $(jid).attr('name', '');
+                    $('#fa-schedule-retrieval-options').hide();
+                    $(jid).hide();
+                    enabled = false;
+                }
+
+                return {
+                    init: function (id) {
+                        $.getJSON("date.php", function (data) {
+                            jid = '#' + id;
+                            hidden = id + '-hidden';
+
+                            /* Insert the fields which this subform must manage. */
+                            var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
+                            $('.fa-request-fieldset').append(
+                                subform_template.replace(
+                                    new RegExp('__HIDDEN__', 'g'),
+                                    hidden
+                                )
+                            );
+
+                            /* Add the datepicker. */
+                            $(jid).val(data.earliest);
+                            $(jid).datepicker({
+                                showOn: "button",
+                                minDate: new Date(data.earliest),
+                                beforeShowDay: $.datepicker.noWeekends,
+                                dateFormat: "mm/dd/yy"
+                            });
+                            disable_form();
+
+                            /* And we're done. */
+                            initialized = true;
+                        });
+                    },
+                    enable: function () {
+                        for (var i = 0; i < hidden_fields.length; ++i) {
+                            $('#' + hidden + hidden_fields[i]).attr(
+                                'name', hidden_names[hidden_fields[i]]
+                            );
+                        }
+                        $(jid).attr('name', 'ScheduledDate');
+                        $('#fa-schedule-retrieval-options').show();
+                        $(jid).show();
+                        enabled = true;
+                    },
+                    disable: function () {
+                        disable_form();
+                    },
+                    valid: function () {
+                        if (!initialized) {
+                            return false;
+                        }
+                        if ($(jid).val() === "01/01/1901") {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+            })(),
+            /* Manage the hidden fields for user review.
+            */
+            (function () {
+                var id;
+                var jid;
+                var hidden;
+                var enabled = false;
+                var initialized = false;
+                var hidden_fields = [
+                    '-visit',
+                    '-user-review'
+                ];
+                var hidden_names = {
+                    "-visit": "Visit",
+                    "-user-review": "UserReview"
+                };
+
+                function disable_form() {
+                    for (var i = 0; i < hidden_fields.length; ++i) {
+                        $('#' + hidden + hidden_fields[i]).attr(
+                            'name', ''
+                        );
+                    }
+                    $('#fa-save-for-later-options').hide();
+                    enabled = false;
+                }
+
+                return {
+                    init: function (id) {
+                        jid = '#' + id;
+                        hidden = id + '-hidden';
+
+                        /* Insert the fields which this subform must manage. */
+                        var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="Yes"></div>';
+                        $('.fa-request-fieldset').append(
+                            subform_template.replace(
+                                new RegExp('__HIDDEN__', 'g'),
+                                hidden
+                            )
+                        );
+                        disable_form();
+
+                        initialized = true;
+                    },
+                    enable: function () {
+                        for (var i = 0; i < hidden_fields.length; ++i) {
+                            $('#' + hidden + hidden_fields[i]).attr(
+                                'name', hidden_names[hidden_fields[i]]
+                            );
+                        }
+                        $('#fa-save-for-later-options').show();
+                        enabled = true;
+                    },
+                    disable: function () {
+                        disable_form();
+                    },
+                    valid: function () {
+                        return true;
+                    }
+                }
+            })(),
+            /* Manage the inputs for reproduction requests.
+            */
+            (function () {
+                var id;
+                var jid;
+                var hidden;
+                var enabled = false;
+                var initialized = false;
+                var fields = [
+                    'fa-pages',
+                    'fa-format',
+                    'fa-service-level',
+                    'fa-project'
+                ];
+                var names = {
+                    "fa-pages": "ItemInfo3",
+                    "fa-format": "Format",
+                    "fa-service-level": "ServiceLevel",
+                    "fa-project": "ItemInfo4"
+                };
+
+                function disable_form() {
+                    for (var i = 0; i < fields.length; ++i) {
+                        $('#' + fields[i]).attr(
+                            'name', ''
+                        );
+                    }
+                    $('#fa-request-reproductions-options').hide();
+                    enabled = false;
+                }
+
+                return {
+                    init: function (id) {
+                        disable_form();
+                        initialized = true;
+                    },
+                    enable: function () {
+                        for (var i = 0; i < fields.length; ++i) {
+                            $('#' + fields[i]).attr(
+                                'name', names[fields[i]]
+                            );
+                        }
+                        $('#fa-request-reproductions-options').show();
+                        enabled = true;
+                    },
+                    disable: function () {
+                        disable_form();
+                    },
+                    valid: function () {
+                        if ($('#fa-pages').attr('name') !== "ItemInfo3" ||
+                            $('#fa-pages').val().length === 0) {
+                            return false;
+                        }
+                        if ($('#fa-format').attr('name') !== "Format" ||
+                            $('#fa-format').find(':selected').val() !== format) {
+                            return false;
+                        }
+                        if ($('#fa-service-level').attr('name') !== "ServiceLevel" ||
+                            $('#fa-service-level').find(':selected').val() !== service_level) {
+                            return false;
+                        }
+                        if ($('#fa-project').attr('name') !== "ItemInfo4" ||
+                            $('#fa-project').val().length === 0) {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+            })()
+        ];
+
         function add_volume(volume) {
             if (volume_keys.indexOf(volume["id"]) === -1) {
                 volume_keys[keys.length] = volume["id"];
@@ -253,7 +444,25 @@ var requests = (function() {
                 return false;
             }
         }
- 
+
+        function enable_current() {
+            var rt = request_types.indexOf(request_type);
+            for (var i = 0; i < request_types.length; ++i) {
+                if (rt === i) {
+                    subforms[i].enable();
+                }
+                else {
+                    subforms[i].disable();
+                }
+            }
+        }
+
+        function disable_all() {
+            for (var i = 0; i < request_types.length; ++i) {
+                subforms[i].disable();
+            }
+        }
+
         return {
             add: function (item) {
                 if (keys.indexOf(item["id"]) === -1) {
@@ -361,41 +570,24 @@ var requests = (function() {
                 return false;
             },
             valid: function () {
-                if ('save-for-later' === request_type) {
-                    return true;
-                }
-                else if ('schedule-retrieval' === request_type) {
-                    if ($('#fa-datepicker').attr('name') === "ScheduledDate") {
-                        return true;
-                    }
-                    return false;
-                }
-                else if ('request-reproductions' === request_type) {
-                    if ($('#fa-pages').attr('name') !== "ItemInfo3" ||
-                        $('#fa-pages').val().length === 0) {
-                        return false;
-                    }
-                    if ($('#fa-format').attr('name') !== "Format" ||
-                        $('#fa-format').find(':selected').val() !== format) {
-                        return false;
-                    }
-                    if ($('#fa-service-level').attr('name') !== "ServiceLevel" ||
-                        $('#fa-service-level').find(':selected').val() !== service_level) {
-                        return false;
-                    }
-                    if ($('#fa-project').attr('name') !== "ItemInfo4" ||
-                        $('#fa-project').val().length === 0) {
-                        return false;
-                    }
-                    return true;
+                /* XXX: additional requirements for validity? */
+                var rt = request_types.indexOf(request_type);
+                if (0 <= rt && rt < request_types.length) {
+                    return subforms[rt].valid();
                 }
                 else {
                     return false;
                 }
             },
             init: function () {
+                for (var i = 0; i < request_types.length; ++i) {
+                    subforms[i].init(ids[i]);
+                }
                 request_type = default_request_type;
-            }
+                enable_current();
+            },
+            enable_current: enable_current,
+            disable_all: disable_all
         }
     })();
 
