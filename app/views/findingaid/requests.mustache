@@ -9,20 +9,66 @@
       </h4>
       <ul class="fa-request-ul list-unstyled" id="{{list_id}}">
       </ul>
+      <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/logon" method="post" target="_blank">
+      <div class="fa-extra-options fa-request-hidden">
+        <label for="SpecialRequest">Special Requests/Questions?
+            <input class="fa-extra-input" type="textarea" id="fa-special-request" name="SpecialRequest">
+        </label>
+        <br>
+        <label for="extra_notes">My Notes
+            <input class="fa-extra-input" type="textarea" id="extra_notes">
+        </label>
+        <br>
+      </div>
       <div class="fa-request-options fa-request-hidden">
         <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Schedule Retrieval</button>
         <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
         <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
       </div>
       <br>
-      <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/remoteauth/aeon.dll?Action=10&Form=20&Value=DefaultRequest" method="post">
+      <div class="fa-options" id="fa-schedule-retrieval-options">
+          <input type="text" id="fa-datepicker" name="ScheduledDate" value="01/01/1900">
+      </div>
+      <div class="fa-options" id="fa-request-reproductions-options">
+          <label for="ItemInfo3">Pages/Items to be Reproduced
+              <input class="fa-request-reproductions-input" type="textarea" id="fa-pages" name="ItemInfo3">
+          </label>
+          <br>
+          <label for="Format">Format</label>
+              <select class="fa-request-reproductions-input" id="fa-format" name="Format">
+                <option>Select one</option>
+                <option value="A/V (may incur costs)">A/V (may incur costs)</option>
+                <option value="JPG">JPG</option>
+                <option value="PDF">PDF</option>
+                <option value="TIFF">TIFF</option>
+              </select>
+          </label>
+          <br>
+          <label for="ServiceLevel">Intended Use
+              <select class="fa-request-reproductions-input" id="fa-service-level" name="ServiceLevel">
+                  <option>Select one</option>
+                  <option value="Rush">Rush</option>
+                  <option value="Standard">Standard</option>
+              </select>
+          </label>
+          <br>
+          <label for="ItemInfo4">Project Description
+              <input class="fa-request-reproductions-input" type="textarea" id="fa-project" name="ItemInfo4">
+          </label>
+      </div>
       <input type="hidden" name="RequestType" value="Loan">
-      <input type="hidden" name="FormValidationOverride" value="AllRequests">
-      <input type="hidden" name="ItemTitle" value="{{title}}">
-      <input type="hidden" name="CallNumber" value="{{call_number}}">
-      <input type="hidden" name="ItemAuthor" value="{{item_author}}">
-      <input type="hidden" name="ItemDate" value="{{item_date}}">
+      <input type="hidden" name="AeonForm" value="EADRequest">
+      <input type="hidden" id="ItemTitle" name="FormDataField" value="{{title}}">
+      <input type="hidden" id="EADNumber" name="FormDataField" value="{{call_number}}">
+      <input type="hidden" id="GroupRequestsByLocation" name="FormDataField" value="Yes">
+      <input type="hidden" id="GroupingIdentifier" name="FormDataField" value="ItemVolume">
+      <input type="hidden" id="GroupingOption_ItemVolume" name="FormDataField" value="Concatenate">
       <input type="hidden" name="ItemInfo2" value="{{item_url}}">
+      <input type="hidden" name="CallNumber" value="{{call_number}}">
+      <input type="hidden" name="ItemDate" value="{{item_date}}">
+      <input type="hidden" name="SubmitButton" value="Submit Request">
+      <input type="hidden" name="SpecialRequest" value="">
+      <input type="hidden" name="Notes" value="">
       <button id="fa-request-submit" class="btn btn-success" type="submit" disabled="disabled">Submit Request</button>
       </form>
     </div>
@@ -31,7 +77,11 @@
 <script type="text/javascript">
 {{=<% %>=}}
 jQuery(document).ready(function () {
-    requests.init({title: "<% title %>"});
+    requests.init({
+        title: "<% title %>",
+        button_active: "Selected",
+        button_inactive: "Request"
+    });
 });
 <%={{ }}=%>
 </script>

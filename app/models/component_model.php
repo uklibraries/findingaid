@@ -95,10 +95,17 @@ class ComponentModel extends Model
                     $list[] = "{$container['type']} {$container['number']}";
                     $request_target = "fa-request-target-$id";
                 }
+                $top = $list[0];
+                $summary = implode(', ', $list);
+                $full_container_list = $summary . ': ' . $this->title();
+                array_shift($list);
+                $rest = implode(', ', $list);
                 $container_list = array(
-                    'request_target' => $request_target,
-                    'summary' => implode(', ', $list),
-                    'top' => $list[0],
+                    'id' => $request_target,
+                    'summary' => $summary,
+                    'volume' => $top,
+                    'container' => $rest,
+                    'container_list' => $full_container_list,
                     'active' => $active,
                     'inactive' => $inactive,
                 );
