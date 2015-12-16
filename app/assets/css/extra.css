@@ -1,8 +1,4 @@
 .fa-toc {
-    position: fixed;
-    width: 100%;
-    left: 50%;
-    top: 10%;
 }
 
 .fa-request {
@@ -10,10 +6,6 @@
 }
 
 .fa-request-summary {
-    position: fixed;
-    width: 90%;
-    left: 50%;
-    top: 40%;
 }
 
 .fa-request-summary-note {
@@ -34,11 +26,23 @@
 }
 
 .fa-request-ul {
-    overflow: auto;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    overflow-y: scroll;
     margin: 1em;
     height: 10em;
 }
 
 .fa-options {
     padding: 1em;
+}
+
+.fa-viewer {
+    overflow: hidden;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.fa-toc-entry-highlight {
+    font-weight: bold;
 }

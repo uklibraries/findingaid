@@ -596,7 +596,7 @@ var requests = (function() {
             render: function (item) {
                 var pieces = [];
                 pieces.push('<li id="' + item["id"] + '">');
-                pieces.push('<p>');
+                pieces.push('<p class="fa-summary-item">');
                 if (("removable" in item) && item["removable"]) {
                     pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> ');
                 }
