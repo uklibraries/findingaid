@@ -473,7 +473,6 @@ var requests = (function() {
             add: function (item) {
                 if (keys.indexOf(item["id"]) === -1) {
                     keys[keys.length] = item["id"];
-                    item["block"] = item["label"].split(', ')[0];
                     items[item["id"]] = item;
                     keys.sort(function (a, b) {
                         return sortkey(items[a]["label"]).localeCompare(sortkey(items[b]["label"]));
