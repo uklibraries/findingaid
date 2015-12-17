@@ -178,6 +178,7 @@ class Findingaid extends Controller
         $css_hrefs = array(
             "css/bootstrap.min.css",
             "css/jquery-ui.min.css",
+            "css/jquery.tagit.css",
             "css/extra.css",
         );
 
