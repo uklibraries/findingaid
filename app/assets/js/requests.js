@@ -4,6 +4,12 @@ var requests = (function() {
     var request_type = null;
     var datepicker_initialized = false;
 
+    function sortkey(label) {
+        return label.replace(/\d+/g, function (number) {
+            return "00000".substr(number.length - 1) + number;
+        });
+    }
+
     function update() {
         update_count();
         highlight_request_type();
@@ -424,7 +430,7 @@ var requests = (function() {
                 volume_keys[keys.length] = volume["id"];
                 volumes[volume["id"]] = volume;
                 volume_keys.sort(function (a, b) {
-                    return volumes[a]["label"].localeCompare(volumes[b]["label"]);
+                    return sortkey(volumes[a]["label"]).localeCompare(sortkey(volumes[b]["label"]));
                 });
                 ++volume_count;
                 return volume_keys.indexOf(volume["id"]);
@@ -470,7 +476,7 @@ var requests = (function() {
                     item["block"] = item["label"].split(', ')[0];
                     items[item["id"]] = item;
                     keys.sort(function (a, b) {
-                        return items[a]["label"].localeCompare(items[b]["label"]);
+                        return sortkey(items[a]["label"]).localeCompare(sortkey(items[b]["label"]));
                     });
                     ++count;
                     add_volume({

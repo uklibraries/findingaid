@@ -2,4 +2,5 @@
 jquery.min.js
 jquery-ui.min.js
 bootstrap.min.js
+tag-it.min.js
 requests.js
