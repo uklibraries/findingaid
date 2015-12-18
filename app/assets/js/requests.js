@@ -62,7 +62,7 @@ var requests = (function() {
         pieces.push($('#ItemTitle').val());
         for (var i = 0; i < count; ++i) {
             item = model.get(i);
-            pieces.push('* ' + item["label"]);
+            pieces.push('* ' + item["label"].substr(0, 40));
         }
         $('input[name="Notes"]').val(pieces.join("\n"));
         $('.fa-request-hidden-field').remove();
