@@ -254,6 +254,9 @@ class Findingaid extends Controller
                 )
             );
         }
+        else {
+            error_log("FA: attributes_id not set");
+        }
         return array(
             $component_content,
             array(
