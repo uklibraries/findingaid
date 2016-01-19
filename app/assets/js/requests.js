@@ -192,8 +192,12 @@ var requests = (function() {
         ];
         var format = "";
         var service_levels = [
-            "Rush",
-            "Standard"
+            "Commercial/For-profit",
+            "Educational/Non-profit",
+            "For Publication",
+            "Other",
+            "Press/Journalism/Public Relations",
+            "Social Media"
         ];
         var service_level = '';
 
