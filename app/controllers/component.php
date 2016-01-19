@@ -53,7 +53,7 @@ class Component extends Controller
                 'subcomponent' => $m->render(
                     $component_template,
                     array(
-                        'label' => $subcomponent->title(),
+                        'label' => fa_brevity($subcomponent->title()),
                         'collapsible' => true,
                         'scopecontent' => $subcomponent->scopecontent(),
                     )
@@ -64,7 +64,7 @@ class Component extends Controller
         $component_content = $m->render(
             $component_template,
             array(
-                'label' => $model->title(),
+                'label' => fa_brevity($model->title()),
                 'collapsible' => true,
                 'container_lists' => $container_lists,
                 'scopecontent' => $model->scopecontent(),
@@ -77,7 +77,7 @@ class Component extends Controller
             array(
                 'level' => (string)$model->level(),
                 'metadata' => array(
-                    'label' => $model->title(),
+                    'label' => fa_brevity($model->title()),
                     'id' => 'demo_id',
                 ),
             ),
