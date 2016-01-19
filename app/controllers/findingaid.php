@@ -31,7 +31,7 @@ class Findingaid extends Controller
 
         $options = array(
             'panels' => array(),
-            'title' => $model->title(),
+            'title' => fa_brevity($model->title()),
         );
 
         $toc_entries_unsorted = array();
@@ -67,7 +67,7 @@ class Findingaid extends Controller
                     if (count($metadata) > 0) {
                         $panel['multi-field'][] = array(
                             'field_id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
-                            'label' => $entry['label'],
+                            'label' => fa_brevity($entry['label']),
                             'entries' => $metadata,
                         );
                         $skip = false;
@@ -75,7 +75,7 @@ class Findingaid extends Controller
                     if (array_key_exists('in_toc', $entry)) {
                         if ($entry['in_toc']) {
                             $toc_entry = array(
-                                'label' => $entry['label'],
+                                'label' => fa_brevity($entry['label']),
                                 'id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
                             );
                             $toc_entries_unsorted[$entry['id']] = $toc_entry;
@@ -120,7 +120,7 @@ class Findingaid extends Controller
                 $in_toc = $panel['in_toc'];
                 if ($in_toc) {
                     $toc_entry = array(
-                        'label' => $panel['label'],
+                        'label' => fa_brevity($panel['label']),
                         'id' => $panel['heading_id'],
                     );
                     if (isset($panel['subentries'])) {
@@ -145,7 +145,7 @@ class Findingaid extends Controller
 
         $toc_options = array(
             'id' => "fa-{$toc_config['id']}",
-            'label' => $toc_config['label'],
+            'label' => fa_brevity($toc_config['label']),
             'entries' => $toc_entries,
         );
 
@@ -164,7 +164,7 @@ class Findingaid extends Controller
             load_template('findingaid/requests'),
             array(
                 'id' => $requests_config['summary']['id'],
-                'label' => $requests_config['summary']['label'],
+                'label' => fa_brevity($requests_config['summary']['label']),
                 'list_id' => $requests_config['summary']['list_id'],
                 'title' => $model->unittitle(),
                 'collection_id' => $model->id(),
@@ -244,7 +244,7 @@ class Findingaid extends Controller
             $component_content = $renderer->render(
                 $this->templates['component'],
                 array(
-                    'label' => $component->title(),
+                    'label' => fa_brevity($component->title()),
                     'collapsible' => true,
                     'container_lists' => $container_lists,
                     'scopecontent' => $component->scopecontent(),
@@ -262,7 +262,7 @@ class Findingaid extends Controller
             array(
                 'level' => (string)$component->level(),
                 'metadata' => array(
-                    'label' => $component->title(),
+                    'label' => fa_brevity($component->title()),
                     'id' => $heading_id,
                 ),
             ),

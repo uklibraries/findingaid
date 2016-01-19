@@ -53,6 +53,7 @@ function load_path($dir, $path)
 
 load_path(ROOT, 'vendor/autoload');
 load_path(APP, 'config/config');
+load_path(APP, 'core/brevity');
 load_path(APP, 'core/model');
 load_path(APP, 'models/component_model');
 load_path(APP, 'models/findingaid_model');
