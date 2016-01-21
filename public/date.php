@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/New_York');
+
 $now = time();
 
 if (isset($_GET) && isset($_GET['request'])) {
