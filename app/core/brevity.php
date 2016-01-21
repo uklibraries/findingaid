@@ -2,9 +2,9 @@
 
 define('FA_MAX_LENGTH', 100);
 
-function fa_brevity($message, $length)
+function fa_brevity($message, $length = 0)
 {
-    if (!isset($length)) {
+    if ($length == 0) {
         $length = FA_MAX_LENGTH;
     }
     if (strlen($message) > $length) {
