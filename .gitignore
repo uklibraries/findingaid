@@ -1,4 +1,5 @@
 vendor/
+xml.tar.gz
 xml
 *.swp
 public/js/app.js
