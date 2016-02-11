@@ -19,17 +19,23 @@ Installation
 
 2. Extract the repository.
 
+    ```shell
     git clone https://github.com/uklibraries/findingaid.git /path/to/findingaid
+    ```
 
 3. Descend into the findingaid repository.
 
+    ```shell
     cd /path/to/findingaid
+    ```
 
 4. Use Composer to install needed packages.
 
 5. Generate minified JavaScript.
 
+    ```shell
     bash exe/build.sh
+    ```
 
 6. Install your finding aid data set in the xml directory.  The finding aids
 must be arranged in a
@@ -38,16 +44,20 @@ The files are not pure EAD, but must be preprocessed using a different
 program.  For an example, install the sample data (which expands to just shy
 of a gigabyte):
 
+    ```shell
     wget https://nyx.uky.edu/fa/findingaid/xml.tar.gz
     tar zxf xml.tar.gz
+    ```
 
 7. Connect the public directory to your website.  For example, if your
 website uses `/var/www/html` as its document root and permits symlinks, then
 the following commands should make the finding aid viewer accessible.  Some
 commands might require you to become root.
 
+    ```shell
     cd /var/www/html
     ln -s /path/to/findingaid/public ./findingaid
+    ```
 
 Copyright
 ---------
