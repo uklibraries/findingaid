@@ -41,8 +41,9 @@ Installation
 must be arranged in a
 [PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy.
 The files are not pure EAD, but must be preprocessed using a different
-program.  For an example, install the sample data (which expands to just shy
-of a gigabyte):
+program.  For an example, install the
+[sample data](https://nyx.uky.edu/fa/findingaid/xml.tar.gz)
+(which expands to just shy of a gigabyte):
 
     ```shell
     wget https://nyx.uky.edu/fa/findingaid/xml.tar.gz
