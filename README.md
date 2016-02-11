@@ -5,6 +5,13 @@ This is a finding aid viewer intended to be used as part of a digital library.
 It is written to run on Linux and has not been tested with other operating
 systems, but should run on most Unix-like operating systems.
 
+Caveat
+------
+
+This is written specifically for the University of Kentucky Libraries and includes
+some highly local assumptions.  You are welcome to use and reuse this code according
+to the terms of the license, but you should be aware of its opinionated nature.
+
 Dependencies
 ------------
 
