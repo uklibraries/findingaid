@@ -74,19 +74,3 @@ label {
    width: 80% !important;
    background-color: #ffffff !important;
 }
-
-.useNote {
-   /*background-image: url('../images/exclamation.png');  */
-   background-repeat: no-repeat; 
-   background-color:#fbedad;   
-   background-position: 7px 5px;
-   color: #666666; 
-   padding: 5px 8px 3px 28px;  
-   border: solid 1px #ebc579; 
-   min-height: 30px; 
-   font-size: 10px; 
-   color:blue;
-   float:right;
-   width: 100%;
-   margin-bottom: 12px;
-}
