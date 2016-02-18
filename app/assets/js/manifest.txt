@@ -2,5 +2,9 @@
 jquery.min.js
 jquery-ui.min.js
 bootstrap.min.js
+rangy-core.js
+rangy-classapplier.js
+rangy-textrange.js
 tag-it.min.js
 requests.js
+search.js

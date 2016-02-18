@@ -1,0 +1,17 @@
+<div id="buttons">
+  <label for="search">Find:&nbsp;&nbsp; </label><input style="color:#000000;" type="text" size="20" id="search">
+  <input type="hidden" id="regex"> 
+  <input type="checkbox" id="caseSensitive"> <label for="caseSensitive">case-sensitive</label>
+  <input type="hidden" id="wholeWordsOnly"> 
+</div>
+
+<div class="alert alert-success">
+  Your search yielded <span id="hit_count">0000 hits</span>.
+  <span class="glyphicon glyphicon-arrow-right"></span>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+    rangy.init();
+    initFind();
+});
+</script>

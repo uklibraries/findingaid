@@ -72,3 +72,5 @@ Copyright
 
 This program is Copyright (C) 2016 MLE Slone.  For details, consult
 LICENSE.txt.
+
+This program uses Tim Down's [Rangy](https://github.com/timdown/rangy) library.
