@@ -180,6 +180,7 @@ class Findingaid extends Controller
             "css/jquery-ui.min.css",
             "css/jquery.tagit.css",
             "css/extra.css",
+            "css/footer.css",
         );
 
         $css = array();
