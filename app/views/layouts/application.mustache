@@ -15,9 +15,14 @@
   <div class='container-fluid'>
     <div class='row'>
       {{{content}}}
-      {{{toc}}}
-      {{{requests}}}
-      {{> search}}
+      <div class="tab-content">
+        <div id="metadata" class="tab-pane fade active in">
+          {{{toc}}}
+        </div>
+        <div id="access" class="tab-pane fade">
+          {{{requests}}}
+        </div>
+      </div>
     </div>
   </div>
   </div>
