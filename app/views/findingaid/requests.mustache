@@ -16,7 +16,7 @@
         </label>
         <br>
         <label for="extra_notes">My Notes
-            <input class="fa-extra-input" type="textarea" id="extra_notes">
+            <input class="fa-extra-input" type="textarea" id="extra_notes" name="Notes">
         </label>
         <br>
         <label for="fa-researcher-tags">Researcher Tags
@@ -70,17 +70,17 @@
       </div>
       <input type="hidden" name="RequestType" value="Loan">
       <input type="hidden" name="AeonForm" value="EADRequest">
-      <input type="hidden" id="ItemTitle" name="FormDataField" value="{{title}}">
-      <input type="hidden" id="EADNumber" name="FormDataField" value="{{call_number}}">
-      <input type="hidden" id="GroupRequestsByLocation" name="FormDataField" value="Yes">
-      <input type="hidden" id="GroupingIdentifier" name="FormDataField" value="ItemVolume">
-      <input type="hidden" id="GroupingOption_ItemVolume" name="FormDataField" value="Concatenate">
+      <input type="hidden" name="ItemTitle" value="{{title}}">
+      <input type="hidden" name="EADNumber" value="{{call_number}}">
+      <input type="hidden" name="GroupRequestsByLocation" value="Yes">
+      <input type="hidden" name="GroupingIdentifier" value="ItemVolume">
+      <input type="hidden" name="GroupingOption_ItemVolume" value="FirstValue">
+      <input type="hidden" name="GroupingOption_ItemIssue" value="Concatenate">
       <input type="hidden" name="ItemInfo2" value="{{item_url}}">
       <input type="hidden" name="CallNumber" value="{{call_number}}">
       <input type="hidden" name="ItemDate" value="{{item_date}}">
       <input type="hidden" name="SubmitButton" value="Submit Request">
       <input type="hidden" name="SpecialRequest" value="">
-      <input type="hidden" name="Notes" value="">
       <button id="fa-request-submit" class="btn btn-success" type="submit" disabled="disabled">Submit Request</button>
       </form>
     </div>

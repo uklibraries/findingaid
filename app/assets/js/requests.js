@@ -51,29 +51,18 @@ var requests = (function() {
     }
 
     function reset_hidden_fields() {
-        $('input[name="Notes"]').val('');
         var item;
         var count = model.get_count();
-        var pieces = [];
-        pieces.push('User notes:');
-        pieces.push($('#extra_notes').val());
-        pieces.push('');
-        pieces.push('Item notes:');
-        pieces.push($('#ItemTitle').val());
-        for (var i = 0; i < count; ++i) {
-            item = model.get(i);
-            pieces.push('* ' + item["label"].substr(0, 40));
-        }
-        $('input[name="Notes"]').val(pieces.join("\n"));
         $('.fa-request-hidden-field').remove();
+        $('.fa-folder-input').remove();
         model.enable_current();
-        $('.fa-volume-input').remove();
-        volume_inputs = [];
-        for (var i = 0; i < model.get_volume_count(); ++i) {
-            volume = model.get_volume(i);
-            volume_inputs.push(volume_input_view.render(volume));
+        var folder_inputs = [];
+        for (var i = 0; i < model.get_count(); ++i) {
+            var folder = model.get(i);
+            console.log(folder_input_view.render(folder));
+            folder_inputs.push(folder_input_view.render(folder));
         }
-        $('.fa-request-fieldset').append(volume_inputs.join(''));
+        $('.fa-request-fieldset').append(folder_inputs.join(''));
     }
 
     function highlight_request_type() {
@@ -482,10 +471,6 @@ var requests = (function() {
                         return sortkey(items[a]["label"]).localeCompare(sortkey(items[b]["label"]));
                     });
                     ++count;
-                    add_volume({
-                        id: item["volume"],
-                        label: item["volume"]
-                    });
                     return keys.indexOf(item["id"]);
                 }
                 else {
@@ -494,27 +479,12 @@ var requests = (function() {
             },
             remove: function (id) {
                 var item_to_delete;
-                var volume_id;
-                var volume_represented;
                 var item;
                 if (keys.indexOf(id) !== -1) {
                     keys.splice(keys.indexOf(id), 1);
                     item_to_delete = items[id];
-                    volume_id = item_to_delete["volume"];
                     delete items[id];
                     --count;
-                    /* Are there any representatives of this volume left? */
-                    volume_represented = false;
-                    for (var i = 0; i < model.get_count(); ++i) {
-                        item = items[keys[i]];
-                        if (item["volume"] === volume_id) {
-                            volume_represented = true;
-                            break;
-                        }
-                    }
-                    if (!volume_represented) {
-                        remove_volume(volume_id);
-                    }
                     return item_to_delete;
                 }
                 else {
@@ -616,12 +586,12 @@ var requests = (function() {
         }
     })();
 
-    var volume_input_view = (function () {
+    var folder_input_view = (function () {
         var pieces = [];
 
         function add_input(options) {
             if ("root" in options) {
-                pieces.push('<input type="hidden" class="fa-volume-input" data-root="');
+                pieces.push('<input type="hidden" class="fa-folder-input" data-root="');
                 pieces.push(options["root"]);
                 pieces.push('" name="');
                 pieces.push(options["name"]);
@@ -630,7 +600,7 @@ var requests = (function() {
                 pieces.push('">');
             }
             else {
-                pieces.push('<input type="hidden" class="fa-volume-input" id="');
+                pieces.push('<input type="hidden" class="fa-folder-input" id="');
                 pieces.push(options["id"]);
                 pieces.push('" name="');
                 pieces.push(options["name"]);
@@ -641,9 +611,13 @@ var requests = (function() {
         }
 
         return {
-            render: function (volume) {
-                var id = volume["id"].replace(/\s+/g, '_');
+            render: function (folder) {
+                var id = folder["id"].replace(/\s+/g, '_').replace(/-/g, '_');
                 pieces = [];
+                /* 2 == ', '.length */
+                var prefix_length = folder["volume"].length + 2;
+                var label = folder["label"].substr(prefix_length);
+                /* */
                 add_input({
                   id: id,
                   name: "Request",
@@ -651,17 +625,22 @@ var requests = (function() {
                 });
                 add_input({
                   name: "ItemTitle_" + id,
-                  value: $('#ItemTitle').val(),
+                  value: folder["title"],
                   root: id
                 });
                 add_input({
                   name: "ItemVolume_" + id,
-                  value: volume["label"],
+                  value: folder["volume"],
                   root: id
                 });
                 add_input({
                   name: "CallNumber_" + id,
                   value: $('input[name="CallNumber"]').first().val(),
+                  root: id
+                });
+                add_input({
+                  name: "ItemIssue_" + id,
+                  value: label,
                   root: id
                 });
                 return pieces.join('');
