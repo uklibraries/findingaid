@@ -1,0 +1,15 @@
+.searchResult {
+   font-weight: bold;
+   background-color: #FFF380;
+}
+
+#buttons {
+    right: 0px;
+    padding: 5px 8px 3px 28px; 
+    border: solid gray 1px;
+    background-color: #d5e3e9;
+    color: #000000;
+    padding: 3px;
+    width: 100%;
+    margin-bottom: 12px;
+}

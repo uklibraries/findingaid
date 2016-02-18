@@ -11,12 +11,15 @@
 </head>
 <body>
   {{> nav}}
+  <div id="content">
   <div class='container-fluid'>
     <div class='row'>
       {{{content}}}
       {{{toc}}}
       {{{requests}}}
+      {{> search}}
     </div>
+  </div>
   </div>
   <footer>
     <div id="connectWithUs">

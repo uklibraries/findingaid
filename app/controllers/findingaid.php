@@ -181,6 +181,7 @@ class Findingaid extends Controller
             "css/jquery.tagit.css",
             "css/extra.css",
             "css/footer.css",
+            "css/rangy.css",
         );
 
         $css = array();
