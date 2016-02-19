@@ -268,6 +268,7 @@ var requests = (function() {
                         $(jid).attr('name', 'ScheduledDate');
                         $('#fa-schedule-retrieval-options').show();
                         $(jid).show();
+                        $('input[name="RequestType"]').val('Loan');
                         enabled = true;
                     },
                     disable: function () {
@@ -337,6 +338,7 @@ var requests = (function() {
                             );
                         }
                         $('#fa-save-for-later-options').show();
+                        $('input[name="RequestType"]').val('Loan');
                         enabled = true;
                     },
                     disable: function () {
@@ -390,6 +392,7 @@ var requests = (function() {
                             );
                         }
                         $('#fa-request-reproductions-options').show();
+                        $('input[name="RequestType"]').val('Copy');
                         enabled = true;
                     },
                     disable: function () {
