@@ -361,13 +361,15 @@ var requests = (function() {
                     'fa-pages',
                     'fa-format',
                     'fa-service-level',
-                    'fa-project'
+                    'fa-project',
+                    'fa-skip-estimate'
                 ];
                 var names = {
                     "fa-pages": "ItemInfo3",
                     "fa-format": "Format",
                     "fa-service-level": "ServiceLevel",
-                    "fa-project": "ItemInfo4"
+                    "fa-project": "ItemInfo4",
+                    "fa-skip-estimate": "SkipOrderEstimate"
                 };
 
                 function disable_form() {
