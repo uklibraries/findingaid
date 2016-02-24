@@ -52,20 +52,7 @@ class ComponentModel extends Model
         $contents_config = $this->config->get('contents');
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
-            if (isset($attributes['id'])) {
-                # base container
-                $id = trim($attributes['id']);
-                $type = strtolower($attributes['type']);
-                $number = (string)$container;
-                $order[] = $id;
-                $containers[$id] = array(
-                    'id' => $id,
-                    'type' => $type,
-                    'number' => $number,
-                    'child' => null,
-                );
-            }
-            elseif (isset($attributes['parent'])) {
+            if (isset($attributes['parent'])) {
                 # subordinate container
                 $parent = trim($attributes['parent']);
                 $type = strtolower($attributes['type']);
@@ -77,6 +64,19 @@ class ComponentModel extends Model
                     'child' => null,
                 );
                 $containers[$parent]['child'] = "child-$parent";
+            }
+            elseif (isset($attributes['id'])) {
+                # base container
+                $id = trim($attributes['id']);
+                $type = strtolower($attributes['type']);
+                $number = (string)$container;
+                $order[] = $id;
+                $containers[$id] = array(
+                    'id' => $id,
+                    'type' => $type,
+                    'number' => $number,
+                    'child' => null,
+                );
             }
             else {
                 # unaligned container
