@@ -103,6 +103,7 @@ class Findingaid extends Controller
                             $toc_subentries[] = $details[1]['metadata'];
                         }
                     }
+                    $panel['contents_entries'] = array();
                     if (count($toc_subentries) > 0) {
                         $panel['subentries'] = true;
                         $panel['contents_entries'] = $toc_subentries;
@@ -169,7 +170,6 @@ class Findingaid extends Controller
                 'title' => $model->unittitle(),
                 'collection_id' => $model->id(),
                 'call_number' => $model->unitid(),
-                'item_author' => $model->item_author(),
                 'item_date' => $model->unitdate(),
                 'item_url' => 'http://exploreuk.uky.edu/catalog/' . $model->id() . '/',
             )
