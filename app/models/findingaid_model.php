@@ -38,16 +38,10 @@ class FindingaidModel extends Model
         if (count($unitid) > 0) {
             $unitid = $unitid[0];
         }
-        return $unitid;
-    }
-
-    public function item_author()
-    {
-        $author = $this->metadata('//origination[@label="creator"]');
-        if (count($author) > 0) {
-            $author = $author[0];
+        else {
+            return "no unitid";
         }
-        return dom_import_simplexml($author)->textContent;
+        return $unitid;
     }
 
     public function unittitle()

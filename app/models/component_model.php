@@ -90,6 +90,7 @@ class ComponentModel extends Model
                 $list = array();
                 $container = $containers[$id];
                 $list[] = ucfirst($container['type']) . ' '  . $container['number'];
+                $request_target = "fa-request-target-$id";
                 while (isset($container['child'])) {
                     $container = $containers[$container['child']];
                     $list[] = "{$container['type']} {$container['number']}";
