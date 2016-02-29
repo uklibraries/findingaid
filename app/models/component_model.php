@@ -16,12 +16,45 @@ class ComponentModel extends Model
         if (file_exists($component_file)) {
           $this->xml = new SimpleXMLElement(file_get_contents($component_file));
         }
+        $this->links = $this->links();
         $contents_config = $this->config->get('contents');
         foreach ($this->xpath($contents_config['component']) as $c) {
             $cattrs = $c->attributes();
             $cid = $cattrs['id'];
             $this->subcomponents[] = new ComponentModel($id, $cid);
         }
+    }
+
+    public function links()
+    {
+        $pieces = array();
+        if (count($this->xpath('did/dao')) > 0) {
+            $pieces = $this->xpath('did/dao');
+        }
+        $results = array();
+        foreach ($pieces as $piece) {
+            $dao = $piece['entityref'];
+            $links_file = $this->ppath() . DIRECTORY_SEPARATOR . $dao . '.json';
+            if (file_exists($links_file)) {
+                $links_raw = json_decode(file_get_contents($links_file), true);
+                break;
+            }
+        }
+        $links = array();
+        foreach ($links_raw as $link_raw) {
+            $link = array();
+            foreach ($link_raw['links'] as $use => $href) {
+                $use = str_replace(' ', '_', $use);
+                if ($use === 'thumbnail') {
+                    $link['thumb'] = $href;
+                }
+                else {
+                    $link['full'] = $href;
+                }
+            }
+            $links[] = $link;
+        }
+        return $links;
     }
 
     public function title()

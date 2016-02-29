@@ -182,6 +182,7 @@ class Findingaid extends Controller
             "css/extra.css",
             "css/footer.css",
             "css/rangy.css",
+            "css/lity.min.css",
         );
 
         $css = array();
@@ -250,6 +251,7 @@ class Findingaid extends Controller
                     'collapsible' => true,
                     'container_lists' => $container_lists,
                     'scopecontent' => $component->scopecontent(),
+                    'links' => $component->links,
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,
                     'body_id' => $body_id,
