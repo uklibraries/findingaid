@@ -6,5 +6,6 @@ rangy-core.js
 rangy-classapplier.js
 rangy-textrange.js
 tag-it.min.js
+lity.min.js
 requests.js
 search.js
