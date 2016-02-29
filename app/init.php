@@ -1,4 +1,6 @@
 <?php
+ini_set('memory_limit', '512M');
+
 # Based on https://github.com/panique/mini
 # but heavily modified
 if (!defined('ROOT')) {
