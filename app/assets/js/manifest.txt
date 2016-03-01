@@ -7,5 +7,6 @@ rangy-classapplier.js
 rangy-textrange.js
 tag-it.min.js
 lity.min.js
+mediaelementplayer.min.js
 requests.js
 search.js

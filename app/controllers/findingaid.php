@@ -183,6 +183,7 @@ class Findingaid extends Controller
             "css/footer.css",
             "css/rangy.css",
             "css/lity.min.css",
+            "css/mediaelementplayer.min.css",
         );
 
         $css = array();
