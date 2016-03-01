@@ -73,4 +73,11 @@ Copyright
 This program is Copyright (C) 2016 MLE Slone.  For details, consult
 LICENSE.txt.
 
-This program uses Tim Down's [Rangy](https://github.com/timdown/rangy) library.
+This program uses the following libraries:
+
+* Tim Down's [Rangy](https://github.com/timdown/rangy)
+* John Dyer's [MediaElement.js](http://mediaelementjs.com)
+* Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
+* [Bootstrap](https://getbootstrap.com)
+* [jQuery](https://jquery.org)
+* [jQuery UI](https://jqueryui.com)
