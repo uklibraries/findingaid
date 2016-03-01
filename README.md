@@ -77,6 +77,7 @@ This program uses the following libraries:
 
 * Tim Down's [Rangy](https://github.com/timdown/rangy)
 * John Dyer's [MediaElement.js](http://mediaelementjs.com)
+* Justin Hileman's [Mustache.php](https://github.com/bobthecow/mustache.php)
 * Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
 * [Bootstrap](https://getbootstrap.com)
 * [jQuery](https://jquery.org)
