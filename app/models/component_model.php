@@ -45,11 +45,35 @@ class ComponentModel extends Model
             $link = array();
             foreach ($link_raw['links'] as $use => $href) {
                 $use = str_replace(' ', '_', $use);
-                if ($use === 'thumbnail') {
-                    $link['thumb'] = $href;
-                }
-                else {
-                    $link['full'] = $href;
+                switch ($use) {
+                case 'thumbnail':
+                    if (empty($link['image'])) {
+                        $link['image'] = array();
+                    }
+                    $link['image']['thumb'] = $href;
+                    break;
+                case 'reference_image':
+                    if (empty($link['image'])) {
+                        $link['image'] = array();
+                    }
+                    $link['image']['full'] = $href;
+                    break;
+                case 'reference_audio':
+                    if (empty($link['audio'])) {
+                        $link['audio'] = array();
+                    }
+                    $link['audio']['href'] = $href;
+                    $link['audio']['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
+                    break;
+                case 'reference_video':
+                    if (empty($link['video'])) {
+                        $link['video'] = array();
+                    }
+                    $link['video']['href'] = $href;
+                    $link['video']['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
+                    break;
+                default:
+                    break;
                 }
             }
             $links[] = $link;
