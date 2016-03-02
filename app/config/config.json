@@ -13,11 +13,6 @@
             "collapsible": true,
             "fields": [
                 {
-                    "label": "Author",
-                    "id": "author",
-                    "field": "descriptive_summary/author"
-                },
-                {
                     "label": "Title",
                     "id": "ds-title",
                     "field": "descriptive_summary/title"
@@ -38,14 +33,19 @@
                     "field": "descriptive_summary/extent"
                 },
                 {
+                    "label": "Subjects",
+                    "id": "subject",
+                    "field": "descriptive_summary/subjects/subject"
+                },
+                {
                     "label": "Arrangement",
                     "id": "arrangement",
                     "field": "descriptive_summary/arrangement"
                 },
                 {
-                    "label": "Subjects",
-                    "id": "subject",
-                    "field": "descriptive_summary/subjects/subject"
+                    "label": "Finding Aid Author",
+                    "id": "author",
+                    "field": "descriptive_summary/author"
                 },
                 {
                     "label": "Preferred Citation",
