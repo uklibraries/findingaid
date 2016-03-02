@@ -74,3 +74,14 @@ label {
    width: 80% !important;
    background-color: #ffffff !important;
 }
+
+.panel-heading[data-toggle="collapse"] .panel-title:after {
+    font-family: "Glyphicons Halflings";
+    color: #666;
+    float: right;
+    content: "\e114";
+}
+
+.panel-heading[data-toggle="collapse"].collapsed .panel-title:after {
+    content: "\e080";
+}
