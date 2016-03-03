@@ -59,18 +59,17 @@
             "label": "Collection Overview",
             "id": "collection-overview",
             "collapsible": true,
+            "in_toc": true,
             "fields": [
                 {
                     "label": "Biography / History",
                     "id": "bioghist",
-                    "field": "collection_overview/bioghist/p",
-                    "in_toc": true
+                    "field": "collection_overview/bioghist/p"
                 },
                 {
                     "label": "Scope and Content",
                     "id": "scopecontent",
-                    "field": "collection_overview/scopecontent/p",
-                    "in_toc": true
+                    "field": "collection_overview/scopecontent/p"
                 }
             ]
         },
@@ -106,8 +105,7 @@
         "entries": [
             "abstract",
             "descriptive-summary",
-            "bioghist",
-            "scopecontent",
+            "collection-overview",
             "prefercite",
             "restrictions-on-access-and-use",
             "contents-of-the-collection"
