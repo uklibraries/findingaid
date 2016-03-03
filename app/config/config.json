@@ -109,6 +109,17 @@
             "prefercite",
             "restrictions-on-access-and-use",
             "contents-of-the-collection"
+        ],
+        "links": [
+            {
+                "label": "Catalog",
+                "field": "meta/catalog_url",
+                "skip": true
+            },
+            {
+                "label": "EAD",
+                "field": "meta/ead_url"
+            }
         ]
     },
     "contents": {
