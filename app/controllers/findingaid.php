@@ -144,10 +144,34 @@ class Findingaid extends Controller
             }
         }
 
+        $links = array();
+        foreach ($toc_config['links'] as $link) {
+            if (array_key_exists('skip', $link)) {
+                if ($link['skip']) {
+                    continue;
+                }
+            }
+            if (array_key_exists('field', $link)) {
+                $data = $model->xpath("//{$link['field']}");
+                $url = false;
+                foreach ($data as $datum) {
+                    if (strlen(trim($datum)) > 0) {
+                        $url = trim($datum);
+                        break;
+                    }
+                }
+                $links[] = array(
+                    'label' => $link['label'],
+                    'url' => $url,
+                );
+            }
+        }
+
         $toc_options = array(
             'id' => "fa-{$toc_config['id']}",
             'label' => fa_brevity($toc_config['label']),
             'entries' => $toc_entries,
+            'links' => $links,
         );
 
         $toc = $m->render(
