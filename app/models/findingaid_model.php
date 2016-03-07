@@ -17,6 +17,18 @@ class FindingaidModel extends Model
         }
     }
 
+    public function repository()
+    {
+        $repositories = $this->xml->xpath('//meta/repository');
+        if (count($repositories) > 0) {
+            $repository = $repositories[0];
+            return dom_import_simplexml($repository)->textContent;
+        }
+        else {
+            return 'Unknown repository';
+        }
+    }
+
     public function title()
     {
         return $this->xml->descriptive_summary->title;
