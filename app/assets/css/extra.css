@@ -85,3 +85,8 @@ label {
 .panel-heading[data-toggle="collapse"].collapsed .panel-title:after {
     content: "\e080";
 }
+
+.toplink {
+    padding: 1em;
+    float: right;
+}
