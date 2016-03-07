@@ -32,6 +32,7 @@ class ComponentModel extends Model
             $pieces = $this->xpath('did/dao');
         }
         $results = array();
+        $links_raw = array();
         foreach ($pieces as $piece) {
             $dao = $piece['entityref'];
             $links_file = $this->ppath() . DIRECTORY_SEPARATOR . $dao . '.json';

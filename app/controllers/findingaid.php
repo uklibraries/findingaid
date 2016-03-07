@@ -167,6 +167,9 @@ class Findingaid extends Controller
             }
         }
 
+        $repository = $model->repository();
+        $requestable = ($repository === 'University of Kentucky');
+
         $toc_options = array(
             'id' => "fa-{$toc_config['id']}",
             'label' => fa_brevity($toc_config['label']),
@@ -184,20 +187,25 @@ class Findingaid extends Controller
             $options
         );
 
-        $requests_config = $this->config->get('requests');
-        $requests = $m->render(
-            load_template('findingaid/requests'),
-            array(
-                'id' => $requests_config['summary']['id'],
-                'label' => fa_brevity($requests_config['summary']['label']),
-                'list_id' => $requests_config['summary']['list_id'],
-                'title' => $model->unittitle(),
-                'collection_id' => $model->id(),
-                'call_number' => $model->unitid(),
-                'item_date' => $model->unitdate(),
-                'item_url' => 'http://exploreuk.uky.edu/catalog/' . $model->id() . '/',
-            )
-        );
+        if ($requestable) {
+            $requests_config = $this->config->get('requests');
+            $requests = $m->render(
+                load_template('findingaid/requests'),
+                array(
+                    'id' => $requests_config['summary']['id'],
+                    'label' => fa_brevity($requests_config['summary']['label']),
+                    'list_id' => $requests_config['summary']['list_id'],
+                    'title' => $model->unittitle(),
+                    'collection_id' => $model->id(),
+                    'call_number' => $model->unitid(),
+                    'item_date' => $model->unitdate(),
+                    'item_url' => 'http://exploreuk.uky.edu/catalog/' . $model->id() . '/',
+                )
+            );
+        }
+        else {
+            $requests = '';
+        }
 
         $css_hrefs = array(
             "css/bootstrap.min.css",
@@ -233,6 +241,7 @@ class Findingaid extends Controller
             array(
                 'content' => $content,
                 'toc' => $toc,
+                'requestable' => $requestable,
                 'requests' => $requests,
                 'css' => $css,
                 'js' => array(array('href' => 'js/app.js')),
