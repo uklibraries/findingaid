@@ -3,6 +3,7 @@ var requests = (function() {
     var count = 0;
     var request_type = null;
     var datepicker_initialized = false;
+    var collection_title;
 
     function sortkey(label) {
         return label.replace(/\d+/g, function (number) {
@@ -59,7 +60,6 @@ var requests = (function() {
         var folder_inputs = [];
         for (var i = 0; i < model.get_count(); ++i) {
             var folder = model.get(i);
-            console.log(folder_input_view.render(folder));
             folder_inputs.push(folder_input_view.render(folder));
         }
         $('.fa-request-fieldset').append(folder_inputs.join(''));
@@ -630,7 +630,7 @@ var requests = (function() {
                 });
                 add_input({
                   name: "ItemTitle_" + id,
-                  value: folder["title"],
+                  value: collection_title + ': ' + folder["title"],
                   root: id
                 });
                 add_input({
@@ -656,6 +656,7 @@ var requests = (function() {
     return {
         init: function (options) {
             title = options["title"];
+            collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
 
