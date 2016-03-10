@@ -108,67 +108,101 @@ class ComponentModel extends Model
         $order = array();
         $containers = array();
         $contents_config = $this->config->get('contents');
+        $buckets = array();
+        $bucket = array();
+        $cache = array();
+        $tagged = null;
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
-            if (isset($attributes['parent'])) {
-                # subordinate container
-                $parent = trim($attributes['parent']);
-                $type = strtolower($attributes['type']);
-                $number = (string)$container;
-                $containers["child-$parent"] = array(
-                    'id' => "child-$parent",
-                    'type' => $type,
-                    'number' => $number,
-                    'child' => null,
-                );
-                $containers[$parent]['child'] = "child-$parent";
+            if (is_null($tagged)) {
+                if (isset($attributes['id'])) {
+                    $tagged = true;
+                }
+                else {
+                    $tagged = false;
+                }
             }
-            elseif (isset($attributes['id'])) {
-                # base container
-                $id = trim($attributes['id']);
-                $type = strtolower($attributes['type']);
-                $number = (string)$container;
-                $order[] = $id;
-                $containers[$id] = array(
-                    'id' => $id,
-                    'type' => $type,
-                    'number' => $number,
-                    'child' => null,
-                );
+            $aspect = array(
+                'type'    => $this->container_type($attributes),
+                'content' => (string)$container,
+            );
+            if ($tagged) {
+                if (count($bucket) == 0) {
+                    $aspect['id'] = trim($attributes['id']);
+                    $cache[$aspect['id']] = $aspect;
+                    $bucket[] = $aspect;
+                }
+                else {
+                    if (isset($attributes['parent'])) {
+                        $pid = trim($attributes['parent']);
+                        if (array_key_exists($pid, $cache)) {
+                            # Not wanting to mess with the internal array pointer
+                            $pos = count($bucket) - 1;
+                            $aspect['pid'] = $bucket[$pos]['id'];
+                        }
+                        else {
+                            $buckets[] = $bucket;
+                            $bucket = array();
+                            $cache = array();
+                        }
+                        if (isset($attributes['id'])) {
+                            $aspect['id'] = trim($attributes['id']);
+                        }
+                        else {
+                            $aspect['id'] = md5($container->asXML());
+                        }
+                        $cache[$aspect['id']] = $aspect;
+                        $bucket[] = $aspect;
+                    }
+                    else if (isset($attributes['id'])) {
+                        $buckets[] = $bucket;
+                        $bucket = array();
+                        $cache = array();
+                        $aspect['id'] = trim($attributes['id']);
+                        $bucket[] = $aspect;
+                    }
+                }
             }
             else {
-                # unaligned container
+                $bucket[] = $aspect;
             }
         }
-        if (count($order) > 0) {
+        if (count($bucket) > 0) {
+            $buckets[] = $bucket;
+        }
+
+        if (count($buckets) > 0) {
             $requests_config = $this->config->get('requests');
             $inactive = $requests_config['inactive'];
-            $active = $requests_config['active'];
-            foreach ($order as $id) {
-                $list = array();
-                $container = $containers[$id];
-                $list[] = ucfirst($container['type']) . ' '  . $container['number'];
-                $request_target = "fa-request-target-$id";
-                while (isset($container['child'])) {
-                    $container = $containers[$container['child']];
-                    $list[] = "{$container['type']} {$container['number']}";
-                    $request_target = "fa-request-target-$id";
+            foreach ($buckets as $bucket) {
+                if (count($bucket) > 0) {
+                    $request_target = "fa-request-target-" . md5(json_encode($bucket));
+                    $container_list_pieces = array();
+                    $first = true;
+                    foreach ($bucket as $aspect) {
+                        $piece = $aspect['type'] . ' ' . $aspect['content'];
+                        if ($first) {
+                            $piece = ucfirst($piece);
+                            $first = false;
+                        }
+                        $container_list_pieces[] = $piece;
+                    }
+                    $volume = $container_list_pieces[0];
+                    $summary = implode(', ', $container_list_pieces);
+                    $full_container_list = $summary . ': '. $this->title();
+                    array_shift($container_list_pieces);
+                    $rest = implode(', ', $container_list_pieces);
+                    $container_list = array(
+                        'id'             => $request_target,
+                        'summary'        => $summary,
+                        'volume'         => $volume,
+                        'container'      => $rest,
+                        'container_list' => $full_container_list,
+                        'active'         => $active,
+                        'inactive'       => $inactive,
+                    );
+                    $container_lists[] = $container_list;
                 }
-                $top = $list[0];
-                $summary = implode(', ', $list);
-                $full_container_list = $summary . ': ' . $this->title();
-                array_shift($list);
-                $rest = implode(', ', $list);
-                $container_list = array(
-                    'id' => $request_target,
-                    'summary' => $summary,
-                    'volume' => $top,
-                    'container' => $rest,
-                    'container_list' => $full_container_list,
-                    'active' => $active,
-                    'inactive' => $inactive,
-                );
-                $container_lists[] = $container_list;
             }
         }
         return $container_lists;
@@ -200,5 +234,29 @@ class ComponentModel extends Model
     {
         $attributes = $this->xml->attributes();
         return $attributes['level'];
+    }
+
+    private function container_type($attributes)
+    {
+        if (isset($attributes['type'])) {
+            $type = strtolower(trim($attributes['type']));
+            if ($type === 'othertype') {
+                if (isset($attributes['label'])) {
+                    return strtolower(trim($attributes['label']));
+                }
+                else {
+                    return 'container';
+                }
+            }
+            else {
+                return $type;
+            }
+        }
+        else if (isset($attributes['label'])) {
+            return strtolower(trim($attributes['label']));
+        }
+        else {
+            return 'container';
+        }
     }
 }
