@@ -24,7 +24,19 @@
       </ul>
     </div>
   </div>
+  {{#toc_component}}
+  <div class="row">
+    <ul class="list-unstyled">
+      <li>
+      {{summary}}
+      <input type="hidden" class="fa-requestable fa-toc" id="{{id}}" value="{{container_list}}" data-volume="{{volume}}" data-container="{{container}}">
+      </li>
+    </ul>
+  </div>
+  {{/toc_component}}
+  {{#requestable}}
   {{> advance_note}}
+  {{/requestable}}
 </div>
 <script type="text/javascript">
 {{=<% %>=}}

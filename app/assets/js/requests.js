@@ -622,6 +622,9 @@ var requests = (function() {
                 /* 2 == ', '.length */
                 var prefix_length = folder["volume"].length + 2;
                 var label = folder["label"].substr(prefix_length);
+                if (folder["volume"].length == 0) {
+                  label = '';
+                }
                 /* */
                 add_input({
                   id: id,
@@ -659,6 +662,8 @@ var requests = (function() {
             collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
+            button_toc_active = options["button_toc_active"];
+            button_toc_inactive = options["button_toc_inactive"];
 
             model.init();
             update();
@@ -712,19 +717,36 @@ var requests = (function() {
 
             $('.fa-requestable').each(function () {
                 var id = $(this).attr('id');
-                $(this).after([
-                    '<button type="button" class="btn btn-warning fa-request" data-status="inactive" data-active="',
-                    button_active,
-                    '" data-inactive="',
-                    button_inactive,
-                    '" data-target="',
-                    id,
-                    '" id="',
-                    id,
-                    '-button">',
-                    button_inactive,
-                    '</button>'
-                ].join(''));
+                if ($(this).hasClass('fa-toc')) {
+                    $(this).after([
+                        '<button type="button" class="btn btn-warning fa-request fa-requestable-toc" data-status="inactive" data-active="',
+                        button_toc_active,
+                        '" data-inactive="',
+                        button_toc_inactive,
+                        '" data-target="',
+                        id,
+                        '" id="',
+                        id,
+                        '-button">',
+                        button_toc_inactive,
+                        '</button>'
+                    ].join(''));
+                }
+                else {
+                    $(this).after([
+                        '<button type="button" class="btn btn-warning fa-request fa-requestable-contents" data-status="inactive" data-active="',
+                        button_active,
+                        '" data-inactive="',
+                        button_inactive,
+                        '" data-target="',
+                        id,
+                        '" id="',
+                        id,
+                        '-button">',
+                        button_inactive,
+                        '</button>'
+                    ].join(''));
+                }
             });
 
             $('form.fa-request-fieldset').submit(function () {

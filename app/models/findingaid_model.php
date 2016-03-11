@@ -22,7 +22,7 @@ class FindingaidModel extends Model
         $repositories = $this->xml->xpath('//meta/repository');
         if (count($repositories) > 0) {
             $repository = $repositories[0];
-            return dom_import_simplexml($repository)->textContent;
+            return trim(dom_import_simplexml($repository)->textContent);
         }
         else {
             return 'Unknown repository';

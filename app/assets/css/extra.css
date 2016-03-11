@@ -1,7 +1,12 @@
 .fa-toc {
 }
 
-.fa-request {
+.fa-request.fa-requestable-toc {
+    display: block;
+    margin: 0 auto;
+}
+
+.fa-request.fa-requestable-contents {
     float: right;
 }
 
