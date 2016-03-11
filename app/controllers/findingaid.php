@@ -258,6 +258,7 @@ class Findingaid extends Controller
                 'js' => array(array('href' => 'js/app.js')),
                 'title' => $model->title(),
                 'requestable' => $requestable,
+                'repository' => $this->repository_options($repository),
             )
         );
         echo $page;
@@ -317,5 +318,14 @@ class Findingaid extends Controller
                 ),
             ),
         );
+    }
+
+    private function repository_options($repository)
+    {
+        $repository_options = array(
+            'url' => 'http://exploreuk.uky.edu',
+            'logo' => 'sm-exploreukl.png',
+        );
+        return $repository_options;
     }
 }
