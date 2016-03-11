@@ -84,15 +84,14 @@ class Findingaid extends Controller
                 }
             }
             else {
-                if (count($model->xpath('contents/c')) > 0) {
+                $component_count = count($model->xpath('contents/c'));
+                if ($component_count > 0) {
                     $skip = false;
                     $panel['components'] = array();
                     $templates = array('container_list', 'component');
                     foreach ($templates as $template) {
                         $this->templates[$template] = load_template("findingaid/$template");
                     }
-                    $container_list_template = load_template('findingaid/container_list');
-                    $component_template = load_template('findingaid/component');
                     foreach ($model->xpath('contents/c') as $c) {
                         $details = $this->render_component($m, $c);
                         $panel['components'][] = array(
@@ -170,11 +169,24 @@ class Findingaid extends Controller
         $repository = $model->repository();
         $requestable = ($repository === 'University of Kentucky');
 
+        $toc_component = false;
+        if ($requestable and ($component_count == 0)) {
+            $toc_component = array(
+                'summary' => '',
+                'id' => 'fa-no-components-request',
+                'container_list' => fa_brevity($model->title()),
+                'volume' => '',
+                'container' => '',
+            );
+        }
+
         $toc_options = array(
             'id' => "fa-{$toc_config['id']}",
             'label' => fa_brevity($toc_config['label']),
             'entries' => $toc_entries,
             'links' => $links,
+            'requestable' => $requestable,
+            'toc_component' => $toc_component,
         );
 
         $toc = $m->render(
@@ -241,11 +253,11 @@ class Findingaid extends Controller
             array(
                 'content' => $content,
                 'toc' => $toc,
-                'requestable' => $requestable,
                 'requests' => $requests,
                 'css' => $css,
                 'js' => array(array('href' => 'js/app.js')),
                 'title' => $model->title(),
+                'requestable' => $requestable,
             )
         );
         echo $page;
