@@ -52,6 +52,12 @@
                     "id": "prefercite",
                     "field": "descriptive_summary/prefercite",
                     "in_toc": true
+                },
+                {
+                    "label": "Repository",
+                    "id": "repository",
+                    "field": "meta/repository",
+                    "in_toc": false
                 }
             ]
         },

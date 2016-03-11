@@ -1,0 +1,87 @@
+{
+    "Appalshop Inc.": {
+        "url": "http://kdl.kyvl.org/catalog/xt7zs756f97q/repo_info",
+        "logo": "kap_logo.png"
+    },
+    "Asbury College": {
+        "url": "http://kdl.kyvl.org/catalog/xt7jsx645141/repo_info",
+        "logo": "logo_placeholder.png"
+    },
+    "Berea College": {
+        "url": "http://www.berea.edu/hutchinslibrary/specialcollections/",
+        "logo": "Bnewlogo.png"
+    },
+    "Centre College": {
+        "url": "http://www.centre.edu/web/library/sc/spec_coll.html",
+        "logo": "logo_placeholder.png"
+    },
+    "Eastern Kentucky University": {
+        "url": "http://archives.eku.edu/",
+        "logo": "logo_placeholder.png"
+    },
+    "The Filson Historical Society": {
+        "url": "http://www.filsonhistorical.org/",
+        "logo": "Filson_logo.png"
+    },
+    "Georgetown College": {
+        "url": "http://kdl.kyvl.org/catalog/xt7brv0cwp4s_1/repo_info",
+        "logo": "logo_placeholder.png"
+    },
+    "Grayson County Historical Society": {
+        "url": "http://www.graysoncokyhistsoc.org/",
+        "logo": "logo_placeholder.png"
+    },
+    "Keeneland Racing Association": {
+        "url": "http://kdl.kyvl.org/catalog/xt7rbn9x192g_6_1/repo_info",
+        "logo": "keen_logo.png"
+    },
+    "Kentucky Department for Libraries and Archives": {
+        "url": "http://kdl.kyvl.org/catalog/xt7tmp4vkj1z_1/repo_info",
+        "logo": "logo_placeholder.png"
+    },
+    "Kentucky Historical Society": {
+        "url": "http://history.ky.gov/",
+        "logo": "logo_placeholder.png"
+    },
+    "Kentucky State University": {
+        "url": "http://www.kysu.edu/academics/library/",
+        "logo": "logo_placeholder.png"
+    },
+    "Lexington Public Library": {
+        "url": "http://www.lexpublib.org/page/kentucky-room",
+        "logo": "kyl_logo.png"
+    },
+    "Louisville Free Public Library": {
+        "url": "http://www.lfpl.org/",
+        "logo": "lfpl_logo.png"
+    },
+    "Morehead State University": {
+        "url": "http://kdl.kyvl.org/catalog/xt7pnv996m0c_8_1/repo_info",
+        "logo": "kmm_logo.png"
+    },
+    "Murray State University": {
+        "url": "http://libguides.murraystate.edu/special_collections_index",
+        "logo": "murray_logo.jpg"
+    },
+    "Northern Kentucky University": {
+        "url": "http://kdl.kyvl.org/catalog/xt7hdr2p6000/repo_info",
+        "logo": "logo_placeholder.png"
+    },
+    "Transylvania University": {
+        "url": "http://www.transy.edu/academics/library/collections.htm",
+        "logo": "ktu_logo.png"
+    },
+    "University of Louisville": {
+        "note": "Other labels may exist",
+        "url": "http://louisville.edu/library/archives",
+        "logo": "logo_placeholder.png"
+    },
+    "Western Kentucky University": {
+        "url": "http://www.wku.edu/library/dlsc/manuscripts/index.php#about",
+        "logo": "wku_libraries_logo.png"
+    },
+    "default": {
+        "url": "http://exploreuk.uky.edu",
+        "logo": "sm-exploreukl.png"
+    }
+}

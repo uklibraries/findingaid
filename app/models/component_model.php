@@ -173,6 +173,7 @@ class ComponentModel extends Model
 
         if (count($buckets) > 0) {
             $requests_config = $this->config->get('requests');
+            $active = $requests_config['active'];
             $inactive = $requests_config['inactive'];
             foreach ($buckets as $bucket) {
                 if (count($bucket) > 0) {
