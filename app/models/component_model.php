@@ -8,10 +8,11 @@ class ComponentModel extends Model
 
     public function __construct($id, $component_id)
     {
+        global $g_config;
         $this->id = $id;
         $this->component_id = $component_id;
         $this->basename = $id . '_' . $this->component_id . '.xml';
-        $this->config = new Config();
+        $this->config = $g_config;
         $component_file = $this->ppath() . DIRECTORY_SEPARATOR . $this->basename;
         if (file_exists($component_file)) {
           $this->xml = new SimpleXMLElement(file_get_contents($component_file));
@@ -240,10 +241,10 @@ class ComponentModel extends Model
     private function container_type($attributes)
     {
         if (isset($attributes['type'])) {
-            $type = strtolower(trim($attributes['type']));
+            $type = trim($attributes['type']);
             if ($type === 'othertype') {
                 if (isset($attributes['label'])) {
-                    return strtolower(trim($attributes['label']));
+                    return trim($attributes['label']);
                 }
                 else {
                     return 'container';
@@ -254,7 +255,7 @@ class ComponentModel extends Model
             }
         }
         else if (isset($attributes['label'])) {
-            return strtolower(trim($attributes['label']));
+            return trim($attributes['label']);
         }
         else {
             return 'container';

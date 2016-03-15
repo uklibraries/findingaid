@@ -87,7 +87,6 @@ class Findingaid extends Controller
                 $component_count = count($model->xpath('contents/c'));
                 if ($component_count > 0) {
                     $skip = false;
-                    $panel['components'] = array();
                     $templates = array('container_list', 'component');
                     foreach ($templates as $template) {
                         $this->templates[$template] = load_template("findingaid/$template");
