@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '768M');
 
 # Based on https://github.com/panique/mini
 # but heavily modified
@@ -61,3 +61,5 @@ load_path(APP, 'models/component_model');
 load_path(APP, 'models/findingaid_model');
 load_path(APP, 'core/controller');
 load_path(APP, 'core/application');
+
+$g_config = new Config();

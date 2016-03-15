@@ -6,7 +6,8 @@ class Controller
 
     public function __construct($params = array())
     {
+        global $g_config;
         $this->params = $params;
-        $this->config = new Config();
+        $this->config = $g_config;
     }
 }

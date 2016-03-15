@@ -15,6 +15,11 @@ class Application
 
     private function splitUrl()
     {
+        /* The following block is useful for testing. */
+        if (php_sap_name() === 'cli' && !isset($_GET['id'])) {
+            sleep(10);
+            $_GET['id'] = 'xt73xs5jd22r';
+        }
         if (isset($_GET['id'])) {
             $url = trim($_GET['id'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
