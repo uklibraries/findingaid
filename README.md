@@ -57,7 +57,14 @@ program.  For an example, install the
     tar zxf xml.tar.gz
     ```
 
-7. Connect the public directory to your website.  For example, if your
+7. Create the cache directory.  This must be writeable by your web server.
+
+    ```shell
+    mkdir public/cache
+    chown apache:apache public/cache # or appropriate similar command
+    ````
+
+8. Connect the public directory to your website.  For example, if your
 website uses `/var/www/html` as its document root and permits symlinks, then
 the following commands should make the finding aid viewer accessible.  Some
 commands might require you to become root.
