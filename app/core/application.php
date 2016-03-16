@@ -15,10 +15,16 @@ class Application
 
     private function splitUrl()
     {
+        global $argv;
         /* The following block is useful for testing. */
-        if (php_sapi_name() === 'cli' && !isset($_GET['id'])) {
-            sleep(10);
-            $_GET['id'] = 'xt73xs5jd22r';
+        if (php_sapi_name() === 'cli') {
+            if (isset($argv[1]) && preg_match('/^[a-z0-9]+$/', $argv[1])) {
+                $_GET['id'] = $argv[1];
+            }
+            else {
+                sleep(10);
+                $_GET['id'] = 'xt73xs5jd22r';
+            }
         }
         if (isset($_GET['id'])) {
             $url = trim($_GET['id'], '/');
