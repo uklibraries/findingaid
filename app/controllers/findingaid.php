@@ -260,6 +260,9 @@ class Findingaid extends Controller
                 'repository' => $this->config->get_repo($repository),
             )
         );
+        if (php_sapi_name() === 'cli') {
+            exit;
+        }
         echo $page;
     }
 
