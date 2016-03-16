@@ -11,6 +11,12 @@ class Findingaid extends Controller
 
     public function show()
     {
+        $id = $this->params['id'];
+        if (get_cache($id)) {
+            echo get_from_cache($id);
+            return;
+        }
+
         /* First, fill out top-level metadata, including the
          * table of contents.
          */
@@ -263,6 +269,7 @@ class Findingaid extends Controller
         if (php_sapi_name() === 'cli') {
             exit;
         }
+        set_cache($id, $page);
         echo $page;
     }
 

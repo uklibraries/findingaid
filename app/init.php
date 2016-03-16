@@ -12,6 +12,12 @@ define('APP', implode(DIRECTORY_SEPARATOR, array(
     'app',
 )));
 
+define('CACHE_DIR', implode(DIRECTORY_SEPARATOR, array(
+    ROOT,
+    'public',
+    'cache',
+)));
+
 function get_template($path)
 {
     $dir = implode(DIRECTORY_SEPARATOR, array(
@@ -51,6 +57,44 @@ function load_path($dir, $path)
     if (file_exists($file)) {
         require_once($file);
     }
+}
+
+function get_cache($id)
+{
+    if (!file_exists(CACHE_DIR)) {
+        mkdir(CACHE_DIR);
+    }
+    $cache_file = implode(DIRECTORY_SEPARATOR, array(
+        CACHE_DIR,
+        $id,
+    ));
+    if (file_exists($cache_file)) {
+        return $cache_file;
+    }
+    return false;
+}
+
+function get_from_cache($id)
+{
+    $file = get_cache($id);
+    if ($file) {
+        return file_get_contents($file);
+    }
+    else {
+        return false;
+    }
+}
+
+function set_cache($id, $page)
+{
+    if (!file_exists(CACHE_DIR)) {
+        mkdir(CACHE_DIR);
+    }
+    $cache_file = implode(DIRECTORY_SEPARATOR, array(
+        CACHE_DIR,
+        $id,
+    ));
+    file_put_contents($cache_file, $page);
 }
 
 load_path(ROOT, 'vendor/autoload');
