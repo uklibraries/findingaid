@@ -20,6 +20,7 @@ class Application
         if (php_sapi_name() === 'cli') {
             if (isset($argv[1]) && preg_match('/^[a-z0-9]+$/', $argv[1])) {
                 $_GET['id'] = $argv[1];
+                $_GET['cache'] = 1;
             }
             else {
                 sleep(10);
@@ -39,6 +40,9 @@ class Application
                         $this->url_params['id'] = $param;
                         break;
                     }
+                }
+                if (isset($_GET['invalidate_cache']) and $_GET['invalidate_cache'] == 1) {
+                    $this->url_params['invalidate_cache'] = 1;
                 }
                 if (preg_match('/^([0-9a-z]+)_([0-9a-z]+)$/', $this->url_params['id'], $matches)) {
                     $this->url_controller = 'component';
