@@ -12,7 +12,12 @@ class Findingaid extends Controller
     public function show()
     {
         $id = $this->params['id'];
-        if (get_cache($id)) {
+        $cache = true;
+        if (isset($this->params['invalidate_cache'])) {
+            $cache = ($this->params['invalidate_cache'] != 1);
+        }
+
+        if ($cache && get_cache($id)) {
             echo get_from_cache($id);
             return;
         }
@@ -266,10 +271,10 @@ class Findingaid extends Controller
                 'repository' => $this->config->get_repo($repository),
             )
         );
+        set_cache($id, $page);
         if (php_sapi_name() === 'cli') {
             exit;
         }
-        set_cache($id, $page);
         echo $page;
     }
 
