@@ -1,8 +1,14 @@
 <div>
 {{#links}}
   {{#image}}
-  <a href="{{full}}" data-lity><img src="{{thumb}}"/></a>
+  <a href="{{full}}" data-lity><img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/></a>
   {{/image}}
+  {{#extra}}
+  {{>image_controls}}
+  {{/extra}}
+  {{#image_overflow}}
+  <a href="{{full}}" data-lity><img class="image-overflow" data-src="{{thumb}}"/></a>
+  {{/image_overflow}}
   {{#audio}}
   <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
   {{/audio}}

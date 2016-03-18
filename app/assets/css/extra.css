@@ -21,6 +21,10 @@
     display: none;
 }
 
+.fa-hidden {
+    display: none;
+}
+
 .fa-request-form {
     overflow: auto;
     background: #FDFDF6;
@@ -94,4 +98,8 @@ label {
 .toplink {
     padding: 1em;
     float: right;
+}
+
+.click-to-load-images, .image-overflow {
+    display: inline;
 }

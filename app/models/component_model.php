@@ -43,22 +43,39 @@ class ComponentModel extends Model
             }
         }
         $links = array();
+        $thumb_count = 0;
+        $ref_count = 0;
+        $image_threshold = 5;
         foreach ($links_raw as $link_raw) {
             $link = array();
             foreach ($link_raw['links'] as $use => $href) {
                 $use = str_replace(' ', '_', $use);
                 switch ($use) {
                 case 'thumbnail':
-                    if (empty($link['image'])) {
-                        $link['image'] = array();
+                    $thumb_count++;
+                    if ($thumb_count <= $image_threshold) {
+                        $field = 'image';
                     }
-                    $link['image']['thumb'] = $href;
+                    else {
+                        $field = 'image_overflow';
+                    }
+                    if (empty($link[$field])) {
+                        $link[$field] = array();
+                    }
+                    $link[$field]['thumb'] = $href;
                     break;
                 case 'reference_image':
-                    if (empty($link['image'])) {
-                        $link['image'] = array();
+                    $ref_count++;
+                    if ($ref_count <= $image_threshold) {
+                        $field = 'image';
                     }
-                    $link['image']['full'] = $href;
+                    else {
+                        $field = 'image_overflow';
+                    }
+                    if (empty($link[$field])) {
+                        $link[$field] = array();
+                    }
+                    $link[$field]['full'] = $href;
                     break;
                 case 'reference_audio':
                     if (empty($link['audio'])) {
@@ -79,6 +96,9 @@ class ComponentModel extends Model
                 }
             }
             $links[] = $link;
+        }
+        if (($thumb_count > $image_threshold) || ($ref_count > $image_threshold)) {
+            $links[] = array('extra' => true);
         }
         return $links;
     }

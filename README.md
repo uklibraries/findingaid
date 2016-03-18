@@ -82,8 +82,10 @@ LICENSE.txt.
 
 This program uses the following libraries:
 
+* Luis Almeida's [unveil.js](https://github.com/luis-almeida/unveil)
 * Tim Down's [Rangy](https://github.com/timdown/rangy)
 * John Dyer's [MediaElement.js](http://mediaelementjs.com)
+* Marcus Ekwall's [reveal.js](http://stackoverflow.com/a/7031800/237176)
 * Justin Hileman's [Mustache.php](https://github.com/bobthecow/mustache.php)
 * Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
 * [Bootstrap](https://getbootstrap.com)
