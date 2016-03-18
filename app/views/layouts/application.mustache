@@ -50,6 +50,23 @@
     player.play();
     $(this).remove();
   });
+  $('.click-to-load-images').click(function () {
+    $(this).siblings().find('.image-overflow').slice(0, 4).reveal().removeClass('image-overflow');
+    var images_remaining = $(this).siblings().find('.image-overflow').length;
+    if (images_remaining == 0) {
+        $(this).siblings('.click-to-load-all-images').remove();
+        $(this).remove();
+    }
+    else {
+        $(this).siblings('.click-to-load-all-images').removeClass('fa-hidden');
+    }
+  });
+  $('.click-to-load-all-images').click(function () {
+    $(this).siblings().find('.image-overflow').reveal();
+    $(this).siblings('.click-to-load-images').remove();
+    $(this).remove();
+  });
+  $('img.lazy').unveil(200);
   </script>
 </body>
 </html>
