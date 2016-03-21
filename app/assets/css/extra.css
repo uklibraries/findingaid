@@ -103,3 +103,18 @@ label {
 .click-to-load-images, .image-overflow {
     display: inline;
 }
+
+#viewer {
+    background: black;
+}
+
+.viewer-control {
+    background: transparent;
+    display: inline;
+    color: transparent;
+    font-size: 8vh;
+}
+
+#viewer-img {
+    height: 80vh;
+}
