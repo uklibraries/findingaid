@@ -100,6 +100,7 @@ function set_cache($id, $page)
 load_path(ROOT, 'vendor/autoload');
 load_path(APP, 'config/config');
 load_path(APP, 'core/brevity');
+load_path(APP, 'core/minter');
 load_path(APP, 'core/model');
 load_path(APP, 'models/component_model');
 load_path(APP, 'models/findingaid_model');
@@ -107,3 +108,4 @@ load_path(APP, 'core/controller');
 load_path(APP, 'core/application');
 
 $g_config = new Config();
+$g_minter = new Minter('fa_img');
