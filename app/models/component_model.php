@@ -76,6 +76,7 @@ class ComponentModel extends Model
                         $link[$field] = array();
                     }
                     $link[$field]['full'] = $href;
+                    $link[$field]['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
                     break;
                 case 'reference_audio':
                     if (empty($link['audio'])) {

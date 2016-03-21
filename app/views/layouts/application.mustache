@@ -27,46 +27,6 @@
   </div>
   </div>
   {{>footer}}
-  <script type="text/javascript">
-  $('.click-to-play-audio').click(function () {
-    var href_id = $(this).attr('data-id');
-    var href = $(this).attr('data-href');
-    $(this).after('<audio id="' + href_id + '" src="' + href  + '" style="display:block, width: 305px; height: 30px;" width="305" height="30"></audio>');
-    $('#' + href_id).mediaelementplayer();
-    var player = new MediaElement(href_id);
-    player.pause();
-    player.setSrc(href);
-    player.play();
-    $(this).remove();
-  });
-  $('.click-to-play-video').click(function () {
-    var href_id = $(this).attr('data-id');
-    var href = $(this).attr('data-href');
-    $(this).after('<video id="' + href_id + '" src="' + href  + '" style="display:block, width: 360px; height: 240px;" width="360" height="240"></audio>');
-    $('#' + href_id).mediaelementplayer();
-    var player = new MediaElement(href_id);
-    player.pause();
-    player.setSrc(href);
-    player.play();
-    $(this).remove();
-  });
-  $('.click-to-load-images').click(function () {
-    $(this).siblings().find('.image-overflow').slice(0, 4).reveal().removeClass('image-overflow');
-    var images_remaining = $(this).siblings().find('.image-overflow').length;
-    if (images_remaining == 0) {
-        $(this).siblings('.click-to-load-all-images').remove();
-        $(this).remove();
-    }
-    else {
-        $(this).siblings('.click-to-load-all-images').removeClass('fa-hidden');
-    }
-  });
-  $('.click-to-load-all-images').click(function () {
-    $(this).siblings().find('.image-overflow').reveal();
-    $(this).siblings('.click-to-load-images').remove();
-    $(this).remove();
-  });
-  $('img.lazy').unveil(200);
-  </script>
+  {{>viewer}}
 </body>
 </html>

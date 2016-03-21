@@ -1,4 +1,5 @@
 # List required files in the desired order
+mousetrap.min.js
 jquery.min.js
 jquery-ui.min.js
 bootstrap.min.js
