@@ -28,6 +28,7 @@ class ComponentModel extends Model
 
     public function links()
     {
+        global $g_minter;
         $pieces = array();
         if (count($this->xpath('did/dao')) > 0) {
             $pieces = $this->xpath('did/dao');
@@ -76,21 +77,21 @@ class ComponentModel extends Model
                         $link[$field] = array();
                     }
                     $link[$field]['full'] = $href;
-                    $link[$field]['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
+                    $link[$field]['href_id'] = $g_minter->mint();
                     break;
                 case 'reference_audio':
                     if (empty($link['audio'])) {
                         $link['audio'] = array();
                     }
                     $link['audio']['href'] = $href;
-                    $link['audio']['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
+                    $link['audio']['href_id'] = $g_minter->mint();
                     break;
                 case 'reference_video':
                     if (empty($link['video'])) {
                         $link['video'] = array();
                     }
                     $link['video']['href'] = $href;
-                    $link['video']['href_id'] = preg_replace('/[^A-Za-z0-9]/', '', $href);
+                    $link['video']['href_id'] = $g_minter->mint();
                     break;
                 default:
                     break;
