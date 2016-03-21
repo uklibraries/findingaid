@@ -23,13 +23,52 @@ footer {
     font-size: smaller;
     text-align: right;
 }
-#ccCopyright a:link, #altCopyright a:link,
-#ccCopyright a:active, #altCopyright a:active {
+
+#connectWithUs a:hover
+{
     text-decoration: underline;
-    color: #929292;
+    color: #ADD8E6;
 }
-#ccCopyright a:hover, #altCopyright a:hover,
-#ccCopyright a:visited, #altCopyright a:visited {
+
+#ccCopyright a:hover
+{
+    text-decoration: underline;
+    color: #ADD8E6;
+}
+
+#connectWithUs a:visited
+{
     text-decoration: none;
-    color: #336699;
+    color: #ADD8E6;
+}
+
+#ccCopyright a:visited
+{
+    text-decoration: none;
+    color: #ADD8E6;
+}
+
+
+#connectWithUs a:link
+{
+    text-decoration: none;
+    color: #F5F5F5;
+}
+
+#ccCopyright a:link
+{
+    text-decoration: none;
+    color: #F5F5F5;
+}
+
+#connectWithUs a:active
+{
+    text-decoration: none;
+    color: #EBEBEB;
+}
+
+#ccCopyright a:active
+{
+    text-decoration: none;
+    color: #EBEBEB;
 }
