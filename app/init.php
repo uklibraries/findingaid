@@ -108,4 +108,4 @@ load_path(APP, 'core/controller');
 load_path(APP, 'core/application');
 
 $g_config = new Config();
-$g_minter = new Minter('fa_img');
+$g_minter = new Minter('fa');
