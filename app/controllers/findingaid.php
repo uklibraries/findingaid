@@ -17,7 +17,7 @@ class Findingaid extends Controller
             $cache = ($this->params['invalidate_cache'] != 1);
         }
 
-        if ($cache && get_cache($id)) {
+        if ($cache && get_cache($id) && !(php_sapi_name() === 'cli')) {
             echo get_from_cache($id);
             return;
         }
