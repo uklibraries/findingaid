@@ -217,7 +217,7 @@ class Findingaid extends Controller
                     'id' => $requests_config['summary']['id'],
                     'label' => fa_brevity($requests_config['summary']['label']),
                     'list_id' => $requests_config['summary']['list_id'],
-                    'title' => $model->unittitle(),
+                    'title' => $this->cleanup($model->unittitle()),
                     'collection_id' => $model->id(),
                     'call_number' => $model->unitid(),
                     'item_date' => $model->unitdate(),
@@ -332,5 +332,10 @@ class Findingaid extends Controller
                 ),
             ),
         );
+    }
+
+    private function cleanup($message)
+    {
+        return preg_replace('/\s+/', ' ', $message);
     }
 }
