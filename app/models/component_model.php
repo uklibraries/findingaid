@@ -135,63 +135,64 @@ class ComponentModel extends Model
         $bucket = array();
         $cache = array();
         $tagged = null;
+
+        $simple = true;
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
-            if (is_null($tagged)) {
-                if (isset($attributes['id'])) {
-                    $tagged = true;
-                }
-                else {
-                    $tagged = false;
-                }
-            }
-            $aspect = array(
-                'type'    => $this->container_type($attributes),
-                'content' => (string)$container,
-            );
-            if ($tagged) {
-                if (count($bucket) == 0) {
-                    $aspect['id'] = trim($attributes['id']);
-                    $cache[$aspect['id']] = $aspect;
-                    $bucket[] = $aspect;
-                }
-                else {
-                    if (isset($attributes['parent'])) {
-                        $pid = trim($attributes['parent']);
-                        if (array_key_exists($pid, $cache)) {
-                            # Not wanting to mess with the internal array pointer
-                            $pos = count($bucket) - 1;
-                            $aspect['pid'] = $bucket[$pos]['id'];
-                        }
-                        else {
-                            $buckets[] = $bucket;
-                            $bucket = array();
-                            $cache = array();
-                        }
-                        if (isset($attributes['id'])) {
-                            $aspect['id'] = trim($attributes['id']);
-                        }
-                        else {
-                            $aspect['id'] = md5($container->asXML());
-                        }
-                        $cache[$aspect['id']] = $aspect;
-                        $bucket[] = $aspect;
-                    }
-                    else if (isset($attributes['id'])) {
-                        $buckets[] = $bucket;
-                        $bucket = array();
-                        $cache = array();
-                        $aspect['id'] = trim($attributes['id']);
-                        $bucket[] = $aspect;
-                    }
-                }
-            }
-            else {
-                $bucket[] = $aspect;
+            if (isset($attributes['parent'])) {
+                $simple = false;
+                break;
             }
         }
-        if (count($bucket) > 0) {
+
+        if ($simple) {
+            foreach ($this->xpath($contents_config['container']) as $container) {
+                $attributes = $container->attributes();
+                $aspect = array(
+                    'type'    => $this->container_type($attributes),
+                    'content' => (string)$container,
+                );
+                $bucket[] = $aspect;
+            }
             $buckets[] = $bucket;
+        }
+        else {
+            $aspects = array();
+            $section = array();
+            $section_ids = array();
+            foreach ($this->xpath($contents_config['container']) as $container) {
+                $attributes = $container->attributes();
+                $aspect = array(
+                    'type'    => $this->container_type($attributes),
+                    'content' => (string)$container,
+                );
+
+                if (isset($attributes['id'])) {
+                    $id = trim($attributes['id']);
+                }
+                else {
+                    $id = md5($container->asXML());
+                }
+                $aspect['id'] = $id;
+
+                if (isset($attributes['parent'])) {
+                    $id = trim($attributes['parent']);
+                    $aspect['id'] = $id;
+                    $section[$id][] = $aspect;
+                }
+                else {
+                    $section[$id] = array($aspect);
+                    $section_ids[] = $id;
+                }
+            }
+
+            foreach ($section_ids as $id) {
+                $bucket = array();
+                foreach ($section[$id] as $thing) {
+                    $bucket[] = $thing;
+                }
+                $buckets[] = $bucket;
+            }
         }
 
         if (count($buckets) > 0) {
