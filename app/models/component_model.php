@@ -214,7 +214,7 @@ class ComponentModel extends Model
                     }
                     $volume = $container_list_pieces[0];
                     $summary = implode(', ', $container_list_pieces);
-                    $full_container_list = $summary . ': '. $this->title();
+                    $full_container_list = fa_brevity($summary . ': '. $this->title(), FA_AEON_MAX);
                     array_shift($container_list_pieces);
                     $rest = implode(', ', $container_list_pieces);
                     $container_list = array(
