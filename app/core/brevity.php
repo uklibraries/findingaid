@@ -1,6 +1,7 @@
 <?php
 
-define('FA_MAX_LENGTH', 100);
+define('FA_MAX_LENGTH', 1000);
+define('FA_AEON_MAX', 80);
 
 function fa_brevity($message, $length = 0)
 {
