@@ -170,7 +170,7 @@ var requests = (function() {
             "save-for-later",
             "request-reproductions"
         ];
-        var default_request_type = "save-for-later";
+        var default_request_type = "schedule-retrieval";
         var request_type;
         var pages_items_to_be_reproduced = '';
         var formats = [

@@ -35,6 +35,7 @@
       </div>
       <br>
       <div class="fa-options" id="fa-schedule-retrieval-options">
+          <label for="ScheduledDate">When do you plan on visiting the Breckinridge Research Room?</label>
           <input type="text" id="fa-datepicker" name="ScheduledDate" value="01/01/1900">
       </div>
       <div class="fa-options" id="fa-request-reproductions-options">
@@ -94,9 +95,9 @@ jQuery(document).ready(function () {
     requests.init({
         title: "<% title %>",
         button_active: "Selected",
-        button_inactive: "Request",
+        button_inactive: "Select",
         button_toc_active: "Selected",
-        button_toc_inactive: "Request this collection"
+        button_toc_inactive: "Select this collection"
     });
     $('#fa-researcher-tags').tagit();
 });
