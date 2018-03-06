@@ -263,7 +263,18 @@ class Findingaid extends Controller
                 'toc' => $toc,
                 'requests' => $requests,
                 'css' => $css,
-                'js' => array(array('href' => 'js/app.js')),
+                'js' => array(array(
+                    'href' => 'js/app.js',
+                    'hash' => hash_file('sha256', implode(
+                        DIRECTORY_SEPARATOR,
+                        array(
+                            ROOT,
+                            'public',
+                            'js',
+                            'app.js',
+                        )
+                    )),
+                )),
                 'title' => $model->title(),
                 'requestable' => $requestable,
                 'repository' => $this->config->get_repo($repository),
