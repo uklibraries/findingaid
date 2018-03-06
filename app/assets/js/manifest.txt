@@ -3,9 +3,6 @@ mousetrap.min.js
 jquery.min.js
 jquery-ui.min.js
 bootstrap.min.js
-rangy-core.js
-rangy-classapplier.js
-rangy-textrange.js
 lity.min.js
 jquery.unveil.js
 reveal.js
