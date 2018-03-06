@@ -16,18 +16,6 @@
             <input class="fa-extra-input" type="textarea" id="fa-special-request" name="SpecialRequest">
         </label>
         <br>
-        <label for="extra_notes">My Notes
-            <input class="fa-extra-input" type="textarea" id="extra_notes" name="Notes">
-        </label>
-        <br>
-        <label for="fa-researcher-tags">Researcher Tags
-            <input class="fa-taggable" type="text" id="fa-researcher-tags" name="ResearcherTags">
-        </label>
-        <p>
-            Enter a comma-separated list of the tags you want associated with
-            this request.
-        </p>
-        <br>
       </div>
       <div class="fa-request-options fa-request-hidden">
         <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Schedule Retrieval</button>
@@ -99,7 +87,6 @@ jQuery(document).ready(function () {
         button_toc_active: "Selected",
         button_toc_inactive: "Select this collection"
     });
-    $('#fa-researcher-tags').tagit();
 });
 <%={{ }}=%>
 </script>

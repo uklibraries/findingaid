@@ -708,10 +708,6 @@ var requests = (function() {
                 update();
             });
 
-            $('body').on('change', '.fa-extra-input', function () {
-                update();
-            });
-
             $('.fa-request').removeClass('fa-request-hidden');
             $('.fa-request-summary-note').removeClass('fa-request-hidden');
 
