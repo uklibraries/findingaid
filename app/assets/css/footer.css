@@ -72,3 +72,23 @@ footer {
     text-decoration: none;
     color: #EBEBEB;
 }
+
+.kdl-footer {
+    text-align: center;
+    font-size: 1em;
+    width: 100%;
+    color: #ffffff;
+    background: #46aa42;
+    margin: auto;
+    padding: 1em;
+}
+
+.kdl-footer h1 {
+    font-size: 2em;
+}
+
+.kdl-footer a {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+    border: 0 !important;
+}
