@@ -4,8 +4,8 @@
         "logo": "kap_logo.png"
     },
     "Asbury College": {
-        "url": "http://kdl.kyvl.org/catalog/xt7jsx645141/repo_info",
-        "logo": "logo_placeholder.png"
+        "url": "https://www.asbury.edu/academics/resources/library/",
+        "logo": "Asbury_logo.png"
     },
     "Berea College": {
         "url": "http://www.berea.edu/hutchinslibrary/specialcollections/",
@@ -13,19 +13,19 @@
     },
     "Centre College": {
         "url": "http://www.centre.edu/web/library/sc/spec_coll.html",
-        "logo": "logo_placeholder.png"
+        "logo": "Centre_logo.png"
     },
     "Eastern Kentucky University": {
         "url": "http://archives.eku.edu/",
-        "logo": "logo_placeholder.png"
+        "logo": "eku_logo.png"
     },
     "The Filson Historical Society": {
         "url": "http://www.filsonhistorical.org/",
         "logo": "Filson_logo.png"
     },
     "Georgetown College": {
-        "url": "http://kdl.kyvl.org/catalog/xt7brv0cwp4s_1/repo_info",
-        "logo": "logo_placeholder.png"
+        "url": "https://libguides.georgetowncollege.edu/LRC",
+        "logo": "Georgetown_logo.png"
     },
     "Grayson County Historical Society": {
         "url": "http://www.graysoncokyhistsoc.org/",
@@ -36,16 +36,16 @@
         "logo": "keen_logo.png"
     },
     "Kentucky Department for Libraries and Archives": {
-        "url": "http://kdl.kyvl.org/catalog/xt7tmp4vkj1z_1/repo_info",
-        "logo": "logo_placeholder.png"
+        "url": "https://kdla.ky.gov/Pages/default.aspx",
+        "logo": "KDLA_logo.png"
     },
     "Kentucky Historical Society": {
         "url": "http://history.ky.gov/",
-        "logo": "logo_placeholder.png"
+        "logo": "KHS_logo.png"
     },
     "Kentucky State University": {
         "url": "http://www.kysu.edu/academics/library/",
-        "logo": "logo_placeholder.png"
+        "logo": "KSU_logo.png"
     },
     "Lexington Public Library": {
         "url": "http://www.lexpublib.org/page/kentucky-room",
@@ -64,8 +64,8 @@
         "logo": "murray_logo.jpg"
     },
     "Northern Kentucky University": {
-        "url": "http://kdl.kyvl.org/catalog/xt7hdr2p6000/repo_info",
-        "logo": "logo_placeholder.png"
+        "url": "https://inside.nku.edu/library.html",
+        "logo": "NKU_logo.png"
     },
     "Transylvania University": {
         "url": "http://www.transy.edu/academics/library/collections.htm",
@@ -74,7 +74,7 @@
     "University of Louisville": {
         "note": "Other labels may exist",
         "url": "http://louisville.edu/library/archives",
-        "logo": "logo_placeholder.png"
+        "logo": "UL_logo.png"
     },
     "Western Kentucky University": {
         "url": "http://www.wku.edu/library/dlsc/manuscripts/index.php#about",
