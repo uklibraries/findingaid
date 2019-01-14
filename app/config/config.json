@@ -125,6 +125,11 @@
             {
                 "label": "EAD",
                 "field": "meta/ead_url"
+            },
+            {
+                "label": "More from this collection",
+                "search_field": "f[source_s][]",
+                "field": "descriptive_summary/title"
             }
         ]
     },

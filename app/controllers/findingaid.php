@@ -161,12 +161,30 @@ class Findingaid extends Controller
                 }
             }
             if (array_key_exists('field', $link)) {
-                $data = $model->xpath("//{$link['field']}");
-                $url = false;
-                foreach ($data as $datum) {
-                    if (strlen(trim($datum)) > 0) {
-                        $url = trim($datum);
-                        break;
+                if (array_key_exists('search_field', $link)) {
+                    if ($model->repository() !== 'University of Kentucky') {
+                        continue;
+                    }
+                    $search_field = $link['search_field'];
+                    $data = $model->xpath("//{$link['field']}");
+                    $raw_search = false;
+                    foreach ($data as $datum) {
+                        if (strlen(trim($datum)) > 0) {
+                            $raw_search = trim($datum);
+                            break;
+                        }
+                    }
+                    $url = 'https://exploreuk.uky.edu/?' .
+                           $search_field . '=' . urlencode($raw_search);
+                }
+                else {
+                    $data = $model->xpath("//{$link['field']}");
+                    $url = false;
+                    foreach ($data as $datum) {
+                        if (strlen(trim($datum)) > 0) {
+                            $url = trim($datum);
+                            break;
+                        }
                     }
                 }
                 $links[] = array(
