@@ -81,7 +81,7 @@
         "logo": "wku_libraries_logo.png"
     },
     "default": {
-        "url": "http://exploreuk.uky.edu",
+        "url": "https://exploreuk.uky.edu",
         "logo": "sm-exploreukl.png"
     }
 }
