@@ -6,3 +6,4 @@ public/js/app.js
 misc/
 public/minimal*
 public/cache
+is_prod

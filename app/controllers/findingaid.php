@@ -174,8 +174,18 @@ class Findingaid extends Controller
                             break;
                         }
                     }
-                    $url = 'https://exploreuk.uky.edu/?' .
-                           $search_field . '=' . urlencode($raw_search);
+                    $prod_indicator = implode(DIRECTORY_SEPARATOR, array(
+                        ROOT,
+                        'is_prod',
+                    ));
+                    if (file_exists($prod_indicator)) {
+                        $url = 'https://exploreuk.uky.edu/?' .
+                            $search_field . '=' . urlencode($raw_search);
+                    } else {
+                        $url = 'https://uklibbackups.net/?' .
+                            $search_field . '=' . urlencode($raw_search);
+                    }
+
                 }
                 else {
                     $data = $model->xpath("//{$link['field']}");
