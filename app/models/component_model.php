@@ -136,63 +136,41 @@ class ComponentModel extends Model
         $cache = array();
         $tagged = null;
 
-        $simple = true;
+        $aspects = array();
+        $section = array();
+        $section_ids = array();
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
+            $aspect = array(
+                'type'    => $this->container_type($attributes),
+                'content' => (string)$container,
+            );
+
+            if (isset($attributes['id'])) {
+                $id = trim($attributes['id']);
+            }
+            else {
+                $id = md5($container->asXML());
+            }
+            $aspect['id'] = $id;
+
             if (isset($attributes['parent'])) {
-                $simple = false;
-                break;
+                $id = trim($attributes['parent']);
+                $aspect['id'] = $id;
+                $section[$id][] = $aspect;
+            }
+            else {
+                $section[$id] = array($aspect);
+                $section_ids[] = $id;
             }
         }
 
-        if ($simple) {
-            foreach ($this->xpath($contents_config['container']) as $container) {
-                $attributes = $container->attributes();
-                $aspect = array(
-                    'type'    => $this->container_type($attributes),
-                    'content' => (string)$container,
-                );
-                $bucket[] = $aspect;
+        foreach ($section_ids as $id) {
+            $bucket = array();
+            foreach ($section[$id] as $thing) {
+                $bucket[] = $thing;
             }
             $buckets[] = $bucket;
-        }
-        else {
-            $aspects = array();
-            $section = array();
-            $section_ids = array();
-            foreach ($this->xpath($contents_config['container']) as $container) {
-                $attributes = $container->attributes();
-                $aspect = array(
-                    'type'    => $this->container_type($attributes),
-                    'content' => (string)$container,
-                );
-
-                if (isset($attributes['id'])) {
-                    $id = trim($attributes['id']);
-                }
-                else {
-                    $id = md5($container->asXML());
-                }
-                $aspect['id'] = $id;
-
-                if (isset($attributes['parent'])) {
-                    $id = trim($attributes['parent']);
-                    $aspect['id'] = $id;
-                    $section[$id][] = $aspect;
-                }
-                else {
-                    $section[$id] = array($aspect);
-                    $section_ids[] = $id;
-                }
-            }
-
-            foreach ($section_ids as $id) {
-                $bucket = array();
-                foreach ($section[$id] as $thing) {
-                    $bucket[] = $thing;
-                }
-                $buckets[] = $bucket;
-            }
         }
 
         if (count($buckets) > 0) {
