@@ -148,5 +148,75 @@
           "label": "Requests",
           "list_id": "fa-requests-list"
         }
-    }
+    },
+    "partners": [
+        {
+            "name": "Appalshop Inc.",
+            "url": "https://www.appalshop.org/media/"
+        },
+        {
+            "name": "Centre College",
+            "url": "https://library.centre.edu/home"
+        },
+        {
+            "name": "Eastern Kentucky University",
+            "url": "https://archives.eku.edu/"
+        },
+        {
+            "name": "The Filson Historical Society",
+            "url": "https://filsonhistorical.org/collections-resources/"
+        },
+        {
+            "name": "Jeffersontown Historical Museum",
+            "url": "https://www.jeffersontownky.com/656/Jeffersontown-Historical-Society"
+        },
+        {
+            "name": "Jessamine County Public Library",
+            "url": "https://www.jesspublib.org/"
+        },
+        {
+            "name": "Keeneland Racing Association",
+            "url": "https://www.keeneland.com/keeneland-library"
+        },
+        {
+            "name": "Kentucky Department for Libraries and Archives",
+            "url": "https://kdla.ky.gov/Pages/default.aspx"
+        },
+        {
+            "name": "Kentucky Historical Society",
+            "url": "http://www.kyhistory.com/"
+        },
+        {
+            "name": "Kentucky State University",
+            "url": "https://kysu.edu/academics/library/"
+        },
+        {
+            "name": "Lexington Public Library",
+            "url": "https://www.lexpublib.org/digital-archives"
+        },
+        {
+            "name": "Morehead State University",
+            "url": "https://research.moreheadstate.edu/home"
+        },
+        {
+            "name": "Murray State University",
+            "url": "https://libguides.murraystate.edu/jpda"
+        },
+        {
+            "name": "Northern Kentucky University",
+            "url": "https://inside.nku.edu/steelyarchives.html"
+        },
+        {
+            "name": "University of Kentucky",
+            "url": "https://exploreuk.uky.edu/"
+        },
+        {
+            "name": "University of Louisville",
+            "url": "https://digital.library.louisville.edu/"
+        },
+        {
+            "name": "Western Kentucky University",
+            "url": "https://westernkentuckyuniversity.pastperfectonline.com/search"
+        }
+    ]
 }

@@ -3,6 +3,7 @@ class Config
 {
     private $config = array();
     private $repo = array();
+    private $nonuk = null;
 
     public function __construct()
     {
@@ -41,6 +42,26 @@ class Config
         }
         else {
             return $this->repo['default'];
+        }
+    }
+
+    public function get_nonuk($key)
+    {
+        if (!isset($this->nonuk)) {
+            $nonuk_config_file = implode(DIRECTORY_SEPARATOR, array(
+                APP,
+                'config',
+                'nonuk-metadata.json',
+            ));
+            if (file_exists($nonuk_config_file)) {
+                $this->nonuk = json_decode(file_get_contents($nonuk_config_file), true);
+            }
+        }
+        if (array_key_exists($key, $this->nonuk)) {
+            return $this->nonuk[$key];
+        }
+        else {
+            return false;
         }
     }
 }
