@@ -3,6 +3,7 @@ class FindingaidModel extends Model
 {
     protected $id = null;
     public $path = null;
+    public $exists = false;
 
     public function __construct($id)
     {
@@ -10,6 +11,7 @@ class FindingaidModel extends Model
         $header_file = $this->ppath() . DIRECTORY_SEPARATOR . "header.xml";
         if (file_exists($header_file)) {
             $this->xml = new SimpleXMLElement(file_get_contents($header_file));
+            $this->exists = true;
         }
         $metadata_file = $this->ppath() . DIRECTORY_SEPARATOR . "$id.xml";
         if (file_exists($metadata_file)) {

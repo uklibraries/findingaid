@@ -41,6 +41,10 @@ class Application
                         break;
                     }
                 }
+# temp
+if (isset($_GET['suggest']) and $_GET['suggest'] == 1) {
+    $this->url_params['suggest'] = 1;
+}
                 if (isset($_GET['invalidate_cache']) and $_GET['invalidate_cache'] == 1) {
                     $this->url_params['invalidate_cache'] = 1;
                 }
