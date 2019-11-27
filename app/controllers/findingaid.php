@@ -324,48 +324,43 @@ class Findingaid extends Controller
                 ),
             ));
             $meta = $this->config->get_nonuk($id);
-            $repo = $meta['repository'];
-            $former_kdl_partners = $this->config->get('partners');
-            $is_kdl_partner = true;
-            foreach ($former_kdl_partners as $partner) {
-                if ($partner['name'] === $repo) {
-                    $is_kdl_partner = false;
-                    $repo_url = $partner['url'];
-                    break;
+            if ($meta) {
+                $repo = $meta['repository'];
+                $former_kdl_partners = $this->config->get('partners');
+                $is_kdl_partner = true;
+                foreach ($former_kdl_partners as $partner) {
+                    if ($partner['name'] === $repo) {
+                        $is_kdl_partner = false;
+                        $repo_url = $partner['url'];
+                        break;
+                    }
+                }
+
+                if ($is_kdl_partner) {
+                    $page = $layout->render(
+                        load_template('layouts/suggest_kdl'),
+                        array(
+                            'title' => $meta['title'],
+                            'repository' => $meta['repository'],
+                        )
+                    );
+                }
+                else {
+                    $page = $layout->render(
+                        load_template('layouts/suggest_former_kdl'),
+                        array(
+                            'title' => $meta['title'],
+                            'repository' => $meta['repository'],
+                            'repo_url' => $repo_url,
+                        )
+                    );
                 }
             }
-
-            if ($is_kdl_partner) {
-                $page = $layout->render(
-                    load_template('layouts/suggest_kdl'),
-                    array(
-                        'title' => $meta['title'],
-                        'repository' => $meta['repository'],
-                    )
-                );
-            }
             else {
-                $page = $layout->render(
-                    load_template('layouts/suggest_former_kdl'),
-                    array(
-                        'title' => $meta['title'],
-                        'repository' => $meta['repository'],
-                        'repo_url' => $repo_url,
-                    )
-                );
+                # This is probably a deleted ExploreUK finding aid
+                header("Location: https://exploreuk.uky.edu");
+                die();
             }
-            #$suggest = 'layouts/suggest_kdl_orig';
-            #if (isset($this->params['suggest'])) {
-            #    $suggest = 'layouts/suggest_kdl';
-            #}
-            #$page = $layout->render(
-            #    load_template($suggest),
-            #    array(
-            #        'partners' => $this->config->get('partners'),
-            #    )
-            #);
-            #$page = "<h1>$id</h1>\n";
-            #$page = "<h1>" . json_encode($meta) . "</h1>\n";
         }
 
         if (php_sapi_name() === 'cli') {
