@@ -118,3 +118,13 @@ label {
 #viewer-img {
     height: 80vh;
 }
+
+.red-alert {
+    color: #ff0033;
+    font-size: larger;
+}
+
+.red-alert-text {
+    font-size: larger;
+    color: #313132;
+}
