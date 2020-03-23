@@ -127,4 +127,5 @@ label {
 .red-alert-text {
     font-size: larger;
     color: #313132;
+    font-weight: bold;
 }
