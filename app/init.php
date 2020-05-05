@@ -104,6 +104,7 @@ load_path(APP, 'core/minter');
 load_path(APP, 'core/model');
 load_path(APP, 'models/component_model');
 load_path(APP, 'models/findingaid_model');
+load_path(APP, 'models/overview_model');
 load_path(APP, 'core/controller');
 load_path(APP, 'core/application');
 

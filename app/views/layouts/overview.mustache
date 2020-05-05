@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{title}}</title>
+    {{#css}}
+    <link rel="stylesheet" href="{{href}}">
+    {{/css}}
+    <style type="text/css">
+        body {
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+    </style>
+</head>
+<body>
+<h1>Collection Overview</h1>
+
+<h2>Biography / History</h2>
+{{#bioghist}}
+<p>{{text}}</p>
+{{/bioghist}}
+
+<h2>Scope and Content</h2>
+{{#scopecontent}}
+<p>{{text}}</p>
+{{/scopecontent}}
+
+</body>
+</html>
