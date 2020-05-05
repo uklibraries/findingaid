@@ -54,6 +54,10 @@ if (isset($_GET['suggest']) and $_GET['suggest'] == 1) {
                 else {
                     $this->url_controller = 'findingaid';
                 }
+
+                if (isset($_GET['overview']) and $_GET['overview'] == 1) {
+                    $this->url_controller = 'overview';
+                }
             }
             else {
                 $this->url_controller = 'home';
