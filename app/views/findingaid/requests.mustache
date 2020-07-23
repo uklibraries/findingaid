@@ -18,19 +18,48 @@
         <br>
       </div>
       <div class="fa-request-options fa-request-hidden">
-      <!--
         <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Schedule Retrieval</button>
-        -->
         <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
         <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
       </div>
       <br>
-      <!--
       <div class="fa-options" id="fa-schedule-retrieval-options">
+          <label for="ScheduledDate">Planning your research visit is now a <b>two-step</b> process:</label>
+          <ol>
+            <li>Schedule an appointment. Properly fitting masks are required.  
+
+<script src="https://api3.libcal.com/js/roombooking.js?002"></script><script>
+jQuery(function(){
+   jQuery("#room16996").LibCalRoomBooking({ "iid": 1642, "gid": 16996,  "width": 500, "height": 450});
+});
+</script><!-- Place the following link anywhere in your page. Make sure the id "room16996" matches with the above code: jQuery("#room16996")  //-->
+<p><button class="btn btn-success" type="submit" href="#" id="room16996"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Schedule an Appointment</button><!-- Below is optional button styling  //-->
+<style type="text/css">#room16996 {
+/*
+    background-image: url("//libapps.s3.amazonaws.com/accounts/38244/images/Appointment-button-1.png");
+    background-color: #339933;
+    height: 70px;
+    width: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #339933;
+    border-radius: 8px;
+*/
+}
+}
+#room16996:hover {
+  opacity: 0.9;
+}
+</style>
+
+            </li>
+            <li>Submit a request for SCRC materials.</li>
+          </ol>
+      <!--
           <label for="ScheduledDate">When do you plan on visiting the Breckinridge Research Room?</label>
           <input type="text" id="fa-datepicker" name="ScheduledDate" value="01/01/1900">
+          -->
       </div>
-      -->
       <div class="fa-options" id="fa-request-reproductions-options">
           <label for="ItemInfo3">Pages/Items to be Reproduced
               <input class="fa-request-reproductions-input" type="textarea" id="fa-pages" name="ItemInfo3">

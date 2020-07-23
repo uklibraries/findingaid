@@ -119,6 +119,10 @@ label {
     height: 80vh;
 }
 
+.alert-warning {
+    color: #654f2a;
+}
+
 .red-alert {
     color: #ff0033;
     font-size: larger;
@@ -128,4 +132,8 @@ label {
     font-size: larger;
     color: #313132;
     font-weight: bold;
+}
+
+.green-alert-text {
+    color: #246024;
 }
