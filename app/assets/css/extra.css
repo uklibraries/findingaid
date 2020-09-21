@@ -123,6 +123,11 @@ label {
     color: #654f2a;
 }
 
+.alert-harmful {
+    background: #b1c9e8;
+    color: #282828;
+}
+
 .red-alert {
     color: #ff0033;
     font-size: larger;
