@@ -56,8 +56,9 @@ class Findingaid extends Controller
                 if (array_key_exists('field', $panel)) {
                     $data = $model->xpath("//{$panel['field']}");
                     foreach ($data as $datum) {
-                        if (strlen(trim($datum)) > 0) {
-                            $panel['single-field'] = trim($datum);
+                        $content = trim(fa_render($datum));
+                        if (strlen($content) > 0) {
+                            $panel['single-field'] = $content;
                             $skip = false;
                             break;
                         }
@@ -69,9 +70,10 @@ class Findingaid extends Controller
                         $data = $model->xpath("//{$entry['field']}");
                         $metadata = array();
                         foreach ($data as $datum) {
-                            if (strlen(trim($datum)) > 0) {
+                            $content = trim(fa_render($datum));
+                            if (strlen($content) > 0) {
                                 $metadata[] = array(
-                                    'content' => trim($datum),
+                                    'content' => $content,
                                 );
                                 $skip = false;
                             }
@@ -402,7 +404,12 @@ class Findingaid extends Controller
                     'label' => fa_brevity($component->title()),
                     'collapsible' => true,
                     'container_lists' => $container_lists,
+                    'bioghist_head' => $component->bioghistHead(),
+                    'bioghist' => $component->bioghist(),
+                    'scopecontent_head' => $component->scopecontentHead(),
                     'scopecontent' => $component->scopecontent(),
+                    'processinfo_head' => $component->processinfoHead(),
+                    'processinfo' => $component->processinfo(),
                     'links' => $component->links,
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,

@@ -55,7 +55,12 @@ class Component extends Controller
                     array(
                         'label' => fa_brevity($subcomponent->title()),
                         'collapsible' => true,
+                        'bioghist_head' => $model->bioghistHead(),
+                        'bioghist' => $subcomponent->bioghist(),
+                        'scopecontent_head' => $model->scopecontentHead(),
                         'scopecontent' => $subcomponent->scopecontent(),
+                        'processinfo_head' => $model->processinfoHead(),
+                        'processinfo' => $subcomponent->processinfo(),
                     )
                 ),
             );
@@ -67,7 +72,12 @@ class Component extends Controller
                 'label' => fa_brevity($model->title()),
                 'collapsible' => true,
                 'container_lists' => $container_lists,
+                'bioghist_head' => $model->bioghistHead(),
+                'bioghist' => $model->bioghist(),
+                'scopecontent_head' => $model->scopecontentHead(),
                 'scopecontent' => $model->scopecontent(),
+                'processinfo_head' => $model->processinfoHead(),
+                'processinfo' => $model->processinfo(),
                 'subcomponents' => $subcomponent_content,
             )
         );
