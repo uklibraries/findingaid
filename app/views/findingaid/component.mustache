@@ -1,6 +1,6 @@
 <div class="panel panel-default" id="{{heading_id}}">
   <div class="panel-heading" {{#collapsible}}data-toggle="collapse" data-target="#{{body_id}}" aria-expanded="true"{{/collapsible}}>
-      <h4 class="panel-title">{{label}}</h4>
+      <h4 class="panel-title">{{{label}}}</h4>
   </div>
   <div class="panel-body{{#collapsible}} collapse in{{/collapsible}}" id="{{body_id}}">
     <ul class="list-unstyled">
@@ -8,9 +8,24 @@
     {{{container_list}}}
     {{/container_lists}}
     </ul>
+    {{#bioghist_head}}
+    <h5>{{{p}}}</h5>
+    {{/bioghist_head}}
+    {{#bioghist}}
+    <p>{{{p}}}</p>
+    {{/bioghist}}
+    {{#scopecontent_head}}
+    <h5>{{{p}}}</h5>
+    {{/scopecontent_head}}
     {{#scopecontent}}
-    {{p}}
+    <p>{{{p}}}</p>
     {{/scopecontent}}
+    {{#processinfo_head}}
+    <h5>{{{p}}}</h5>
+    {{/processinfo_head}}
+    {{#processinfo}}
+    <p>{{{p}}}</p>
+    {{/processinfo}}
     {{> media}}
     {{#subcomponents}}
     {{{subcomponent}}}

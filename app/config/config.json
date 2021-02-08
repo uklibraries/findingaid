@@ -20,7 +20,7 @@
                 {
                     "label": "Date",
                     "id": "date",
-                    "field": "descriptive_summary/date"
+                    "field": "descriptive_summary/unitdates/date"
                 },
                 {
                     "label": "Creator",
@@ -76,6 +76,11 @@
                     "label": "Scope and Content",
                     "id": "scopecontent",
                     "field": "collection_overview/scopecontent/p"
+                },
+                {
+                    "label": "Processing Info",
+                    "id": "processinfo",
+                    "field": "collection_overview/processinfo/p"
                 }
             ]
         },
@@ -88,12 +93,12 @@
                 {
                     "label": "Conditions Governing Access",
                     "id": "accessrestrict",
-                    "field": "accessrestrict"
+                    "field": "restrictions/accessrestrict/p"
                 },
                 {
                     "label": "Use Restrictions",
                     "id": "userestrict",
-                    "field": "userestrict"
+                    "field": "restrictions/userestrict/p"
                 }
             ]
         },
@@ -136,7 +141,12 @@
     "contents": {
         "anchor": "contents-of-the-collection",
         "title": "title",
+        "bioghist_head": "bioghist/head",
+        "bioghist": "bioghist/p",
+        "scopecontent_head": "scopecontent/head",
         "scopecontent": "scopecontent/p",
+        "processinfo_head": "processinfo/head",
+        "processinfo": "processinfo/p",
         "container": "did/container",
         "component": "c|c01|c02|c03|c04|c05|c06|c07|c08|c09|c10|c11|c12"
     },

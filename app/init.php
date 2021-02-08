@@ -102,6 +102,7 @@ load_path(APP, 'config/config');
 load_path(APP, 'core/brevity');
 load_path(APP, 'core/minter');
 load_path(APP, 'core/model');
+load_path(APP, 'core/render');
 load_path(APP, 'models/component_model');
 load_path(APP, 'models/findingaid_model');
 load_path(APP, 'models/overview_model');

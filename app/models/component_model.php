@@ -118,11 +118,11 @@ class ComponentModel extends Model
         else {
             $pieces = array_merge($pieces, $this->xpath('did/unittitle'));
         }
-        $results = array();
+        $segments = array();
         foreach ($pieces as $piece) {
-            $results[] = dom_import_simplexml($piece)->textContent;
+            $segments[] = fa_render($piece);
         }
-        return implode(', ', $results);
+        return implode(', ', $segments);
     }
 
     public function container_lists()
@@ -211,16 +211,49 @@ class ComponentModel extends Model
         return $container_lists;
     }
 
+    public function bioghistHead()
+    {
+        $contents_config = $this->config->get('contents');
+        return $this->render_paragraphs($this->xpath($contents_config['bioghist_head']));
+    }
+
+    public function scopecontentHead()
+    {
+        $contents_config = $this->config->get('contents');
+        return $this->render_paragraphs($this->xpath($contents_config['scopecontent_head']));
+    }
+
+    public function processinfoHead()
+    {
+        $contents_config = $this->config->get('contents');
+        return $this->render_paragraphs($this->xpath($contents_config['processinfo_head']));
+    }
+
+    public function bioghist()
+    {
+        $contents_config = $this->config->get('contents');
+        return $this->render_paragraphs($this->xpath($contents_config['bioghist']));
+    }
+
     public function scopecontent()
     {
-        $scopecontent = array();
         $contents_config = $this->config->get('contents');
-        foreach ($this->xpath($contents_config['scopecontent']) as $p) {
-            $scopecontent[] = array(
-                'p' => dom_import_simplexml($p)->textContent,
-            );
+        return $this->render_paragraphs($this->xpath($contents_config['scopecontent']));
+    }
+
+    public function processinfo()
+    {
+        $contents_config = $this->config->get('contents');
+        return $this->render_paragraphs($this->xpath($contents_config['processinfo']));
+    }
+
+    public function render_paragraphs($p_list)
+    {
+        $render = array();
+        foreach ($p_list as $p) {
+            $render[] = array('p' => fa_render($p));
         }
-        return $scopecontent;
+        return $render;
     }
 
     public function subcomponents()
