@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '768M');
+ini_set('memory_limit', '2048M');
 
 # Based on https://github.com/panique/mini
 # but heavily modified
