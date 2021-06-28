@@ -26,15 +26,15 @@
       <div class="fa-options" id="fa-schedule-retrieval-options">
           <label for="ScheduledDate">Planning your research visit is now a <b>two-step</b> process:</label>
           <ol>
-            <li>Schedule an appointment. Properly fitting masks are required.  
+            <li>Schedule an appointment. Face masks are required for non-vaccinated individuals.
 
-<script src="https://api3.libcal.com/js/roombooking.js?002"></script><script>
+<script src="https://libcal.uky.edu/js/equipment.min.js"></script><script>
 jQuery(function(){
-   jQuery("#room16996").LibCalRoomBooking({ "iid": 1642, "gid": 16996,  "width": 500, "height": 450});
-});
-</script><!-- Place the following link anywhere in your page. Make sure the id "room16996" matches with the above code: jQuery("#room16996")  //-->
-<p><button class="btn btn-success" type="submit" href="#" id="room16996"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Schedule an Appointment</button><!-- Below is optional button styling  //-->
-<style type="text/css">#room16996 {
+   jQuery("#eq_27062").LibCalEquipmentBooking({iid: 1642, gid: 27062, eid: 0, width: 560, height: 680});
+   });
+</script>
+<p><button class="btn btn-success" type="submit" href="#" id="eq_27062"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Schedule an Appointment</button><!-- Below is optional button styling  //-->
+<style type="text/css">#eq_27062 {
 /*
     background-image: url("//libapps.s3.amazonaws.com/accounts/38244/images/Appointment-button-1.png");
     background-color: #339933;
@@ -47,7 +47,7 @@ jQuery(function(){
 */
 }
 }
-#room16996:hover {
+#eq_27062:hover {
   opacity: 0.9;
 }
 </style>
