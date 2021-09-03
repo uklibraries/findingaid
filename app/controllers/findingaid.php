@@ -63,6 +63,17 @@ class Findingaid extends Controller
                             break;
                         }
                     }
+                    if ($skip && array_key_exists('backup_field', $panel)) {
+                        $data = $model->xpath("//{$panel['backup_field']}");
+                        foreach ($data as $datum) {
+                            $content = trim(fa_render($datum));
+                            if (strlen($content) > 0) {
+                                $panel['single-field'] = $content;
+                                $skip = false;
+                                break;
+                            }
+                        }
+                    }
                 }
                 elseif (array_key_exists('fields', $panel)) {
                     $panel['multi-field'] = array();
@@ -177,6 +188,16 @@ class Findingaid extends Controller
                                 break;
                             }
                         }
+                        if (!$raw_search && array_key_exists('backup_field', $link)) {
+                            $data = $model->xpath("//{$link['backup_field']}");
+                            $raw_search = false;
+                            foreach ($data as $datum) {
+                                if (strlen(trim($datum)) > 0) {
+                                    $raw_search = trim($datum);
+                                    break;
+                                }
+                            }
+                        }
                         $prod_indicator = implode(DIRECTORY_SEPARATOR, array(
                             ROOT,
                             'is_prod',
@@ -197,6 +218,16 @@ class Findingaid extends Controller
                             if (strlen(trim($datum)) > 0) {
                                 $url = trim($datum);
                                 break;
+                            }
+                        }
+                        if (!$url && array_key_exists('backup_field', $link)) {
+                            $data = $model->xpath("//{$link['backup_field']}");
+                            $url = false;
+                            foreach ($data as $datum) {
+                                if (strlen(trim($datum)) > 0) {
+                                    $url = trim($datum);
+                                    break;
+                                }
                             }
                         }
                     }

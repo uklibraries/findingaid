@@ -134,7 +134,8 @@
             {
                 "label": "More from this collection",
                 "search_field": "f[source_s][]",
-                "field": "descriptive_summary/title"
+                "field": "descriptive_summary/source",
+                "backup_field": "descriptive_summary/title"
             }
         ]
     },
