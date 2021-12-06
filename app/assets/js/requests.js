@@ -595,6 +595,10 @@ var requests = (function() {
     var folder_input_view = (function () {
         var pieces = [];
 
+        function strip(html) {
+            return $('<p>' + html + '</p>').text();
+        }
+
         function add_input(options) {
             if ("root" in options) {
                 pieces.push('<input type="hidden" class="fa-folder-input" data-root="');
@@ -602,7 +606,7 @@ var requests = (function() {
                 pieces.push('" name="');
                 pieces.push(options["name"]);
                 pieces.push('" value="');
-                pieces.push(options["value"]);
+                pieces.push(strip(options["value"]));
                 pieces.push('">');
             }
             else {
@@ -611,7 +615,7 @@ var requests = (function() {
                 pieces.push('" name="');
                 pieces.push(options["name"]);
                 pieces.push('" value="');
-                pieces.push(options["value"]);
+                pieces.push(strip(options["value"]));
                 pieces.push('">');
             }
         }
