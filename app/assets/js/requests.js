@@ -198,6 +198,8 @@ var requests = (function() {
         ];
 
         var subforms = [
+            /* TODO: remove the datepicker --mps 2022-08-03 */
+
             /* Manage the datepicker.
             *
             * This maintains a few hidden fields.  It initializes
