@@ -48,23 +48,40 @@ function fa_render_extref($node)
 {
     $render = '';
     if ($node->hasAttribute('href')) {
-        $href = $node->getAttribute('href');
-
-        $show_new = true;
-        if ($node->hasAttribute('show')) {
-            $show_desire = $node->getAttribute('show');
-            if ($show_desire === 'replace') {
-                $show_new = false;
-            }
-        }
-        $link = '<a href="' . $href . '"';
-        if ($show_new) {
-            $link .= ' target="_blank" rel="nooopener noreferrer"';
-        }
-        $link .= '>' . $node->textContent . '</a>';
-        $render = $link;
-    } else {
+        $render = fa_render_extref_ns($node, "");
+    }
+    else if ($node->hasAttribute('xlink:href')) {
+        $render = fa_render_extref_ns($node, "xlink");
+    }
+    else {
         $render = $node->textContent;
     }
     return $render;
+}
+
+function fa_render_extref_ns($node, $ns)
+{
+    $href_attr = 'href';
+    $show_attr = 'show';
+
+    if (strlen($ns) > 0) {
+        $href_attr = "$ns:href";
+        $show_attr = "$ns:show";
+    }
+
+    $href = $node->getAttribute($href_attr);
+
+    $show_new = true;
+    if ($node->hasAttribute($show_attr)) {
+        $show_desire = $node->getAttribute($show_attr);
+        if ($show_desire === 'replace') {
+            $show_new = false;
+        }
+    }
+    $link = '<a href="' . $href . '"';
+    if ($show_new) {
+        $link .= ' target="_blank" rel="nooopener noreferrer"';
+    }
+    $link .= '>' . $node->textContent . '</a>';
+    return $link;
 }
