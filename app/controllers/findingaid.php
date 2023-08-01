@@ -283,7 +283,7 @@ class Findingaid extends Controller
                         'collection_id' => $model->id(),
                         'call_number' => $model->unitid(),
                         'item_date' => $model->unitdate(),
-                        'item_url' => 'http://exploreuk.uky.edu/catalog/' . $model->id() . '/',
+                        'item_url' => 'https://exploreuk.uky.edu/catalog/' . $model->id() . '/',
                     )
                 );
             }

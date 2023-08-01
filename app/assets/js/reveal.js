@@ -1,9 +1,9 @@
 /* This mini-plugin was written by Marcus Ekwall
- * and published at http://stackoverflow.com/a/7031800/237176 .
+ * and published at https://stackoverflow.com/a/7031800/237176 .
  *
  * License: MIT
  *
- * More details: http://meta.stackexchange.com/questions/272956/a-new-code-license-the-mit-this-time-with-attribution-required
+ * More details: https://meta.stackexchange.com/questions/272956/a-new-code-license-the-mit-this-time-with-attribution-required
  */
 (function ($) {
     $.fn.reveal = function () {
