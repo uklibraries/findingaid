@@ -1,4 +1,5 @@
 vendor/
+exe/composer
 xml.tar.gz
 xml
 *.swp
