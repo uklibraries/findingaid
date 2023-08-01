@@ -95,6 +95,10 @@ label {
     content: "\e080";
 }
 
+.panel-title a {
+    color: #337ab7 !important;
+}
+
 .toplink {
     padding: 1em;
     float: right;
