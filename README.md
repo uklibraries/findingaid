@@ -77,7 +77,7 @@ commands might require you to become root.
 Copyright
 ---------
 
-This program is Copyright (C) 2016 MLE Slone.  For details, consult
+This program is Copyright (C) 2016-2023 MLE Slone.  For details, consult
 LICENSE.txt.
 
 This program uses the following libraries:
