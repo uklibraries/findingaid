@@ -49,11 +49,11 @@ must be arranged in a
 [PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy.
 The files are not pure EAD, but must be preprocessed using a different
 program.  For an example, install the
-[sample data](https://nyx.uky.edu/fa/findingaid/xml.tar.gz)
+[sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz)
 (which expands to just shy of a gigabyte):
 
     ```shell
-    wget https://nyx.uky.edu/fa/findingaid/xml.tar.gz
+    wget https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz
     tar zxf xml.tar.gz
     ```
 
@@ -77,7 +77,7 @@ commands might require you to become root.
 Copyright
 ---------
 
-This program is Copyright (C) 2016-2023 MLE Slone.  For details, consult
+This program is Copyright (C) 2016-2024 MLE Slone.  For details, consult
 LICENSE.txt.
 
 This program uses the following libraries:
