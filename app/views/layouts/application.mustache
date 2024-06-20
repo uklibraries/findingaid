@@ -19,13 +19,14 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23584444-4"></script>
 </head>
 <body>
-  {{> nav}}
   <div id="content">
   {{> maintenance_notice}}
   <div class='container-fluid'>
     <div class='row'>
       {{{content}}}
       <div class="tab-content">
+        {{> advance_note}}
+        {{> nav}}
         <div id="metadata" class="tab-pane fade active in">
           {{{toc}}}
         </div>
