@@ -1,3 +1,5 @@
+import jQuery from "./jquery.js";
+import lity from "./lity.esm.js";
 (function() {
     var $ = jQuery;
     var current_image = null;

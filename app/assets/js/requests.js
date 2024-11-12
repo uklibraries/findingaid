@@ -1,3 +1,4 @@
+import jQuery from "./jquery.js";
 var requests = (function() {
     var $ = jQuery;
     var count = 0;
