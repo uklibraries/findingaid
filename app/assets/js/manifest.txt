@@ -8,5 +8,4 @@ jquery.unveil.js
 reveal.js
 mediaelementplayer.min.js
 requests.js
-search.js
 ui.js
