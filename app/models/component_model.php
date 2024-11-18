@@ -139,6 +139,7 @@ class ComponentModel extends Model
         $aspects = array();
         $section = array();
         $section_ids = array();
+        $section_id_for = array();
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
             $aspect = array(
@@ -155,11 +156,13 @@ class ComponentModel extends Model
             $aspect['id'] = $id;
 
             if (isset($attributes['parent'])) {
-                $id = trim($attributes['parent']);
-                $aspect['id'] = $id;
-                $section[$id][] = $aspect;
+                $pid = trim($attributes['parent']);
+                $ancestor = $section_id_for[$pid];
+                $section_id_for[$id] = $ancestor;
+                $section[$ancestor][] = $aspect;
             }
             else {
+                $section_id_for[$id] = $id;
                 $section[$id] = array($aspect);
                 $section_ids[] = $id;
             }
