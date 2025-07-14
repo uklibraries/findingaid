@@ -74,6 +74,15 @@ commands might require you to become root.
     ln -s /path/to/findingaid/public ./findingaid
     ```
 
+Installation with Docker
+------------------------
+If your usecase is development, the docker-compose.yml file will start an NGINX container with the appropriate volumes for development.
+
+The only prerequisite is that you install your finding aid data set in the xml directory.  The finding aids must be arranged in a
+[PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy. The files are not pure EAD, but must be preprocessed using a different program.  For an emample, install the [sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz) (which expands to just shy of a gigabyte).
+
+Once your findingaids are installed, use `docker compose up` to start your development environment.
+
 Copyright
 ---------
 

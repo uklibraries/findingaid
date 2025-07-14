@@ -1,0 +1,7 @@
+.git
+.gitignore
+.env
+nginx
+nginx/*
+xml
+xml/*
