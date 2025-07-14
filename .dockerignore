@@ -5,3 +5,7 @@ nginx
 nginx/*
 xml
 xml/*
+dockerfile
+docker-compose.yml
+README.md
+LICENSE.txt
