@@ -1,6 +1,9 @@
 #!/bin/sh
-set -euo
-CACHE_DIR="/public/cache"
+set -eu
+PUBLIC_DIR="/public"
+CACHE_DIR="$PUBLIC_DIR/cache"
+
+chmod 755 "$PUBLIC_DIR"
 
 umask 002
 mkdir -p "$CACHE_DIR"
