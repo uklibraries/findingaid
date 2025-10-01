@@ -1,9 +1,9 @@
 FROM alpine:3.20 AS jsmin
 
 RUN apk add --no-cache \
-	git \
-	gcc \
-	libc-dev
+    git \
+    gcc \
+    libc-dev
 
 RUN git clone https://github.com/douglascrockford/JSMin /tmp/jsmin && \
     gcc /tmp/jsmin/jsmin.c -o /usr/bin/jsmin && \
