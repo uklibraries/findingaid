@@ -1,71 +1,61 @@
-FROM alpine:3.20 AS builder
+FROM alpine:3.20 AS jsmin
 
 RUN apk add --no-cache \
 	git \
 	gcc \
 	libc-dev
 
-WORKDIR /tmp
+RUN git clone https://github.com/douglascrockford/JSMin /tmp/jsmin && \
+    gcc /tmp/jsmin/jsmin.c -o /usr/bin/jsmin && \
+    rm -rf /tmp/jsmin
 
-RUN git clone https://github.com/douglascrockford/JSMin && \
-	cd JSMin && \
-	gcc jsmin.c -o jsmin && \
-	mv jsmin /usr/bin/jsmin
+FROM php:8.0-fpm-alpine AS development
 
-FROM php:8.0-fpm-alpine AS deps
-
+# add other deps for dev here
 RUN apk add --no-cache \
-	libzip-dev
+    libzip-dev \
+    bash
 
-RUN docker-php-ext-install zip
+COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
+COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 
-COPY --from=composer:lts /usr/bin/composer /usr/bin/composer
-COPY --from=builder /usr/bin/jsmin /usr/bin/jsmin
-
-WORKDIR /app
+WORKDIR /
 
 COPY ./composer.json .
 COPY ./composer.lock .
 
-FROM deps AS dev
-
-# add other packages needed for dev here
-RUN apk add --no-cache bash
-
-WORKDIR /app
-
 RUN composer install --no-interaction
 
-COPY . .
+COPY exe/build.sh /exe/build.sh
 
-RUN bash exe/build.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN mkdir -p public/cache && \
-	chown -R www-data:www-data public/cache
-
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 EXPOSE 9000
+CMD ["php-fpm", "-F"]
 
-CMD ["php-fpm"]
+FROM php:8.0-fpm-alpine AS prod-builder
 
-FROM deps AS prod
+RUN apk add --no-cache bash
 
-RUN apk add --no-cache \
-	bash
+COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
+COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 
 WORKDIR /app
 
-RUN composer install --no-dev --no-interaction
-
 COPY . .
 
-RUN mkdir -p public/cache && \
-	chown -R www-data:www-data public/cache
+FROM php:8.0-fpm-alpine AS production
 
-RUN bash exe/build.sh
+WORKDIR /app
 
-USER www-data
+COPY --from=prod-builder /app .
 
-# Will be overwritten by docker-compose if port is specified there
+COPY exe/build.sh /exe/build.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 EXPOSE 9000
-
-CMD ["php-fpm"]
+CMD ["php-fpm", "-F"]
