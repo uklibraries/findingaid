@@ -1,5 +1,5 @@
-.fa-toc {
-}
+/**.fa-toc {
+}**/
 
 .fa-request.fa-requestable-toc {
     display: block;
@@ -10,8 +10,8 @@
     float: right;
 }
 
-.fa-request-summary {
-}
+/**.fa-request-summary {
+}**/
 
 .fa-request-summary-note {
     font-style: italic;
@@ -124,7 +124,15 @@ label {
 }
 
 .alert-warning {
-    color: #654f2a;
+    background-color: #EFF4FD;
+    border-left: 7px solid #1E8AFF;
+    border: none;
+    padding: 1rem;
+    color: #000000;
+}
+
+.alert-warning a {
+    color: #0033a0;
 }
 
 .alert-harmful {
