@@ -3,10 +3,10 @@ class Overview extends Controller
 {
     private $templates;
 
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         parent::__construct($params);
-        $templates = array();
+        $templates = [];
     }
 
     public function show()
@@ -29,47 +29,47 @@ class Overview extends Controller
         $model = new OverviewModel($this->params['id']);
 
         if ($model->exists) {
-            $options = array(
-                'panels' => array(),
+            $options = [
+                'panels' => [],
                 'title' => fa_brevity($model->title()),
-            );
+            ];
 
-            $css_hrefs = array(
+            $css_hrefs = [
                 "css/bootstrap.min.css",
                 "css/jquery-ui.min.css",
                 "css/extra.css",
                 "css/footer.css",
                 "css/lity.min.css",
                 "css/mediaelementplayer.min.css",
-            );
+            ];
 
-            $css = array();
+            $css = [];
             foreach ($css_hrefs as $href) {
-                $css[] = array('href' => $href);
+                $css[] = ['href' => $href];
             }
 
-            $layout = new Mustache_Engine(array(
+            $layout = new Mustache_Engine([
                 'partials_loader' => new Mustache_Loader_FilesystemLoader(
                     implode(
                         DIRECTORY_SEPARATOR,
-                        array(
+                        [
                             APP,
                             'views',
                             'layouts',
-                        )
+                        ]
                     )
                 ),
-            ));
+            ]);
             $page = $layout->render(
                 load_template('layouts/overview'),
-                array(
+                [
                     'title' => $model->title(),
                     'bioghist' => $model->bioghist(),
                     'scopecontent' => $model->scopecontent(),
                     #'content' => $content,
                     'css' => $css,
                     #'title' => $model->title(),
-                )
+                ]
             );
         }
 

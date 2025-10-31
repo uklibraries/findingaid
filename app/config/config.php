@@ -1,25 +1,25 @@
 <?php
 class Config
 {
-    private $config = array();
-    private $repo = array();
+    private $config = [];
+    private $repo = [];
     private $nonuk = null;
 
     public function __construct()
     {
-        $config_file = implode(DIRECTORY_SEPARATOR, array(
+        $config_file = implode(DIRECTORY_SEPARATOR, [
             APP,
             'config',
             'config.json',
-        ));
+        ]);
         if (file_exists($config_file)) {
             $this->config = json_decode(file_get_contents($config_file), true);
         }
-        $repo_file = implode(DIRECTORY_SEPARATOR, array(
+        $repo_file = implode(DIRECTORY_SEPARATOR, [
             APP,
             'config',
             'repo.json',
-        ));
+        ]);
         if (file_exists($repo_file)) {
             $this->repo = json_decode(file_get_contents($repo_file), true);
         }
@@ -48,11 +48,11 @@ class Config
     public function get_nonuk($key)
     {
         if (!isset($this->nonuk)) {
-            $nonuk_config_file = implode(DIRECTORY_SEPARATOR, array(
+            $nonuk_config_file = implode(DIRECTORY_SEPARATOR, [
                 APP,
                 'config',
                 'nonuk-metadata.json',
-            ));
+            ]);
             if (file_exists($nonuk_config_file)) {
                 $this->nonuk = json_decode(file_get_contents($nonuk_config_file), true);
             }

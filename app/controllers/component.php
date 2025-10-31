@@ -1,7 +1,7 @@
 <?php
 class Component extends Controller
 {
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         parent::__construct($params);
     }
@@ -14,20 +14,20 @@ class Component extends Controller
 
     public function render()
     {
-        $m = new Mustache_Engine(array(
+        $m = new Mustache_Engine([
             'partials_loader' => new Mustache_Loader_FilesystemLoader(
                 implode(
                     DIRECTORY_SEPARATOR,
-                    array(
+                    [
                         APP,
                         'views',
                         'findingaid',
-                    )
+                    ]
                 )
             ),
-        ));
+        ]);
 
-        $pieces = explode('_', $this->params['id']);
+        $pieces = explode('_', (string) $this->params['id']);
         $id = $pieces[0];
         $component_id = $pieces[1];
         $model = new ComponentModel($id, $component_id);
@@ -35,24 +35,24 @@ class Component extends Controller
         $container_list_template = load_template('findingaid/container_list');
         $component_template = load_template('findingaid/component');
 
-        $container_lists = array();
+        $container_lists = [];
         foreach ($model->container_lists() as $container_list) {
             $container_list_content = $m->render(
                 $container_list_template,
                 $container_list
             );
-            $container_lists[] = array(
+            $container_lists[] = [
                 'container_list' => $container_list_content,
-            );
+            ];
         }
 
         $subcomponents = $model->subcomponents();
-        $subcomponent_content = array();
+        $subcomponent_content = [];
         foreach ($model->subcomponents() as $subcomponent) {
-            $subcomponent_content[] = array(
+            $subcomponent_content[] = [
                 'subcomponent' => $m->render(
                     $component_template,
-                    array(
+                    [
                         'label' => fa_brevity($subcomponent->title()),
                         'collapsible' => true,
                         'bioghist_head' => $model->bioghistHead(),
@@ -61,14 +61,14 @@ class Component extends Controller
                         'scopecontent' => $subcomponent->scopecontent(),
                         'processinfo_head' => $model->processinfoHead(),
                         'processinfo' => $subcomponent->processinfo(),
-                    )
+                    ]
                 ),
-            );
+            ];
         }
 
         $component_content = $m->render(
             $component_template,
-            array(
+            [
                 'label' => fa_brevity($model->title()),
                 'collapsible' => true,
                 'container_lists' => $container_lists,
@@ -79,18 +79,18 @@ class Component extends Controller
                 'processinfo_head' => $model->processinfoHead(),
                 'processinfo' => $model->processinfo(),
                 'subcomponents' => $subcomponent_content,
-            )
+            ]
         );
 
-        return array(
+        return [
             $component_content,
-            array(
+            [
                 'level' => (string)$model->level(),
-                'metadata' => array(
+                'metadata' => [
                     'label' => fa_brevity($model->title()),
                     'id' => 'demo_id',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }
