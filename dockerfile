@@ -44,7 +44,7 @@ COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 
 WORKDIR /app
 
-COPY . .
+COPY ./app .
 
 FROM php:8.0-fpm-alpine AS production
 
