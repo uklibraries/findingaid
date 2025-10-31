@@ -8,3 +8,4 @@ misc/
 public/minimal*
 public/cache
 is_prod
+.phpunit.result.cache
