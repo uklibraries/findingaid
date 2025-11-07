@@ -42,15 +42,18 @@ RUN apk add --no-cache bash
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 
-WORKDIR /app
+WORKDIR /composer
+
 COPY ./composer.json .
 COPY ./composer.lock .
 
 RUN composer install --no-interaction --no-dev
 
+WORKDIR /app
+
 COPY ./app .
 
-FROM php:8.3-fpm-alpine as CI
+FROM php:8.3-fpm-alpine AS ci
 
 RUN apk add --no-cache \
     libzip-dev \
@@ -76,7 +79,7 @@ FROM php:8.3-fpm-alpine AS production
 WORKDIR /app
 
 COPY --from=prod-builder /app .
-COPY --from=prod-builder /vendor /vendor
+COPY --from=prod-builder /composer/vendor /vendor
 
 COPY exe/build.sh /exe/build.sh
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
