@@ -3,22 +3,14 @@
 function fa_render($fragment)
 {
     $node = dom_import_simplexml($fragment);
-    $segments = array();
+    $segments = [];
     foreach ($node->childNodes as $child) {
-        switch ($child->nodeName) {
-            case 'emph':
-                $segments[] = fa_render_title($child);
-                break;
-            case 'extref':
-                $segments[] = fa_render_extref($child);
-                break;
-            case 'title':
-                $segments[] = fa_render_title($child);
-                break;
-            default:
-                $segments[] = $child->textContent;
-                break;
-        }
+        $segments[] = match ($child->nodeName) {
+            'emph' => fa_render_title($child),
+            'extref' => fa_render_extref($child),
+            'title' => fa_render_title($child),
+            default => $child->textContent,
+        };
     }
     return trim(implode('', $segments));
 }
@@ -27,17 +19,11 @@ function fa_render_title($node)
 {
     $render = '';
     if ($node->hasAttribute('render')) {
-        switch ($node->getAttribute('render')) {
-            case 'italic':
-                $render = '<i>' . $node->textContent . '</i>';
-                break;
-            case 'doublequote':
-                $render = '"' . $node->textContent . '"';
-                break;
-            default:
-                $render = '"' . $node->textContent . '"';
-                break;
-        }
+        $render = match ($node->getAttribute('render')) {
+            'italic' => '<i>' . $node->textContent . '</i>',
+            'doublequote' => '"' . $node->textContent . '"',
+            default => '"' . $node->textContent . '"',
+        };
     } else {
         $render = $node->textContent;
     }
@@ -64,7 +50,7 @@ function fa_render_extref_ns($node, $ns)
     $href_attr = 'href';
     $show_attr = 'show';
 
-    if (strlen($ns) > 0) {
+    if (strlen((string) $ns) > 0) {
         $href_attr = "$ns:href";
         $show_attr = "$ns:show";
     }
