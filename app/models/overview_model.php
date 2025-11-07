@@ -1,13 +1,11 @@
 <?php
 class OverviewModel extends Model
 {
-    protected $id = null;
     public $path = null;
     public $exists = false;
 
-    public function __construct($id)
+    public function __construct(protected $id)
     {
-        $this->id = $id;
         $header_file = $this->ppath() . DIRECTORY_SEPARATOR . "header.xml";
         if (file_exists($header_file)) {
             $this->xml = new SimpleXMLElement(file_get_contents($header_file));
@@ -22,17 +20,17 @@ class OverviewModel extends Model
 
     public function bioghist()
     {
-        $result = array();
+        $result = [];
         foreach ($this->xml->collection_overview->bioghist->p as $p) {
-            $result[] = array('text' => $p);
+            $result[] = ['text' => $p];
         }
         return $result;
     }
 
     public function scopecontent() {
-        $result = array();
+        $result = [];
         foreach ($this->xml->collection_overview->scopecontent->p as $p) {
-            $result[] = array('text' => $p);
+            $result[] = ['text' => $p];
         }
         return $result;
     }

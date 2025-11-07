@@ -7,25 +7,25 @@ if (!defined('ROOT')) {
     define('ROOT', dirname(__DIR__));
 }
 
-define('APP', implode(DIRECTORY_SEPARATOR, array(
+define('APP', implode(DIRECTORY_SEPARATOR, [
     ROOT,
     'app',
-)));
+]));
 
-define('CACHE_DIR', implode(DIRECTORY_SEPARATOR, array(
+define('CACHE_DIR', implode(DIRECTORY_SEPARATOR, [
     ROOT,
     'public',
     'cache',
-)));
+]));
 
 function get_template($path)
 {
-    $dir = implode(DIRECTORY_SEPARATOR, array(
+    $dir = implode(DIRECTORY_SEPARATOR, [
         APP,
         'views',
-    ));
-    $pieces = array($dir);
-    foreach (explode('/', $path) as $piece) {
+    ]);
+    $pieces = [$dir];
+    foreach (explode('/', (string) $path) as $piece) {
         $pieces[] = $piece;
     }
     $file = implode(DIRECTORY_SEPARATOR, $pieces) . '.mustache';
@@ -43,8 +43,8 @@ function load_template($path)
 
 function get_path($dir, $path)
 {
-    $pieces = array($dir);
-    foreach (explode('/', $path) as $piece) {
+    $pieces = [$dir];
+    foreach (explode('/', (string) $path) as $piece) {
         $pieces[] = $piece;
     }
     $file = implode(DIRECTORY_SEPARATOR, $pieces) . '.php';
@@ -64,10 +64,10 @@ function get_cache($id)
     if (!file_exists(CACHE_DIR)) {
         mkdir(CACHE_DIR);
     }
-    $cache_file = implode(DIRECTORY_SEPARATOR, array(
+    $cache_file = implode(DIRECTORY_SEPARATOR, [
         CACHE_DIR,
         $id,
-    ));
+    ]);
     if (file_exists($cache_file)) {
         return $cache_file;
     }
@@ -90,10 +90,10 @@ function set_cache($id, $page)
     if (!file_exists(CACHE_DIR)) {
         mkdir(CACHE_DIR);
     }
-    $cache_file = implode(DIRECTORY_SEPARATOR, array(
+    $cache_file = implode(DIRECTORY_SEPARATOR, [
         CACHE_DIR,
         $id,
-    ));
+    ]);
     file_put_contents($cache_file, $page);
 }
 

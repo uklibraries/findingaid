@@ -1,17 +1,13 @@
 <?php
 class ComponentModel extends Model
 {
-    protected $id;
-    protected $subcomponents = array();
-    private $component_id;
+    protected $subcomponents = [];
     private $basename;
 
-    public function __construct($id, $component_id)
+    public function __construct(protected $id, private $component_id)
     {
         global $g_config;
-        $this->id = $id;
-        $this->component_id = $component_id;
-        $this->basename = $id . '_' . $this->component_id . '.xml';
+        $this->basename = $this->id . '_' . $this->component_id . '.xml';
         $this->config = $g_config;
         $component_file = $this->ppath() . DIRECTORY_SEPARATOR . $this->basename;
         if (file_exists($component_file)) {
@@ -22,19 +18,19 @@ class ComponentModel extends Model
         foreach ($this->xpath($contents_config['component']) as $c) {
             $cattrs = $c->attributes();
             $cid = $cattrs['id'];
-            $this->subcomponents[] = new ComponentModel($id, $cid);
+            $this->subcomponents[] = new ComponentModel($this->id, $cid);
         }
     }
 
     public function links()
     {
         global $g_minter;
-        $pieces = array();
+        $pieces = [];
         if (count($this->xpath('did/dao')) > 0) {
             $pieces = $this->xpath('did/dao');
         }
-        $results = array();
-        $links_raw = array();
+        $results = [];
+        $links_raw = [];
         foreach ($pieces as $piece) {
             $dao = $piece['entityref'];
             $links_file = $this->ppath() . DIRECTORY_SEPARATOR . $dao . '.json';
@@ -43,12 +39,12 @@ class ComponentModel extends Model
                 break;
             }
         }
-        $links = array();
+        $links = [];
         $thumb_count = 0;
         $ref_count = 0;
         $image_threshold = 5;
         foreach ($links_raw as $link_raw) {
-            $link = array();
+            $link = [];
             foreach ($link_raw['links'] as $use => $href) {
                 $use = str_replace(' ', '_', $use);
                 switch ($use) {
@@ -61,7 +57,7 @@ class ComponentModel extends Model
                         $field = 'image_overflow';
                     }
                     if (empty($link[$field])) {
-                        $link[$field] = array();
+                        $link[$field] = [];
                     }
                     $link[$field]['thumb'] = $href;
                     break;
@@ -74,21 +70,21 @@ class ComponentModel extends Model
                         $field = 'image_overflow';
                     }
                     if (empty($link[$field])) {
-                        $link[$field] = array();
+                        $link[$field] = [];
                     }
                     $link[$field]['full'] = $href;
                     $link[$field]['href_id'] = $g_minter->mint();
                     break;
                 case 'reference_audio':
                     if (empty($link['audio'])) {
-                        $link['audio'] = array();
+                        $link['audio'] = [];
                     }
                     $link['audio']['href'] = $href;
                     $link['audio']['href_id'] = $g_minter->mint();
                     break;
                 case 'reference_video':
                     if (empty($link['video'])) {
-                        $link['video'] = array();
+                        $link['video'] = [];
                     }
                     $link['video']['href'] = $href;
                     $link['video']['href_id'] = $g_minter->mint();
@@ -100,14 +96,14 @@ class ComponentModel extends Model
             $links[] = $link;
         }
         if (($thumb_count > $image_threshold) || ($ref_count > $image_threshold)) {
-            $links[] = array('extra' => true);
+            $links[] = ['extra' => true];
         }
         return $links;
     }
 
     public function title()
     {
-        $pieces = array();
+        $pieces = [];
         if (count($this->xpath('did/unitdate')) > 0) {
             $pieces = array_merge(
                 $pieces,
@@ -118,7 +114,7 @@ class ComponentModel extends Model
         else {
             $pieces = array_merge($pieces, $this->xpath('did/unittitle'));
         }
-        $segments = array();
+        $segments = [];
         foreach ($pieces as $piece) {
             $segments[] = fa_render($piece);
         }
@@ -127,31 +123,31 @@ class ComponentModel extends Model
 
     public function container_lists()
     {
-        $container_lists = array();
-        $order = array();
-        $containers = array();
+        $container_lists = [];
+        $order = [];
+        $containers = [];
         $contents_config = $this->config->get('contents');
-        $buckets = array();
-        $bucket = array();
-        $cache = array();
+        $buckets = [];
+        $bucket = [];
+        $cache = [];
         $tagged = null;
 
-        $aspects = array();
-        $section = array();
-        $section_ids = array();
-        $section_id_for = array();
+        $aspects = [];
+        $section = [];
+        $section_ids = [];
+        $section_id_for = [];
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
-            $aspect = array(
+            $aspect = [
                 'type'    => $this->container_type($attributes),
                 'content' => (string)$container,
-            );
+            ];
 
             if (isset($attributes['id'])) {
                 $id = trim($attributes['id']);
             }
             else {
-                $id = md5($container->asXML());
+                $id = md5((string) $container->asXML());
             }
             $aspect['id'] = $id;
 
@@ -163,13 +159,13 @@ class ComponentModel extends Model
             }
             else {
                 $section_id_for[$id] = $id;
-                $section[$id] = array($aspect);
+                $section[$id] = [$aspect];
                 $section_ids[] = $id;
             }
         }
 
         foreach ($section_ids as $id) {
-            $bucket = array();
+            $bucket = [];
             foreach ($section[$id] as $thing) {
                 $bucket[] = $thing;
             }
@@ -183,7 +179,7 @@ class ComponentModel extends Model
             foreach ($buckets as $bucket) {
                 if (count($bucket) > 0) {
                     $request_target = "fa-request-target-" . md5(json_encode($bucket));
-                    $container_list_pieces = array();
+                    $container_list_pieces = [];
                     $first = true;
                     foreach ($bucket as $aspect) {
                         $piece = $aspect['type'] . ' ' . $aspect['content'];
@@ -198,7 +194,7 @@ class ComponentModel extends Model
                     $full_container_list = fa_brevity($summary . ': '. $this->title(), FA_AEON_MAX);
                     array_shift($container_list_pieces);
                     $rest = implode(', ', $container_list_pieces);
-                    $container_list = array(
+                    $container_list = [
                         'id'             => $request_target,
                         'summary'        => $summary,
                         'volume'         => $volume,
@@ -206,7 +202,7 @@ class ComponentModel extends Model
                         'container_list' => $full_container_list,
                         'active'         => $active,
                         'inactive'       => $inactive,
-                    );
+                    ];
                     $container_lists[] = $container_list;
                 }
             }
@@ -252,9 +248,9 @@ class ComponentModel extends Model
 
     public function render_paragraphs($p_list)
     {
-        $render = array();
+        $render = [];
         foreach ($p_list as $p) {
-            $render[] = array('p' => fa_render($p));
+            $render[] = ['p' => fa_render($p)];
         }
         return $render;
     }

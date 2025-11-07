@@ -5,11 +5,11 @@ class Model
 
     protected function ppath()
     {
-        $array = array(
+        $array = [
             ROOT,
             'xml',
             'pairtree_root',
-        );
+        ];
         $tree = $this->id;
         while (strlen($tree) >= 2) {
           $prefix = substr($tree, 0, 2);

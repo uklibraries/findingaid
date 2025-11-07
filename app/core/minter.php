@@ -2,12 +2,10 @@
 class Minter
 {
     private $counter;
-    private $base;
 
-    public function __construct($base)
+    public function __construct(private $base)
     {
         $this->counter = 0;
-        $this->base = $base;
     }
 
     public function mint()
