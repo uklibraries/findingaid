@@ -1,6 +1,7 @@
 name: Publish release
 on:
-  push: [dev]
+  push:
+    branches: [dev]
 
 permissions:
   contents: read
