@@ -128,25 +128,33 @@ label {
     background-color: #EFF4FD;
     border-left: 7px solid #1E8AFF;
     padding: 1rem;
-    display: flex;
     align-items: center;
-    
-    &h2 {
+    color:#000000
+}
+.in-page-alert h2 {
+        text-transform: uppercase;
+        font-size: 1.75rem;
+        font-weight: 900;
+        margin-top: 0;
+        color: #0033A0;
+        line-height: 1.2;
+}
+.in-page-alert h3 {
         text-transform: uppercase;
         font-size: 1.5rem;
-        font-weight: 900;
+        font-weight: 500;
+        margin-bottom: 5px;
+        margin-top: 10px;
         color: #0033A0;
-        margin: 0;
         line-height: 1.2;
-    }
-
-    &a {
+        
+}
+.in-page-alert a {
         color: #000000;
-        /*transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;*/
-    }
-    &a:hover {
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.in-page-alert a:hover {
         color: #0033a0; 
-    }
 }
 
 /*.alert-warning a {
