@@ -129,11 +129,22 @@ label {
     border: none;
     padding: 1rem;
     color: #000000;
+
+    &a {
+        color: #000000;
+        /*transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;*/
+    }
+    &a:hover {
+        color: #0033a0; 
+    }
 }
 
-.alert-warning a {
-    color: #0033a0;
+/*.alert-warning a {
+    color: #000000;
 }
+.alert-warning a:hover {
+    color: #1E8AFF;
+}*/
 
 .alert-harmful {
     background: #b1c9e8;
