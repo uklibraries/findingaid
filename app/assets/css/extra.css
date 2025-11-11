@@ -123,40 +123,6 @@ label {
     height: 80vh;
 }
 
-/* styling to match UK's in-page alert*/
-.in-page-alert {
-    background-color: #EFF4FD;
-    border-left: 7px solid #1E8AFF;
-    padding: 1rem;
-    align-items: center;
-    color:#000000
-}
-.in-page-alert h2 {
-        text-transform: uppercase;
-        font-size: 1.75rem;
-        font-weight: 900;
-        margin-top: 0;
-        color: #0033A0;
-        line-height: 1.2;
-}
-.in-page-alert h3 {
-        text-transform: uppercase;
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-bottom: 5px;
-        margin-top: 10px;
-        color: #0033A0;
-        line-height: 1.2;
-        
-}
-.in-page-alert a {
-        color: #000000;
-        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-}
-.in-page-alert a:hover {
-        color: #0033a0; 
-}
-
 /*.alert-warning a {
     color: #000000;
 }
@@ -183,3 +149,62 @@ label {
 .green-alert-text {
     color: #246024;
 }
+
+/* Link styles */
+a {
+    color: #000000;
+}
+
+/* UK LIMESTONE STYLES */
+/* Styling to match Limestone's Underline Link */
+a.underline-link {
+    color:#000000;
+    background-attachment: scroll;
+    background-image: linear-gradient(to top,rgba(161,211,237,0.4) 0,rgba(161,211,237,0.4) 0.5em,transparent 0.5em,transparent 110%),linear-gradient(to top,rgba(0,51,160,0.4) 0,rgba(0,51,160,0.4) 2px,transparent 2px,transparent 100%);
+    background-repeat: no-repeat;
+    background-position: 0 0.5em, 0 0;
+    position: relative;
+    transition: 0.2s background-position ease-out;
+    font-weight: 300;
+    z-index: 1;
+    text-decoration: none;
+}
+
+a:hover.underline-link {
+    color:#0033A0;
+    background-position: 0 0, 1000px 2px;
+}
+
+/* styling to match central webcom's in-page alert*/
+.in-page-alert {
+    background-color: #EFF4FD;
+    border-left: 7px solid #1E8AFF;
+    padding: 1rem;
+    align-items: center;
+    color:#000000
+}
+.in-page-alert h2 {
+        text-transform: uppercase;
+        font-size: 1.75rem;
+        font-weight: 900;
+        margin-top: 0;
+        color: #0033A0;
+        line-height: 1.2;
+}
+.in-page-alert h3 {
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        color: #0033A0;
+        line-height: 1.2;
+        
+}
+/* .in-page-alert a {
+        color: #000000;
+        transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+.in-page-alert a:hover {
+        color: #0033a0; 
+} */
