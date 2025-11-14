@@ -2,21 +2,13 @@ services:
   findingaid:
     build:
       context: .
-      target: development
     volumes:
       - ./app:/opt/findingaid/app
-      - ./xml:/opt/findingaid/xml
       - ./public:/opt/findingaid/public
+      - ./xml:/opt/findingaid/xml
+      - ./tests:/tests
     networks:
       - app_net
-    environment:
-      APP_ENV: development
-    develop:
-      watch:
-        - action: restart
-          path: ./app/assets/js
-          target: /opt/findingaid/app/assets/js
-
   web:
     image: nginx:1.29.0
     ports:
@@ -29,6 +21,9 @@ services:
       - app_net
     depends_on:
       - findingaid
+volumes:
+  app:
+  public:
 
 networks:
     app_net:

@@ -1,0 +1,11 @@
+services:
+  findingaid:
+    build:
+      target: development
+    environment:
+      APP_ENV: development
+    develop:
+      watch:
+        - action: restart
+          path: ./app/assets/js
+          target: /opt/findingaid/app/assets/js
