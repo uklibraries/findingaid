@@ -4,22 +4,26 @@ services:
       context: .
       target: development
     volumes:
-      - ./app:/app
-      - ./public:/public
-      - cache:/public/cache
-      - ./xml:/xml
-      - vendor:/vendor
+      - ./app:/opt/findingaid/app
+      - ./xml:/opt/findingaid/xml
+      - ./public:/opt/findingaid/public
     networks:
       - app_net
+    environment:
+      APP_ENV: development
+    develop:
+      watch:
+        - action: restart
+          path: ./app/assets/js
+          target: /opt/findingaid/app/assets/js
 
   web:
     image: nginx:1.29.0
     ports:
       - 8080:80
     volumes:
-      - ./app:/app
-      - ./public:/public
-      - cache:/public/cache
+      - ./app:/opt/findingaid/app
+      - ./public:/opt/findingaid/public
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - app_net
@@ -29,7 +33,3 @@ services:
 networks:
     app_net:
         driver: bridge
-
-volumes:
-  vendor:
-  cache:

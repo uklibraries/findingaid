@@ -9,3 +9,5 @@ dockerfile
 docker-compose.yml
 README.md
 LICENSE.txt
+public/cache
+pubic/js/app.js

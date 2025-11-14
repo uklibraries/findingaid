@@ -19,14 +19,14 @@ RUN apk add --no-cache \
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 
-WORKDIR /
+WORKDIR /opt/findingaid
 
 COPY ./composer.json .
 COPY ./composer.lock .
 
 RUN composer install --no-interaction
 
-COPY exe/build.sh /exe/build.sh
+COPY /exe ./exe
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -49,10 +49,6 @@ COPY ./composer.lock .
 
 RUN composer install --no-interaction --no-dev
 
-WORKDIR /app
-
-COPY ./app .
-
 FROM php:8.3-fpm-alpine AS ci
 
 RUN apk add --no-cache \
@@ -62,11 +58,11 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
-COPY --from=prod-builder /app .
 COPY --from=development /vendor /vendor
 COPY ./phpunit.xml /phpunit.xml
+COPY /app .
 
-COPY exe/build.sh /exe/build.sh
+COPY exe/build.sh /opt/findingaid/exe/build.sh
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
@@ -76,14 +72,23 @@ CMD ["php-fpm", "-F"]
 
 FROM php:8.3-fpm-alpine AS production
 
-WORKDIR /app
+RUN apk add --no-cache \
+    libzip-dev \
+    bash
 
-COPY --from=prod-builder /app .
-COPY --from=prod-builder /composer/vendor /vendor
+COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
+COPY --from=prod-builder /composer/vendor /opt/findingaid/vendor
 
-COPY exe/build.sh /exe/build.sh
+WORKDIR /opt/findingaid
+
+COPY ./app ./app
+COPY ./public ./public
+COPY ./exe ./exe
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN ./exe/build.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 EXPOSE 9000
