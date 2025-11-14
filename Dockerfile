@@ -58,8 +58,8 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
-COPY --from=development /vendor /vendor
-COPY ./phpunit.xml /phpunit.xml
+COPY --from=development /opt/findingaid/vendor /opt/findingaid/vendor
+COPY ./phpunit.xml /opt/findingaid/phpunit.xml
 COPY /app .
 
 COPY exe/build.sh /opt/findingaid/exe/build.sh

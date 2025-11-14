@@ -6,9 +6,11 @@ services:
       - ./app:/opt/findingaid/app
       - ./public:/opt/findingaid/public
       - ./xml:/opt/findingaid/xml
-      - ./tests:/tests
+      - ./tests:/opt/findingaid/tests
+      - ./phpunit.xml:/opt/findingaid/phpunit.xml
     networks:
       - app_net
+
   web:
     image: nginx:1.29.0
     ports:
@@ -21,6 +23,7 @@ services:
       - app_net
     depends_on:
       - findingaid
+
 volumes:
   app:
   public:

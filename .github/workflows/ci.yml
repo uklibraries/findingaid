@@ -46,7 +46,7 @@ jobs:
         run: docker compose logs
 
       - name: Run linting inside app container
-        run: docker compose run --rm -T findingaid /vendor/bin/phpcs -w --exclude=Generic.Files.LineLength --standard=PSR12 /tests /app
+        run: docker compose run --rm -T findingaid /opt/findingaid/vendor/bin/phpcs -w --exclude=Generic.Files.LineLength --standard=PSR12 /opt/findingaid/tests /opt/findingaid/app
 
       - name: Teardown
         if: always()
@@ -72,7 +72,7 @@ jobs:
         run: docker compose logs
 
       - name: Run tests inside app container
-        run: docker compose run --rm -T findingaid /vendor/bin/phpunit -c /phpunit.xml /tests
+        run: docker compose run --rm -T findingaid /opt/findingaid/vendor/bin/phpunit -c /opt/findingaid/phpunit.xml /opt/findingaid/tests
 
       - name: Teardown
         if: always()
