@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+  {{>universal_header}}
   <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
   {{#css}}
   <link rel="stylesheet" href="{{href}}">
@@ -38,5 +39,9 @@
   </div>
   {{>footer}}
   {{>viewer}}
+
+  <!-- universal header/footer file part 2 start -->
+    <script src="https://lib.uky.edu/webparts/ukhdr/2024/js/combofootershared.js"></script>
+  <!-- universal header/footer files part 2 end -->
 </body>
 </html>
