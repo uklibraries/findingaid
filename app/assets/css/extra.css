@@ -165,7 +165,7 @@ a.underline-link {
     background-position: 0 0.5em, 0 0;
     position: relative;
     transition: 0.2s background-position ease-out;
-    font-weight: 300;
+    font-weight: 400;
     z-index: 1;
     text-decoration: none;
 }
