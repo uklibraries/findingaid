@@ -80,6 +80,14 @@ If your usecase is development, the docker-compose.yml file will start an NGINX 
 
 Once your findingaids are installed, use `docker compose up` to start your development environment.
 
+Header/footer implementation notes
+---------------------------------------------------------
+The UKLibraries specific implementation of the University branded universal and global headers, and universal footer, are semi-dynamically implemented in this project by copying a static script into `universal_header.mustache` and `universal_footer.mustache` from [UKL_HeaderFooter](https://github.com/uklibraries/UKL_HeaderFooter).  
+
+To update the site title, menu items, or to include a custom logo or search block, you must edit the [exploreukConfig.js](https://github.com/uklibraries/UKL_HeaderFooter/blob/main/js/config/sites/exploreuk/exploreukConfig.js) file in the UKL_HeaderFooter repo, and then push the updated file to [lib.uky.edu](https://lib.uky.edu/webparts/ukhdr/prod/js/config/sites/exploreuk/exploreukConfig.js).  
+
+See [UKL_HeaderFooter repo](https://github.com/uklibraries/UKL_HeaderFooter) for additional details.
+
 Copyright
 ---------
 
