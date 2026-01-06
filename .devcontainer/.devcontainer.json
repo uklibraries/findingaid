@@ -1,0 +1,48 @@
+{
+  "name": "FindingAid Dev Environment",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "../docker-compose.dev.override.yml",
+    "./docker-compose.codespaces.yml"
+  ],
+  
+  "service": "dev-host",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "overrideCommand": false,
+
+  //tell Buildx to not generate provenance metadata
+  "containerEnv": {
+    "BUILDX_NO_DEFAULT_ATTESTATIONS": "1"
+  },
+
+  //"postCreateCommand": "./.devcontainer/postCreate.sh",
+  //"postStartCommand": "./.devcontainer/postStart.sh",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "1",
+      "installDockerBuildx": true
+    }
+  },
+
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "FindingAid Web",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "bmewburn.vscode-intelephense-client"
+      ]
+    }
+  }
+}
