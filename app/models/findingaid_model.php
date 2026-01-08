@@ -3,6 +3,7 @@ class FindingaidModel extends Model
 {
     public $path = null;
     public $exists = false;
+    public $metadata;
 
     public function __construct(protected $id)
     {
