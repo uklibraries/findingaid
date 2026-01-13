@@ -3,6 +3,9 @@ class ComponentModel extends Model
 {
     protected $subcomponents = [];
     private $basename;
+    public $config;
+    public $links;
+    public $xml;
 
     public function __construct(protected $id, private $component_id)
     {

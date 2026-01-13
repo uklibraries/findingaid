@@ -198,18 +198,7 @@ class Findingaid extends Controller
                                 }
                             }
                         }
-                        $prod_indicator = implode(DIRECTORY_SEPARATOR, [
-                            ROOT,
-                            'is_prod',
-                        ]);
-                        if (file_exists($prod_indicator)) {
-                            $url = 'https://exploreuk.uky.edu/?' .
-                                $search_field . '=' . urlencode($raw_search);
-                        } else {
-                            $url = 'https://uklibbackups.net/?' .
-                                $search_field . '=' . urlencode($raw_search);
-                        }
-
+                        $url = '/?' . $search_field . '=' . urlencode($raw_search);
                     }
                     else {
                         $data = $model->xpath("//{$link['field']}");
@@ -283,7 +272,7 @@ class Findingaid extends Controller
                         'collection_id' => $model->id(),
                         'call_number' => $model->unitid(),
                         'item_date' => $model->unitdate(),
-                        'item_url' => 'https://exploreuk.uky.edu/catalog/' . $model->id() . '/',
+                        'item_url' => '/catalog/' . $model->id() . '/',
                     ]
                 );
             }
@@ -391,7 +380,7 @@ class Findingaid extends Controller
             }
             else {
                 # This is probably a deleted ExploreUK finding aid
-                header("Location: https://exploreuk.uky.edu");
+                header("Location: /");
                 die();
             }
         }

@@ -18,6 +18,7 @@ RUN apk add --no-cache \
 
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /opt/findingaid
 
@@ -78,6 +79,7 @@ RUN apk add --no-cache \
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=prod-builder /composer/vendor /opt/findingaid/vendor
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /opt/findingaid
 
