@@ -1,0 +1,6 @@
+#!/bin/bash
+WORKDIR=""
+echo "Generating list of (production) finding aids to reprocess"
+SOLR_URL="" ARKS_FILE="" fetch-ead-arks.sh
+echo "Reprocessing finding aids"
+xargs -n 1 -P 4 fa-regen <"$WORKDIR/prod.arks"
