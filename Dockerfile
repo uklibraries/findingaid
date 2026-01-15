@@ -14,7 +14,9 @@ FROM php:8.3-fpm-alpine AS development
 # add other deps for dev here
 RUN apk add --no-cache \
     libzip-dev \
-    bash
+    bash \
+    jq \
+    curl
 
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
@@ -54,7 +56,9 @@ FROM php:8.3-fpm-alpine AS ci
 
 RUN apk add --no-cache \
     libzip-dev \
-    bash
+    bash \
+    jq \
+    curl
 
 WORKDIR /app
 
@@ -75,7 +79,9 @@ FROM php:8.3-fpm-alpine AS production
 
 RUN apk add --no-cache \
     libzip-dev \
-    bash
+    bash \
+    jq \
+    curl
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=prod-builder /composer/vendor /opt/findingaid/vendor
