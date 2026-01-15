@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# The environment should provide these variables
-# TARGET_URL: e.g. https://mywebsite.example.com/
+# use docker's dns to target the web service
+TARGET_URL=http://web
 
 ID=$1
 BASE="$TARGET_URL/fa/findingaid/?id=$ID&invalidate_cache=1"
