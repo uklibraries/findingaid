@@ -1,5 +1,0 @@
-#!/bin/bash
-ID=$1
-BASE=""
-echo "$BASE"
-curl "$BASE" >/dev/null
