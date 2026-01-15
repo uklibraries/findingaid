@@ -1,5 +1,9 @@
 #!/bin/bash
+
+# The environment should provide these variables
+# TARGET_URL: e.g. https://mywebsite.example.com/
+
 ID=$1
-BASE=""
+BASE="$TARGET_URL/fa/findingaid/?id=$ID&invalidate_cache=1"
 echo "$BASE"
 curl "$BASE" >/dev/null
