@@ -3,7 +3,6 @@ set -euo pipefail
 
 # The environment should provide these variables
 # SOLR_URL: e.g. https://solrhost.example.com/solr/select
-# TARGET_URL: e.g. https://mywebsite.example.com/
 
 ARKS_FILE="$(mktemp)"
 export ARKS_FILE
@@ -11,6 +10,6 @@ export ARKS_FILE
 trap 'rm -f "$ARKS_FILE"' EXIT
 
 echo "Generating list of finding aids to reprocess"
-fetch-ead-arks.sh
+SOLR_URL=$SOLR_URL fetch-ead-arks.sh
 echo "Reprocessing finding aids"
 xargs -n 1 -P 4 fa-regen < "$ARKS_FILE"
