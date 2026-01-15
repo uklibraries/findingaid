@@ -9,7 +9,9 @@ export ARKS_FILE
 
 trap 'rm -f "$ARKS_FILE"' EXIT
 
-echo "Generating list of finding aids to reprocess"
+echo "Attempting generation of a list of finding aids to reprocess"
 SOLR_URL=$SOLR_URL fetch-ead-arks.sh
+echo "List generated"
 echo "Reprocessing finding aids"
 xargs -n 1 -P 4 fa-regen < "$ARKS_FILE"
+echo "Finding aids reprocessed"
