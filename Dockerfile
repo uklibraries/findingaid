@@ -98,6 +98,10 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN ./exe/build.sh
 
+RUN ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-regen /usr/local/bin/fa-regen && \
+  ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen /usr/local/bin/fa-full-regen && \
+  ln -s /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks.sh /usr/local/bin/fetch-ead-arks.sh
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 EXPOSE 9000
 CMD ["php-fpm", "-F"]
