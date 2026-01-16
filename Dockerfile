@@ -98,9 +98,12 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN ./exe/build.sh
 
-RUN ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-regen /usr/local/bin/fa-regen && \
-  ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen /usr/local/bin/fa-full-regen && \
-  ln -s /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks.sh /usr/local/bin/fetch-ead-arks.sh
+RUN chmod +x /opt/findingaid/exe/findingaid-cache-regen/fa-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-regen /usr/local/bin/fa-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen /usr/local/bin/fa-full-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks /usr/local/bin/fetch-ead-arks
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 EXPOSE 9000
