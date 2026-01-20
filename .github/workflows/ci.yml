@@ -1,0 +1,79 @@
+name: CI
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: docker-compose.yml:docker-compose.ci.override.yml
+      COMPOSE_PROJECT_NAME: ci-${{ github.job }}-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build services
+        run: docker compose build
+
+      - name: Show service logs if failed
+        if: failure()
+        run: docker compose logs
+
+      - name: Container runs
+        run: docker compose run --rm --no-deps -T findingaid php -v
+
+      - name: Teardown
+        if: always()
+        run: docker compose down -v --remove-orphans
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    # TODO: Fix the linting errors
+    # Report the failure, but don't stop the job
+    continue-on-error: true
+    env:
+      COMPOSE_FILE: docker-compose.yml:docker-compose.ci.override.yml
+      COMPOSE_PROJECT_NAME: ci-${{ github.job }}-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build services
+        run: docker compose build
+
+      - name: Show service logs if failed
+        if: failure()
+        run: docker compose logs
+
+      - name: Run linting inside app container
+        run: docker compose run --rm -T findingaid /opt/findingaid/vendor/bin/phpcs -w --exclude=Generic.Files.LineLength --standard=PSR12 /opt/findingaid/tests /opt/findingaid/app
+
+      - name: Teardown
+        if: always()
+        run: docker compose down -v --remove-orphans
+
+  unit-test:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      COMPOSE_FILE: docker-compose.yml:docker-compose.ci.override.yml
+      COMPOSE_PROJECT_NAME: ci-${{ github.job }}-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build services
+        run: docker compose build
+
+      - name: Start services
+        run: docker compose up -d findingaid
+
+      - name: Show service logs if failed
+        if: failure()
+        run: docker compose logs
+
+      - name: Run tests inside app container
+        run: docker compose run --rm -T findingaid /opt/findingaid/vendor/bin/phpunit -c /opt/findingaid/phpunit.xml /opt/findingaid/tests
+
+      - name: Teardown
+        if: always()
+        run: docker compose down -v --remove-orphans

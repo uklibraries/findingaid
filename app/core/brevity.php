@@ -8,9 +8,9 @@ function fa_brevity($message, $length = 0)
     if ($length == 0) {
         $length = FA_MAX_LENGTH;
     }
-    if (strlen($message) > $length) {
-        $source_words = preg_split('/\b/', $message);
-        $target_words = array();
+    if (strlen((string) $message) > $length) {
+        $source_words = preg_split('/\b/', (string) $message);
+        $target_words = [];
         $current_length = 0;
         foreach ($source_words as $word) {
             if (($current_length == 0) || $current_length + strlen($word) <= $length) {

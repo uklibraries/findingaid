@@ -74,6 +74,12 @@ commands might require you to become root.
     ln -s /path/to/findingaid/public ./findingaid
     ```
 
+Installation with Docker
+------------------------
+If your usecase is development, the docker-compose.yml file will start an NGINX container with the appropriate volumes for development.
+
+Once your findingaids are installed, use `docker compose up` to start your development environment.
+
 Copyright
 ---------
 

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+# The environment should provide these variables
+# SOLR_URL: e.g. https://solrhost.example.com/solr/select
+
+ARKS_FILE="$(mktemp)"
+export ARKS_FILE
+
+trap 'rm -f "$ARKS_FILE"' EXIT
+
+echo "Attempting generation of a list of finding aids to reprocess"
+fetch-ead-arks
+echo "List generated"
+echo "Reprocessing finding aids"
+xargs -n 1 -P 4 fa-regen < "$ARKS_FILE"
+echo "Finding aids reprocessed"

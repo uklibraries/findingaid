@@ -1,19 +1,18 @@
 <?php
 class FindingaidModel extends Model
 {
-    protected $id = null;
     public $path = null;
     public $exists = false;
+    public $metadata;
 
-    public function __construct($id)
+    public function __construct(protected $id)
     {
-        $this->id = $id;
         $header_file = $this->ppath() . DIRECTORY_SEPARATOR . "header.xml";
         if (file_exists($header_file)) {
             $this->xml = new SimpleXMLElement(file_get_contents($header_file));
             $this->exists = true;
         }
-        $metadata_file = $this->ppath() . DIRECTORY_SEPARATOR . "$id.xml";
+        $metadata_file = $this->ppath() . DIRECTORY_SEPARATOR . "{$this->id}.xml";
         if (file_exists($metadata_file)) {
             $this->metadata = new SimpleXMLElement(file_get_contents($metadata_file));
         }

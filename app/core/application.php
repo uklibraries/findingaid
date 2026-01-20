@@ -2,7 +2,7 @@
 # Based on https://github.com/panique/mini
 class Application
 {
-    private $url_params = array();
+    private $url_params = [];
     private $url_controller = null;
 
     public function __construct()
@@ -28,13 +28,13 @@ class Application
             }
         }
         if (isset($_GET['id'])) {
-            $url = trim($_GET['id'], '/');
+            $url = trim((string) $_GET['id'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
 
             # /:id
             if (count($url) >= 1) {
-                $this->url_params = array();
+                $this->url_params = [];
                 foreach ($url as $param) {
                     if (strlen($param) > 0) {
                         $this->url_params['id'] = $param;

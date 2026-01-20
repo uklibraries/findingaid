@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env
+nginx
+nginx/*
+xml
+xml/*
+dockerfile
+docker-compose.yml
+README.md
+LICENSE.txt
+public/cache

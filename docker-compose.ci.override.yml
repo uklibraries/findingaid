@@ -1,0 +1,7 @@
+services:
+  findingaid:
+    build:
+      context: .
+      target: ci
+    environment:
+      APP_ENV: ci
