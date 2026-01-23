@@ -79,7 +79,6 @@ label {
 }
 
 .accordion-trigger .glyphicon {
-    font-family: "Glyphicons Halflings";
     color: #666;
     float: right;
     transition: transform 0.2s;
