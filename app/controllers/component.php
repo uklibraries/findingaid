@@ -1,4 +1,5 @@
 <?php
+
 class Component extends Controller
 {
     public function __construct($params = [])

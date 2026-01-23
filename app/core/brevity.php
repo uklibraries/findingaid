@@ -16,16 +16,14 @@ function fa_brevity($message, $length = 0)
             if (($current_length == 0) || $current_length + strlen($word) <= $length) {
                 $target_words[] = $word;
                 $current_length += strlen($word);
-            }
-            else {
+            } else {
                 break;
             }
         }
         $count = count($target_words);
         if ($count == 0) {
             $message = '…';
-        }
-        else {
+        } else {
             $terminal = $target_words[$count - 1];
             if (preg_match('/^\W+$/', $terminal)) {
                 array_pop($target_words);
