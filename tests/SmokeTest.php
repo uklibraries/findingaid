@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require __DIR__ . "../app/init.php";
+require __DIR__ . "/../app/init.php";
 
 class SmokeTest extends Testcase
 {
