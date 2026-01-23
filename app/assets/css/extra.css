@@ -78,15 +78,15 @@ label {
    background-color: #ffffff !important;
 }
 
-.panel-heading[data-toggle="collapse"] .panel-title:after {
+.accordion-trigger .glyphicon {
     font-family: "Glyphicons Halflings";
     color: #666;
     float: right;
-    content: "\e114";
+    transition: transform 0.2s;
 }
 
-.panel-heading[data-toggle="collapse"].collapsed .panel-title:after {
-    content: "\e080";
+.accordion-trigger:not(.collapsed) .glyphicon {
+    transform: rotate(90deg);
 }
 
 .panel-title a {
@@ -181,5 +181,18 @@ a:hover.underline-link {
         margin-top: 10px;
         color: #0033A0;
         line-height: 1.2;
-        
+}
+
+.panel-heading {
+    padding: 0px;
+}
+
+.accordion-trigger {
+    display: block;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 10px 15px;
+    text-align: left;
 }
