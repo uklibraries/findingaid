@@ -1,0 +1,14 @@
+<div class="panel-heading">
+  <h4 class="panel-title">
+  {{#collapsible}}
+  <button class="accordion-trigger" type="button" data-toggle="collapse" data-target="#{{body_id}}" aria-expanded="true">
+    {{{label}}}
+    <span {{#collapsible}}class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"{{/collapsible}}></span>
+  </button>
+  {{/collapsible}}
+  {{^collapsible}}
+  <span class="accordion-trigger">{{{label}}}</span>
+  {{/collapsible}}
+  </h4>
+</div>
+
