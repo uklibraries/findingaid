@@ -53,7 +53,7 @@ program.  For an example, install the
 (which expands to just shy of a gigabyte):
 
     ```shell
-    wget https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz
+    wget https://solrindex.uky.edu/fa/findingaid/xml.tar.gz
     tar zxf xml.tar.gz
     ```
 
