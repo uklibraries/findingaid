@@ -198,14 +198,6 @@ var requests = (function() {
         ];
 
         var subforms = [
-            /* TODO: remove the datepicker --mps 2022-08-03 */
-
-            /* Manage the datepicker.
-            *
-            * This maintains a few hidden fields.  It initializes
-            * the datepicker control, which must already appear in
-            * the DOM.
-            */
             (function () {
                 var id;
                 var jid;
@@ -234,75 +226,21 @@ var requests = (function() {
                 }
 
                 return {
-                    init: function (id) {
-                        // standardized to EST/EDT for the library timezone, regardless of client location
-                        const current_date = () => {
-                            const now = new Date().toLocaleString('en-US', {
-                                timeZone: 'America/New_York',
-                                year: 'numeric', month: '2-digit', day: '2-digit',
-                                hour: '2-digit', minute: '2-digit', hour12: false
-                            });
+                  init: function (id) {
+                      jid = '#' + id;
+                      hidden = id + '-hidden';
 
-                            const parts = now.split(', ');
-                            const dateParts = parts[0].split('/');
-                            const timeParts = parts[1].split(':');
+                      var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
+                      $('.fa-request-fieldset').append(
+                          subform_template.replace(
+                              new RegExp('__HIDDEN__', 'g'),
+                              hidden
+                          )
+                      );
+                      disable_form();
 
-                            return {
-                                year: parseInt(dateParts[2]),
-                                month: parseInt(dateParts[0]),
-                                day: parseInt(dateParts[1]),
-                                hour: parseInt(timeParts[0]),
-                                minute: parseInt(timeParts[1]),
-                                date: new Date(dateParts[2], dateParts[0] - 1, dateParts[1])
-                            };
-                        };
-
-                        jid = '#' + id;
-                        hidden = id + '-hidden';
-
-                        const now = current_date();
-                        const watershedMinutes = 15 * 60 + 30;  // 3:30 PM = 930 minutes
-                        const currentMinutes = now.hour * 60 + now.minute;
-                        const dayOfWeek = now.date.getDay();  // 0=Sun, 6=Sat
-
-                        const earliest = new Date(now.year, now.month - 1, now.day);
-
-                        // If after 3:30 PM ET or weekend, move to next day
-                        if (currentMinutes >= watershedMinutes || dayOfWeek === 0 || dayOfWeek === 6) {
-                            earliest.setDate(earliest.getDate() + 1);
-                        }
-
-                        // Skip weekends
-                        while (earliest.getDay() === 0 || earliest.getDay() === 6) {
-                            earliest.setDate(earliest.getDate() + 1);
-                        }
-
-                        const earliestStr = (earliest.getMonth() + 1).toString().padStart(2, '0') + '/' +
-                                          earliest.getDate().toString().padStart(2, '0') + '/' +
-                                          earliest.getFullYear();
-
-                        /* Insert the fields which this subform must manage. */
-                        const subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
-                        $('.fa-request-fieldset').append(
-                            subform_template.replace(
-                                new RegExp('__HIDDEN__', 'g'),
-                                hidden
-                            )
-                        );
-
-                        /* Add the datepicker. */
-                        $(jid).val(earliestStr);
-                        $(jid).datepicker({
-                            showOn: "button",
-                            minDate: earliest,
-                            beforeShowDay: $.datepicker.noWeekends,
-                            dateFormat: "mm/dd/yy"
-                        });
-                        disable_form();
-
-                        /* And we're done. */
-                        initialized = true;
-                    },
+                      initialized = true;
+                  },
                     enable: function () {
                         for (var i = 0; i < hidden_fields.length; ++i) {
                             $('#' + hidden + hidden_fields[i]).attr(
