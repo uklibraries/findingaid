@@ -182,15 +182,4 @@ a:hover.underline-link {
     margin-top: 10px;
     color: #0033A0;
     line-height: 1.2;
-        
-}
-
-/* Override css coming from lib.uky.edu/webparts/ukhdr/2024/css/global_header_footer.css */
-/* TODO: fix competing stylesheets on lib.uky.edu */
-
-.ukl-ext-clamp .ukl-utility-links a:hover {
-    text-decoration: underline !important;
-}
-.ukl-ext-clamp .ukl-nav-links .ukl-link a:hover {
-    text-decoration: underline !important;
 }
