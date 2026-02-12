@@ -167,20 +167,30 @@ a:hover.underline-link {
     color:#000000
 }
 .in-page-alert h2 {
-        text-transform: uppercase;
-        font-size: 1.75rem;
-        font-weight: 900;
-        margin-top: 0;
-        color: #0033A0;
-        line-height: 1.2;
+    text-transform: uppercase;
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-top: 0;
+    color: #0033A0;
+    line-height: 1.2;
 }
 .in-page-alert h3 {
-        text-transform: uppercase;
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-bottom: 5px;
-        margin-top: 10px;
-        color: #0033A0;
-        line-height: 1.2;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    color: #0033A0;
+    line-height: 1.2;
         
+}
+
+/* Override css coming from lib.uky.edu/webparts/ukhdr/2024/css/global_header_footer.css */
+/* TODO: fix competing stylesheets on lib.uky.edu */
+
+.ukl-ext-clamp .ukl-utility-links a:hover {
+    text-decoration: underline !important;
+}
+.ukl-ext-clamp .ukl-nav-links .ukl-link a:hover {
+    text-decoration: underline !important;
 }
