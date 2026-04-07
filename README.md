@@ -77,7 +77,7 @@ automatically fixed. These deliberately exclude line length as a fix.
 
 ## Copyright
 
-This program is Copyright (C) 2016-2026 MLE Slone, Neal Powers, Nicole Sand. For
+This program is Copyright (C) 2016-2026 Neal Powers, Nicole Sand, MLE Slone. For
 details, consult LICENSE.txt.
 
 This program uses the following libraries:
