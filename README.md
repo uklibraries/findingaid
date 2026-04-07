@@ -1,98 +1,92 @@
-findingaid
-==========
+## findingaid
 
 This is a finding aid viewer intended to be used as part of a digital library.
 It is written to run on Linux and has not been tested with other operating
 systems, but should run on most Unix-like operating systems.
 
-Caveat
-------
+## Caveat
 
-This is written specifically for the University of Kentucky Libraries and includes
-some highly local assumptions.  You are welcome to use and reuse this code according
-to the terms of the license, but you should be aware of its opinionated nature.
+This is written specifically for the University of Kentucky Libraries and
+includes some highly local assumptions. You are welcome to use and reuse this
+code according to the terms of the license, but you should be aware of its
+opinionated nature.
 
-Dependencies
-------------
+## Developer installation
 
-* [Composer](https://getcomposer.org)
+Developer installations have been tested on Linux (through Windows with
+[WSL](https://learn.microsoft.com/en-us/windows/wsl/)) and macOS.
 
-* [JSMin](https://github.com/douglascrockford/JSMin)
+### Quickstart
 
-Installation
-------------
+```shell
+git clone https://github.com/uklibraries/findingaid.git
+cd findingaid
+make sample
+make dev
+```
 
-1. Install the dependencies.
+The application should then be available at `http://localhost:8080/<id>`.
+Developers should run `make help` to see a list of helper commands through
+[make](https://www.gnu.org/software/make/).
 
-2. Extract the repository.
+### Dependencies
 
-    ```shell
-    git clone https://github.com/uklibraries/findingaid.git /path/to/findingaid
-    ```
+We use [Docker](https://www.docker.com/) for reproducible environments.
+Developers will want to consult the
+[docker documentation for installation](https://docs.docker.com/engine/install/).
+We make use of [make](https://www.gnu.org/software/make/) to manage commands,
+which is a standard Linux utility and an old (but functional) version is
+included with macOS. Developers can also optionally use
+[watchexec](https://github.com/watchexec/watchexec) to run tests on every file
+change, which will require separate installation. [Homebrew](https://brew.sh/)
+is a recommended package manager that works for both Linux and macOS. Using
+Docker requires access to a Linux kernel. Mac users should consider using
+[Colima](https://github.com/abiosoft/colima) to access a Linux kernel. Windows
+users should strongly consider working in WSL.
 
-3. Descend into the findingaid repository.
+```
+# macOS
+brew install docker
 
-    ```shell
-    cd /path/to/findingaid
-    ```
+# macOS optional
+brew install make watchexec
+```
 
-4. Use Composer to install needed packages.
+### Sample data
 
-5. Generate minified JavaScript.
+Finding aids must be arranged in a
+[PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy in
+the `xml` directory. The files are not pure EAD, but must be preprocessed using
+a different program. For an example, install the
+[sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz) (which expands
+to just shy of a gigabyte):
 
-    ```shell
-    bash exe/build.sh
-    ```
+```shell
+make sample
+```
 
-6. Install your finding aid data set in the xml directory.  The finding aids
-must be arranged in a
-[PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy.
-The files are not pure EAD, but must be preprocessed using a different
-program.  For an example, install the
-[sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz)
-(which expands to just shy of a gigabyte):
+## Coding standard
 
-    ```shell
-    wget https://solrindex.uky.edu/fa/findingaid/xml.tar.gz
-    tar zxf xml.tar.gz
-    ```
+This program attempts to adhere to the
+[PSR-12](https://www.php-fig.org/psr/psr-12/) coding standard for all PHP code.
+For convenience, the dev environment provides
+[PHP_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/), which
+detects and can repair many PSR-12 violations. Developers can use `make lint` to
+get a report of linting violations, and `make lint-fix` to fix those that can be
+automatically fixed. These deliberately exclude line length as a fix.
 
-7. Create the cache directory.  This must be writeable by your web server.
+## Copyright
 
-    ```shell
-    mkdir public/cache
-    chown apache:apache public/cache # or appropriate similar command
-    ````
-
-8. Connect the public directory to your website.  For example, if your
-website uses `/var/www/html` as its document root and permits symlinks, then
-the following commands should make the finding aid viewer accessible.  Some
-commands might require you to become root.
-
-    ```shell
-    cd /var/www/html
-    ln -s /path/to/findingaid/public ./findingaid
-    ```
-
-Installation with Docker
-------------------------
-If your usecase is development, the docker-compose.yml file will start an NGINX container with the appropriate volumes for development.
-
-Once your findingaids are installed, use `docker compose up` to start your development environment.
-
-Copyright
----------
-
-This program is Copyright (C) 2016-2024 MLE Slone.  For details, consult
-LICENSE.txt.
+This program is Copyright (C) 2016-2026 MLE Slone, Neal Powers, Nicole Sand. For
+details, consult LICENSE.txt.
 
 This program uses the following libraries:
 
-* Luis Almeida's [unveil.js](https://github.com/luis-almeida/unveil)
-* John Dyer's [MediaElement.js](http://mediaelementjs.com)
-* Marcus Ekwall's [reveal.js](http://stackoverflow.com/a/7031800/237176)
-* Justin Hileman's [Mustache.php](https://github.com/bobthecow/mustache.php)
-* Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
-* [Bootstrap](https://getbootstrap.com)
-* [jQuery](https://jquery.org)
-* [jQuery UI](https://jqueryui.com)
+- Luis Almeida's [unveil.js](https://github.com/luis-almeida/unveil)
+- John Dyer's [MediaElement.js](http://mediaelementjs.com)
+- Marcus Ekwall's [reveal.js](http://stackoverflow.com/a/7031800/237176)
+- Justin Hileman's [Mustache.php](https://github.com/bobthecow/mustache.php)
+- Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
+- [Bootstrap](https://getbootstrap.com)
+- [jQuery](https://jquery.org)
+- [jQuery UI](https://jqueryui.com)
