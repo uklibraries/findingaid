@@ -26,6 +26,10 @@
     display: none;
 }
 
+.breadcrumbs ul li.fa-hidden {
+    display: none;
+}
+
 .fa-request-form {
     overflow: auto;
     background: #FDFDF6;

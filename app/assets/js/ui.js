@@ -107,5 +107,17 @@
         $('.viewer-next').on('click', function () {
             next_image();
         });
+        (function () {
+            if (!document.referrer) return;
+            var refUrl;
+            try { refUrl = new URL(document.referrer); } catch (e) { return; }
+            if (refUrl.origin !== window.location.origin) return;
+            if (refUrl.pathname !== '/catalog/' || !refUrl.search) return;
+            var li = document.querySelector('.breadcrumbs .back-to-search');
+            var a  = li && li.querySelector('[data-back-to-search]');
+            if (!li || !a) return;
+            a.href = refUrl.href;
+            li.classList.remove('fa-hidden');
+        })();
     });
 })();
