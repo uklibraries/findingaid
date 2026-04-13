@@ -1,13 +1,7 @@
-<div class="col-md-6 fa-toc fa-long">
-  {{#requestable}}
-  {{> advance_note}}
-  {{/requestable}}
-  <div class="panel panel-default" id="{{id}}">
-    <div class="panel-heading">
-      <h4 class="panel-title">{{label}}</h4>
-    </div>
-    <div class="panel-body">
-      <ul class="list-unstyled">
+<div class="fa-toc fa-long">
+  <nav id="{{id}}" aria-label="{{label}}">
+    <h3>{{label}}</h3>
+      <ul class="no-decoration">
         {{#entries}}
         <li><a class="fa-toc-entry" href="#{{id}}">{{label}}</a>
           {{#subentries}}
@@ -20,16 +14,15 @@
         </li>
         {{/entries}}
       </ul>
-      <ul class="list-unstyled">
+      <ul class="no-decoration">
         {{#links}}
         <li><a class="fa-toc-entry" href="{{url}}">{{label}}</a></li>
         {{/links}}
       </ul>
-    </div>
-  </div>
+  </nav>
   {{#toc_component}}
-  <div class="row">
-    <ul class="list-unstyled">
+  <div>
+    <ul class="no-decoration">
       <li>
       {{summary}}
       <input type="hidden" class="fa-requestable fa-toc" id="{{id}}" value="{{container_list}}" data-volume="{{volume}}" data-container="{{container}}">
@@ -39,24 +32,3 @@
   {{/toc_component}}
   {{> harmful_language_statement}}
 </div>
-<script type="text/javascript">
-{{=<% %>=}}
-jQuery(document).ready(function () {
-    function highlight_current() {
-        $('.fa-toc-entry').each(function () {
-            if ($(this).attr('href') === window.location.hash) {
-                $(this).addClass('fa-toc-entry-highlight');
-            }
-            else {
-                $(this).removeClass('fa-toc-entry-highlight');
-            }
-        });
-    }
-
-    $(window).on('hashchange', function () {
-        highlight_current();
-    });
-
-    highlight_current();
-});
-</script>

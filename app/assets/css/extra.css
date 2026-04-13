@@ -1,3 +1,10 @@
+:root {
+    /* Limestone brand colors (names mirror Limestone's modifier classes) */
+    --color-wildcat-blue: #0033a0;
+    --color-blue-gray: #eff4fd;
+    --color-cool-neutral: #dcddde;
+}
+
 .fa-request.fa-requestable-toc {
     display: block;
     margin: 0 auto;
@@ -33,7 +40,6 @@
     overflow-x: hidden;
     overflow-y: scroll;
     margin: 1em;
-    height: 10em;
 }
 
 .fa-options {
@@ -73,29 +79,48 @@ label {
    float: right;
 }
 
-.container-fluid {
-   width: 80% !important;
-   background-color: #ffffff !important;
+
+
+.fa-section {
+    margin-bottom: 2rem;
 }
 
-.panel-heading[data-toggle="collapse"] .panel-title:after {
-    font-family: "Glyphicons Halflings";
-    color: #666;
-    float: right;
-    content: "\e114";
+.editorial .fa-section h3 {
+    font-size: 1.5rem;
 }
 
-.panel-heading[data-toggle="collapse"].collapsed .panel-title:after {
-    content: "\e080";
+/* .fa-component { */
+/*     background-color: #eff4fd; */
+/*     padding: 1rem; */
+/*     margin-bottom: 0.5rem; */
+/* } */
+
+.editorial .fa-component h4 {
+    font-size: 1.15rem;
+    font-weight: 400;
 }
 
-.panel-title a {
-    color: #337ab7 !important;
+.fa-component .list-unstyled {
+    list-style: none;
+    padding-left: 0;
 }
 
-.toplink {
-    padding: 1em;
-    float: right;
+.fa-component .list-unstyled li {
+    font-size: 0.9rem;
+    color: #555;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.fa-component img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.fa-component .fa-request.fa-requestable-contents {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .click-to-load-images, .image-overflow {
@@ -153,13 +178,13 @@ a.underline-link {
 }
 
 a:hover.underline-link {
-    color:#0033A0;
+    color: var(--color-wildcat-blue);
     background-position: 0 0, 1000px 2px;
 }
 
 /* styling to match central webcom's in-page alert*/
 .in-page-alert {
-    background-color: #EFF4FD;
+    background-color: var(--color-blue-gray);
     border-left: 7px solid #1E8AFF;
     padding: 1rem;
     align-items: center;
@@ -170,7 +195,7 @@ a:hover.underline-link {
         font-size: 1.75rem;
         font-weight: 900;
         margin-top: 0;
-        color: #0033A0;
+        color: var(--color-wildcat-blue);
         line-height: 1.2;
 }
 .in-page-alert h3 {
@@ -179,7 +204,16 @@ a:hover.underline-link {
         font-weight: 500;
         margin-bottom: 5px;
         margin-top: 10px;
-        color: #0033A0;
+        color: var(--color-wildcat-blue);
         line-height: 1.2;
-        
+}
+
+.heading-section {
+    margin: 1rem 0;
+}
+
+@scope(.heading-section){
+    .heading--display {
+        margin: 2rem 0;
+    }
 }

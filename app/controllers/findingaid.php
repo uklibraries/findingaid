@@ -96,14 +96,14 @@ class Findingaid extends Controller
                                 'entries' => $metadata,
                             ];
                             $skip = false;
-                        }
-                        if (array_key_exists('in_toc', $entry)) {
-                            if ($entry['in_toc']) {
-                                $toc_entry = [
-                                    'label' => fa_brevity($entry['label']),
-                                    'id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
-                                ];
-                                $toc_entries_unsorted[$entry['id']] = $toc_entry;
+                            if (array_key_exists('in_toc', $entry)) {
+                                if ($entry['in_toc']) {
+                                    $toc_entry = [
+                                        'label' => fa_brevity($entry['label']),
+                                        'id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
+                                    ];
+                                    $toc_entries_unsorted[$entry['id']] = $toc_entry;
+                                }
                             }
                         }
                     }
@@ -281,7 +281,7 @@ class Findingaid extends Controller
             }
 
             $css_hrefs = [
-                "css/bootstrap.min.css",
+
                 "css/jquery-ui.min.css",
                 "css/extra.css",
                 "css/footer.css",
@@ -295,16 +295,14 @@ class Findingaid extends Controller
             }
 
             $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_FilesystemLoader(
-                    implode(
-                        DIRECTORY_SEPARATOR,
-                        [
-                            APP,
-                            'views',
-                            'layouts',
-                        ]
-                    )
-                ),
+                'partials_loader' => new Mustache_Loader_CascadingLoader([
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'layouts'])
+                    ),
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'shared'])
+                    ),
+                ]),
             ]);
             $page = $layout->render(
                 load_template('layouts/application'),
@@ -334,16 +332,14 @@ class Findingaid extends Controller
         }
         else {
             $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_FilesystemLoader(
-                    implode(
-                        DIRECTORY_SEPARATOR,
-                        [
-                            APP,
-                            'views',
-                            'layouts',
-                        ]
-                    )
-                ),
+                'partials_loader' => new Mustache_Loader_CascadingLoader([
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'layouts'])
+                    ),
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'shared'])
+                    ),
+                ]),
             ]);
             $meta = $this->config->get_nonuk($id);
             if ($meta) {

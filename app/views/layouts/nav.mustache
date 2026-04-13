@@ -1,14 +1,5 @@
 <div id="hd" class="hd"></div>
-<div>
-  {{> header}}
-{{#requestable}}
-  <ul class="nav nav-tabs">
-    <li class="active">
-        <a data-toggle="tab" href="#metadata" aria-expanded="true">Table of Contents</a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#access" aria-expanded="false">Requests</a>
-    </li>
-  </ul>
-{{/requestable}}
-</div>
+{{> universal-header}}
+{{> global-header}}
+{{> search-brief}}
+{{> breadcrumbs}}

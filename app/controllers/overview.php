@@ -35,7 +35,7 @@ class Overview extends Controller
             ];
 
             $css_hrefs = [
-                "css/bootstrap.min.css",
+
                 "css/jquery-ui.min.css",
                 "css/extra.css",
                 "css/footer.css",
@@ -49,16 +49,14 @@ class Overview extends Controller
             }
 
             $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_FilesystemLoader(
-                    implode(
-                        DIRECTORY_SEPARATOR,
-                        [
-                            APP,
-                            'views',
-                            'layouts',
-                        ]
-                    )
-                ),
+                'partials_loader' => new Mustache_Loader_CascadingLoader([
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'layouts'])
+                    ),
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'shared'])
+                    ),
+                ]),
             ]);
             $page = $layout->render(
                 load_template('layouts/overview'),

@@ -4,10 +4,7 @@
     var lity_open = false;
     var lightbox = lity();
     $(document).ready(function () {
-        $('.toplink').click(function (e) {
-            $('.fa-long').animate({ scrollTop: 0 }, 'fast');
-        });
-        $('.click-to-play-audio').click(function () {
+    $('.click-to-play-audio').click(function () {
             var href_id = $(this).attr('data-id');
             var href = $(this).attr('data-href');
             $(this).after('<audio id="' + href_id + '" src="' + href  + '" style="display:block, width: 305px; height: 30px;" width="305" height="30"></audio>');
