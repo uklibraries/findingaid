@@ -1,26 +1,24 @@
-<div class="col-md-6 fa-request-summary fa-long">
-  {{> advance_note}}
-  <div class="panel panel-default" id="{{id}}">
-    <div class="panel-heading">
-      <h4 class="panel-title">{{label}}</h4>
-    </div>
-    <div class="panel-body">
-      <h4 class="fa-request-summary-note fa-request-hidden">
+<div class="fa-request-summary fa-long js-accordion" id="{{id}}">
+  <div aria-live="polite" aria-atomic="true" class="show-for-sr fa-request-announce"></div>
+  <div class="js-accordion__panel">
+    <h2 class="js-accordion__header">{{label}} (<span class="fa-request-count">0</span>)</h2>
+    <div>
+      <p class="fa-request-summary-note fa-request-hidden">
         No items have been requested.
-      </h4>
-      <ul class="fa-request-ul list-unstyled fa-long" id="{{list_id}}">
+      </p>
+      <ul class="fa-request-ul fa-long" id="{{list_id}}">
       </ul>
       <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/logon" method="post" target="_blank">
       <div class="fa-extra-options fa-request-hidden">
-        <label for="SpecialRequest">Special Requests/Questions?
+        <label for="fa-special-request">Special Requests/Questions?
             <input class="fa-extra-input" type="textarea" id="fa-special-request" name="SpecialRequest">
         </label>
         <br>
       </div>
       <div class="fa-request-options fa-request-hidden">
-        <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Request Retrieval</button>
-        <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
-        <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
+        <button type="button" id="fa-schedule-retrieval" class="button button--ghost fa-request-option" data-option="schedule-retrieval">Request Retrieval</button>
+        <button type="button" id="fa-save-for-later" class="button button--ghost fa-request-option" data-option="save-for-later">Save for Later</button>
+        <button type="button" id="fa-request-reproductions" class="button button--ghost fa-request-option" data-option="request-reproductions">Request Reproductions</button>
       </div>
       <br>
       <div class="fa-options" id="fa-schedule-retrieval-options">
@@ -31,11 +29,11 @@
           -->
       </div>
       <div class="fa-options" id="fa-request-reproductions-options">
-          <label for="ItemInfo3">Pages/Items to be Reproduced
+          <label for="fa-pages">Pages/Items to be Reproduced
               <input class="fa-request-reproductions-input" type="textarea" id="fa-pages" name="ItemInfo3">
           </label>
           <br>
-          <label for="Format">Format</label>
+          <label for="fa-format">Format</label>
               <select class="fa-request-reproductions-input" id="fa-format" name="Format">
                 <option>Select one</option>
                 <option value="A/V (may incur costs)">A/V (may incur costs)</option>
@@ -45,7 +43,7 @@
               </select>
           </label>
           <br>
-          <label for="ServiceLevel">Intended Use
+          <label for="fa-service-level">Intended Use
               <select class="fa-request-reproductions-input" id="fa-service-level" name="ServiceLevel">
                   <option>Select one</option>
                   <option value="Commercial/For-profit">Commercial/For-profit</option>
@@ -57,7 +55,7 @@
               </select>
           </label>
           <br>
-          <label for="ItemInfo4">Project Description
+          <label for="fa-project">Project Description
               <input class="fa-request-reproductions-input" type="textarea" id="fa-project" name="ItemInfo4">
           </label>
           <input type="hidden" id="fa-skip-estimate" name="SkipOrderEstimate" value="Yes">
@@ -75,22 +73,8 @@
       <input type="hidden" name="ItemDate" value="{{item_date}}">
       <input type="hidden" name="SubmitButton" value="Submit Request">
       <input type="hidden" name="SpecialRequest" value="">
-      <button id="fa-request-submit" class="btn btn-success" type="submit" disabled="disabled">Submit Request</button>
+      <button id="fa-request-submit" class="button button--wildcat-blue" type="submit" disabled="disabled">Submit Request</button>
       </form>
     </div>
   </div>
-  {{> harmful_language_statement}}
 </div>
-<script type="text/javascript">
-{{=<% %>=}}
-jQuery(document).ready(function () {
-    requests.init({
-        title: "<% title %>",
-        button_active: "Selected",
-        button_inactive: "Select",
-        button_toc_active: "Selected",
-        button_toc_inactive: "Select this collection"
-    });
-});
-<%={{ }}=%>
-</script>

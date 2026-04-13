@@ -23,12 +23,15 @@ var requests = (function() {
 
     function update_count() {
         var count = model.get_count();
+        $('.fa-request-count').text(count);
         if (count > 0) {
             if (count == 1) {
                $('.fa-request-summary-note').html('You are requesting 1 item.');
+               $('.fa-request-announce').text('1 item selected');
             }
             else {
                $('.fa-request-summary-note').html('You are requesting ' + count + ' items.');
+               $('.fa-request-announce').text(count + ' items selected');
             }
            $('.fa-request-options').removeClass('fa-request-hidden');
            $('.fa-extra-options').removeClass('fa-request-hidden');
@@ -36,6 +39,7 @@ var requests = (function() {
         }
         else {
            $('.fa-request-summary-note').html('No items have been requested.');
+           $('.fa-request-announce').text('No items selected');
            $('.fa-request-options').addClass('fa-request-hidden');
            $('.fa-extra-options').addClass('fa-request-hidden');
            $('#fa-request-submit').addClass('fa-request-hidden');
@@ -71,8 +75,8 @@ var requests = (function() {
         }
         else {
             request_type = model.get_request_type();
-            $('button.fa-request-option').addClass('btn-default').removeClass('btn-primary');
-            $('button[data-option="' + request_type + '"]').addClass('btn-primary').removeClass('btn-default');
+            $('button.fa-request-option').addClass('button--ghost').removeClass('button--wildcat-blue');
+            $('button[data-option="' + request_type + '"]').addClass('button--wildcat-blue').removeClass('button--ghost');
             $('div.fa-request-option').addClass('fa-request-hidden');
             if (model.get_count() > 0) {
                 $('[data-option="' + request_type + '"]').removeClass('fa-request-hidden');
@@ -91,7 +95,7 @@ var requests = (function() {
         if (model.has(id)) {
             item = model.remove(id);
             jid = '#' + id;
-            $(jid).addClass('btn-warning').removeClass('btn-success').html($(jid).attr('data-inactive'));
+            $(jid).addClass('button--ghost').removeClass('button--wildcat-blue').html($(jid).attr('data-inactive'));
             target = $(jid).attr('data-target') + '-remove';
 
             /* Remove hidden inputs */
@@ -123,7 +127,7 @@ var requests = (function() {
             pos = model.add(item);
             if (pos !== false) {
                 count = model.get_count();
-                $(jid).addClass('btn-success').removeClass('btn-warning').html($(jid).attr('data-active'));
+                $(jid).addClass('button--wildcat-blue').removeClass('button--ghost').html($(jid).attr('data-active'));
 
                 /* Display selected item and add toggle control */
                 removable_element = requests_view.render({
@@ -585,7 +589,7 @@ var requests = (function() {
                 pieces.push('<li id="' + item["id"] + '">');
                 pieces.push('<p class="fa-summary-item">');
                 if (("removable" in item) && item["removable"]) {
-                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> ');
+                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> ');
                 }
                 pieces.push(item["label"]);
                 pieces.push('</p></li>');
@@ -722,7 +726,7 @@ var requests = (function() {
                 var id = $(this).attr('id');
                 if ($(this).hasClass('fa-toc')) {
                     $(this).after([
-                        '<button type="button" class="btn btn-warning fa-request fa-requestable-toc" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--ghost fa-request fa-requestable-toc" data-status="inactive" data-active="',
                         button_toc_active,
                         '" data-inactive="',
                         button_toc_inactive,
@@ -737,7 +741,7 @@ var requests = (function() {
                 }
                 else {
                     $(this).after([
-                        '<button type="button" class="btn btn-warning fa-request fa-requestable-contents" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--ghost fa-request fa-requestable-contents" data-status="inactive" data-active="',
                         button_active,
                         '" data-inactive="',
                         button_inactive,

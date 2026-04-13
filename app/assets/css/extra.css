@@ -162,6 +162,20 @@ label {
     color: #246024;
 }
 
+.fa-request-summary {
+    background-color: var(--color-blue-gray);
+    padding: 1rem 1.5rem;
+}
+.fa-request-summary .heading--display span {
+    background-color: var(--color-blue-gray);
+}
+.fa-request-summary .accordion__header,
+.fa-request-summary .accordion__header:hover,
+.fa-request-summary .accordion__header:focus,
+.fa-request-summary .accordion__header:active {
+    background-color: var(--color-blue-gray);
+}
+
 /* UK LIMESTONE STYLES */
 /* styling to match Limestone's Underline Link */
 a.underline-link {
