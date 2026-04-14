@@ -1,4 +1,5 @@
 <?php
+
 class OverviewModel extends Model
 {
     public $path = null;
@@ -27,7 +28,8 @@ class OverviewModel extends Model
         return $result;
     }
 
-    public function scopecontent() {
+    public function scopecontent()
+    {
         $result = [];
         foreach ($this->xml->collection_overview->scopecontent->p as $p) {
             $result[] = ['text' => $p];

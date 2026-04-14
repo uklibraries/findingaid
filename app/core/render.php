@@ -35,11 +35,9 @@ function fa_render_extref($node)
     $render = '';
     if ($node->hasAttribute('href')) {
         $render = fa_render_extref_ns($node, "");
-    }
-    else if ($node->hasAttribute('xlink:href')) {
+    } elseif ($node->hasAttribute('xlink:href')) {
         $render = fa_render_extref_ns($node, "xlink");
-    }
-    else {
+    } else {
         $render = $node->textContent;
     }
     return $render;

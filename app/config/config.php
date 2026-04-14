@@ -1,4 +1,5 @@
 <?php
+
 class Config
 {
     private $config = [];
@@ -29,8 +30,7 @@ class Config
     {
         if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -39,8 +39,7 @@ class Config
     {
         if (array_key_exists($key, $this->repo)) {
             return $this->repo[$key];
-        }
-        else {
+        } else {
             return $this->repo['default'];
         }
     }
@@ -59,8 +58,7 @@ class Config
         }
         if (array_key_exists($key, $this->nonuk)) {
             return $this->nonuk[$key];
-        }
-        else {
+        } else {
             return false;
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 ini_set('memory_limit', '2048M');
 
 # Based on https://github.com/panique/mini
@@ -79,8 +80,7 @@ function get_from_cache($id)
     $file = get_cache($id);
     if ($file) {
         return file_get_contents($file);
-    }
-    else {
+    } else {
         return false;
     }
 }

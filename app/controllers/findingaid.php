@@ -1,4 +1,5 @@
 <?php
+
 class Findingaid extends Controller
 {
     private $templates;
@@ -74,8 +75,7 @@ class Findingaid extends Controller
                             }
                         }
                     }
-                }
-                elseif (array_key_exists('fields', $panel)) {
+                } elseif (array_key_exists('fields', $panel)) {
                     $panel['multi-field'] = [];
                     foreach ($panel['fields'] as $entry) {
                         $data = $model->xpath("//{$entry['field']}");
@@ -107,8 +107,7 @@ class Findingaid extends Controller
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     $component_count = count($model->xpath('contents/c'));
                     if ($component_count > 0) {
                         $skip = false;
@@ -199,8 +198,7 @@ class Findingaid extends Controller
                             }
                         }
                         $url = '/?' . $search_field . '=' . urlencode($raw_search);
-                    }
-                    else {
+                    } else {
                         $data = $model->xpath("//{$link['field']}");
                         $url = false;
                         foreach ($data as $datum) {
@@ -275,8 +273,7 @@ class Findingaid extends Controller
                         'item_url' => '/catalog/' . $model->id() . '/',
                     ]
                 );
-            }
-            else {
+            } else {
                 $requests = '';
             }
 
@@ -329,8 +326,7 @@ class Findingaid extends Controller
                 ]
             );
             set_cache($id, $page);
-        }
-        else {
+        } else {
             $layout = new Mustache_Engine([
                 'partials_loader' => new Mustache_Loader_CascadingLoader([
                     new Mustache_Loader_FilesystemLoader(
@@ -362,8 +358,7 @@ class Findingaid extends Controller
                             'repository' => $meta['repository'],
                         ]
                     );
-                }
-                else {
+                } else {
                     $page = $layout->render(
                         load_template('layouts/suggest_former_kdl'),
                         [
@@ -373,8 +368,7 @@ class Findingaid extends Controller
                         ]
                     );
                 }
-            }
-            else {
+            } else {
                 # This is probably a deleted ExploreUK finding aid
                 header("Location: /");
                 die();
@@ -432,8 +426,7 @@ class Findingaid extends Controller
                     'body_id' => $body_id,
                 ]
             );
-        }
-        else {
+        } else {
             error_log("FA: attributes_id not set");
         }
         return [
