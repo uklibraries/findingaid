@@ -198,14 +198,6 @@ var requests = (function() {
         ];
 
         var subforms = [
-            /* TODO: remove the datepicker --mps 2022-08-03 */
-
-            /* Manage the datepicker.
-            *
-            * This maintains a few hidden fields.  It initializes
-            * the datepicker control, which must already appear in
-            * the DOM.
-            */
             (function () {
                 var id;
                 var jid;
@@ -234,34 +226,21 @@ var requests = (function() {
                 }
 
                 return {
-                    init: function (id) {
-                        $.getJSON("date.php", function (data) {
-                            jid = '#' + id;
-                            hidden = id + '-hidden';
+                  init: function (id) {
+                      jid = '#' + id;
+                      hidden = id + '-hidden';
 
-                            /* Insert the fields which this subform must manage. */
-                            var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
-                            $('.fa-request-fieldset').append(
-                                subform_template.replace(
-                                    new RegExp('__HIDDEN__', 'g'),
-                                    hidden
-                                )
-                            );
+                      var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
+                      $('.fa-request-fieldset').append(
+                          subform_template.replace(
+                              new RegExp('__HIDDEN__', 'g'),
+                              hidden
+                          )
+                      );
+                      disable_form();
 
-                            /* Add the datepicker. */
-                            $(jid).val(data.earliest);
-                            $(jid).datepicker({
-                                showOn: "button",
-                                minDate: new Date(data.earliest),
-                                beforeShowDay: $.datepicker.noWeekends,
-                                dateFormat: "mm/dd/yy"
-                            });
-                            disable_form();
-
-                            /* And we're done. */
-                            initialized = true;
-                        });
-                    },
+                      initialized = true;
+                  },
                     enable: function () {
                         for (var i = 0; i < hidden_fields.length; ++i) {
                             $('#' + hidden + hidden_fields[i]).attr(
