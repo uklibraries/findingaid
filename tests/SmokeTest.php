@@ -1,9 +1,11 @@
 <?php
+
+namespace Tests\Unit;
+
 use PHPUnit\Framework\TestCase;
+use App\Config\Config;
 
-require __DIR__ . "/../app/init.php";
-
-class SmokeTest extends Testcase
+class SmokeTest extends TestCase
 {
     public function testConfigLoads()
     {
@@ -15,9 +17,9 @@ class SmokeTest extends Testcase
 
     public function testModelsLoadable(): void
     {
-      $this->assertTrue(class_exists('FindingaidModel'));
-      $this->assertTrue(class_exists('ComponentModel'));
-      $this->assertTrue(class_exists('OverviewModel'));
+        $this->assertTrue(class_exists('App\Models\Findingaid'));
+        $this->assertTrue(class_exists('App\Models\Component'));
+        $this->assertTrue(class_exists('App\Models\Overview'));
     }
 
     public function testBrevityFunction(): void

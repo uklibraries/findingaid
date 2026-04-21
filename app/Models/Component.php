@@ -1,6 +1,11 @@
 <?php
 
-class ComponentModel extends Model
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Component extends Model
 {
     protected $subcomponents = [];
     private $basename;
@@ -22,7 +27,7 @@ class ComponentModel extends Model
         foreach ($this->xpath($contents_config['component']) as $c) {
             $cattrs = $c->attributes();
             $cid = $cattrs['id'];
-            $this->subcomponents[] = new ComponentModel($this->id, $cid);
+            $this->subcomponents[] = new Component($this->id, $cid);
         }
     }
 
@@ -122,7 +127,7 @@ class ComponentModel extends Model
         return implode(', ', $segments);
     }
 
-    public function container_lists()
+    public function containerLists()
     {
         $container_lists = [];
         $order = [];
@@ -140,7 +145,7 @@ class ComponentModel extends Model
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
             $aspect = [
-                'type'    => $this->container_type($attributes),
+                'type'    => $this->containerType($attributes),
                 'content' => (string)$container,
             ];
 
@@ -212,40 +217,40 @@ class ComponentModel extends Model
     public function bioghistHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['bioghist_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['bioghist_head']));
     }
 
     public function scopecontentHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['scopecontent_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['scopecontent_head']));
     }
 
     public function processinfoHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['processinfo_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['processinfo_head']));
     }
 
     public function bioghist()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['bioghist']));
+        return $this->renderParagraphs($this->xpath($contents_config['bioghist']));
     }
 
     public function scopecontent()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['scopecontent']));
+        return $this->renderParagraphs($this->xpath($contents_config['scopecontent']));
     }
 
     public function processinfo()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['processinfo']));
+        return $this->renderParagraphs($this->xpath($contents_config['processinfo']));
     }
 
-    public function render_paragraphs($p_list)
+    public function renderParagraphs($p_list)
     {
         $render = [];
         foreach ($p_list as $p) {
@@ -270,7 +275,7 @@ class ComponentModel extends Model
         return $attributes['level'];
     }
 
-    private function container_type($attributes)
+    private function containerType($attributes)
     {
         if (isset($attributes['type'])) {
             $type = trim($attributes['type']);

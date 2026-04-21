@@ -1,6 +1,11 @@
 <?php
 
-class FindingaidModel extends Model
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Findingaid extends Model
 {
     public $path = null;
     public $exists = false;
