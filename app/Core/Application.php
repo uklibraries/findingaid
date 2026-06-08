@@ -1,17 +1,26 @@
 <?php
 
+namespace App\Core;
+
 # Based on https://github.com/panique/mini
 class Application
 {
     private $url_params = [];
     private $url_controller = null;
+    private $controllers = [
+        'home' => \App\Controllers\Home::class,
+        'findingaid' => \App\Controllers\Findingaid::class,
+        'component' => \App\Controllers\Component::class,
+        'overview' => \App\Controllers\Overview::class
+    ];
 
     public function __construct()
     {
         $this->splitUrl();
-        load_path(APP, 'controllers/' . $this->url_controller);
-        $this->url_controller = new $this->url_controller($this->url_params);
-        $this->url_controller->show();
+        $route = $this->url_controller;
+        $controllerClass = $this->controllers[$route];
+        $controller = new $controllerClass($this->url_params);
+        $controller->show();
     }
 
     private function splitUrl()

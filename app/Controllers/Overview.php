@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Overview as OverviewModel;
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
+
 class Overview extends Controller
 {
     private $templates;
@@ -52,15 +59,15 @@ class Overview extends Controller
             $layout = new Mustache_Engine([
                 'partials_loader' => new Mustache_Loader_CascadingLoader([
                     new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'layouts'])
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
                     ),
                     new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'views', 'shared'])
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Shared'])
                     ),
                 ]),
             ]);
             $page = $layout->render(
-                load_template('layouts/overview'),
+                load_template('Layouts/overview'),
                 [
                     'title' => $model->title(),
                     'bioghist' => $model->bioghist(),

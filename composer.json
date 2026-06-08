@@ -6,5 +6,15 @@
         "phpunit/phpunit": "^12.4",
         "squizlabs/php_codesniffer": "^4.0",
         "rector/rector": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }

@@ -19,6 +19,7 @@ RUN apk add --no-cache \
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 
 WORKDIR /opt/findingaid
 
@@ -60,6 +61,7 @@ WORKDIR /app
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=development /opt/findingaid/vendor /opt/findingaid/vendor
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 COPY ./phpunit.xml /opt/findingaid/phpunit.xml
 COPY /app .
 
@@ -82,6 +84,7 @@ RUN apk add --no-cache \
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=prod-builder /composer/vendor /opt/findingaid/vendor
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 
 WORKDIR /opt/findingaid
 

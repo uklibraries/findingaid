@@ -1,8 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace Tests\Unit;
 
-require_once __DIR__ . '/../app/core/minter.php';
+use PHPUnit\Framework\TestCase;
+use App\Core\Minter;
 
 class MinterTest extends TestCase
 {

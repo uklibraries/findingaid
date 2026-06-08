@@ -1,6 +1,11 @@
 <?php
 
-class OverviewModel extends Model
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Overview extends Model
 {
     public $path = null;
     public $exists = false;
