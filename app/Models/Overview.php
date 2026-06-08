@@ -1,5 +1,11 @@
 <?php
-class OverviewModel extends Model
+
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Overview extends Model
 {
     public $path = null;
     public $exists = false;
@@ -27,7 +33,8 @@ class OverviewModel extends Model
         return $result;
     }
 
-    public function scopecontent() {
+    public function scopecontent()
+    {
         $result = [];
         foreach ($this->xml->collection_overview->scopecontent->p as $p) {
             $result[] = ['text' => $p];

@@ -1,16 +1,26 @@
 <?php
+
+namespace App\Core;
+
 # Based on https://github.com/panique/mini
 class Application
 {
     private $url_params = [];
     private $url_controller = null;
+    private $controllers = [
+        'home' => \App\Controllers\Home::class,
+        'findingaid' => \App\Controllers\Findingaid::class,
+        'component' => \App\Controllers\Component::class,
+        'overview' => \App\Controllers\Overview::class
+    ];
 
     public function __construct()
     {
         $this->splitUrl();
-        load_path(APP, 'controllers/' . $this->url_controller);
-        $this->url_controller = new $this->url_controller($this->url_params);
-        $this->url_controller->show();
+        $route = $this->url_controller;
+        $controllerClass = $this->controllers[$route];
+        $controller = new $controllerClass($this->url_params);
+        $controller->show();
     }
 
     private function splitUrl()
@@ -21,8 +31,7 @@ class Application
             if (isset($argv[1]) && preg_match('/^[a-z0-9]+$/', $argv[1])) {
                 $_GET['id'] = $argv[1];
                 $_GET['cache'] = 1;
-            }
-            else {
+            } else {
                 sleep(10);
                 $_GET['id'] = 'xt73xs5jd22r';
             }
@@ -42,28 +51,25 @@ class Application
                     }
                 }
 # temp
-if (isset($_GET['suggest']) and $_GET['suggest'] == 1) {
-    $this->url_params['suggest'] = 1;
-}
+                if (isset($_GET['suggest']) and $_GET['suggest'] == 1) {
+                    $this->url_params['suggest'] = 1;
+                }
                 if (isset($_GET['invalidate_cache']) and $_GET['invalidate_cache'] == 1) {
                     $this->url_params['invalidate_cache'] = 1;
                 }
                 if (preg_match('/^([0-9a-z]+)_([0-9a-z]+)$/', $this->url_params['id'], $matches)) {
                     $this->url_controller = 'component';
-                }
-                else {
+                } else {
                     $this->url_controller = 'findingaid';
                 }
 
                 if (isset($_GET['overview']) and $_GET['overview'] == 1) {
                     $this->url_controller = 'overview';
                 }
-            }
-            else {
+            } else {
                 $this->url_controller = 'home';
             }
-        }
-        else {
+        } else {
             $this->url_controller = 'home';
         }
     }

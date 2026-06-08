@@ -1,5 +1,11 @@
 <?php
-class FindingaidModel extends Model
+
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Findingaid extends Model
 {
     public $path = null;
     public $exists = false;
@@ -24,8 +30,7 @@ class FindingaidModel extends Model
         if (count($repositories) > 0) {
             $repository = $repositories[0];
             return trim(dom_import_simplexml($repository)->textContent);
-        }
-        else {
+        } else {
             return 'Unknown repository';
         }
     }
@@ -50,8 +55,7 @@ class FindingaidModel extends Model
         $unitid = $this->metadata('//archdesc/did/unitid');
         if (count($unitid) > 0) {
             $unitid = $unitid[0];
-        }
-        else {
+        } else {
             return "no unitid";
         }
         return $unitid;

@@ -1,4 +1,12 @@
 <?php
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Component as ComponentModel;
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
+
 class Component extends Controller
 {
     public function __construct($params = [])
@@ -20,8 +28,8 @@ class Component extends Controller
                     DIRECTORY_SEPARATOR,
                     [
                         APP,
-                        'views',
-                        'findingaid',
+                        'Views',
+                        'Findingaid',
                     ]
                 )
             ),
@@ -32,11 +40,11 @@ class Component extends Controller
         $component_id = $pieces[1];
         $model = new ComponentModel($id, $component_id);
 
-        $container_list_template = load_template('findingaid/container_list');
-        $component_template = load_template('findingaid/component');
+        $container_list_template = load_template('Findingaid/container_list');
+        $component_template = load_template('Findingaid/component');
 
         $container_lists = [];
-        foreach ($model->container_lists() as $container_list) {
+        foreach ($model->containerLists() as $container_list) {
             $container_list_content = $m->render(
                 $container_list_template,
                 $container_list

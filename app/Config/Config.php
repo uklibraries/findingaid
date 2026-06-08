@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Config;
+
 class Config
 {
     private $config = [];
@@ -9,7 +12,7 @@ class Config
     {
         $config_file = implode(DIRECTORY_SEPARATOR, [
             APP,
-            'config',
+            'Config',
             'config.json',
         ]);
         if (file_exists($config_file)) {
@@ -17,7 +20,7 @@ class Config
         }
         $repo_file = implode(DIRECTORY_SEPARATOR, [
             APP,
-            'config',
+            'Config',
             'repo.json',
         ]);
         if (file_exists($repo_file)) {
@@ -29,28 +32,26 @@ class Config
     {
         if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-    public function get_repo($key)
+    public function getRepo($key)
     {
         if (array_key_exists($key, $this->repo)) {
             return $this->repo[$key];
-        }
-        else {
+        } else {
             return $this->repo['default'];
         }
     }
 
-    public function get_nonuk($key)
+    public function getNonUK($key)
     {
         if (!isset($this->nonuk)) {
             $nonuk_config_file = implode(DIRECTORY_SEPARATOR, [
                 APP,
-                'config',
+                'Config',
                 'nonuk-metadata.json',
             ]);
             if (file_exists($nonuk_config_file)) {
@@ -59,8 +60,7 @@ class Config
         }
         if (array_key_exists($key, $this->nonuk)) {
             return $this->nonuk[$key];
-        }
-        else {
+        } else {
             return false;
         }
     }
