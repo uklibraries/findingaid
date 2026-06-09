@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Models\Overview as OverviewModel;
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
+use Mustache_Loader_CascadingLoader;
 
 class Overview extends Controller
 {
