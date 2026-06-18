@@ -17,33 +17,53 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23584444-4"></script>
 </head>
 <body>
-  {{> nav}}
-  <main id="content">
   {{> maintenance_notice}}
-  <div class="slab">
+  {{> nav}}
+  <div class="slab slab--wildcat-white page-header page-header--text">
     <div class="slab__wrapper">
-      <div class="heading-section">
-        <h1 class="heading--display">
-            <span>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</span>
-        </h1>
-        {{#requestable}}
-        {{> advance_note}}
-        {{/requestable}}
-        {{#requestable}}
-        {{{requests}}}
-        {{/requestable}}
-     </div>
-      <div class="grid grid--major-right">
-        <div class="grid__column grid__column--minor">
-          {{{toc}}}
-        </div>
-        <div class="grid__column grid__column--major editorial">
-            {{{content}}}
+      <h1 class="headline-group">
+        <span class="headline-group__head">
+          {{title}}{{^title}}Welcome to ExploreUK{{/title}}
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  {{> breadcrumbs}}
+
+  <main id="content">
+    <div class="slab">
+      <div class="slab__wrapper">
+        <div class="grid grid--major-right">
+          <div class="grid__column grid__column--minor">
+            {{{toc}}}
+          </div>
+          <div class="grid__column grid__column--major editorial">
+              {{{content}}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    
+
+    <div class="slab">
+      <div class="slab__wrapper">
+        <div class="heading-section">
+          {{#requestable}}
+          {{> advance_note}}
+          {{/requestable}}
+          {{#requestable}}
+          {{{requests}}}
+          {{/requestable}}
+        </div>
+      </div>
+    </div>
+   
+    <div class="slab slab--wildcat-white">
+        {{> harmful_language_statement}}
+    </div>
   </main>
+   
   {{> global-footer}}
   {{> universal-footer}}
   {{> limestone-resources}}
