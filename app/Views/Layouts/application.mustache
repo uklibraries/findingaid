@@ -37,6 +37,12 @@
         <div class="grid grid--major-right">
           <div class="grid__column grid__column--minor">
             {{{toc}}}
+            {{#requestable}}
+            {{> contact_info}}
+            {{/requestable}}
+            {{#requestable}}
+            {{{requests}}}
+            {{/requestable}}
           </div>
           <div class="grid__column grid__column--major editorial">
               {{{content}}}
@@ -49,12 +55,12 @@
     <div class="slab">
       <div class="slab__wrapper">
         <div class="heading-section">
-          {{#requestable}}
-          {{> advance_note}}
-          {{/requestable}}
-          {{#requestable}}
-          {{{requests}}}
-          {{/requestable}}
+          {{!#requestable}}
+          {{!> advance_note}}
+          {{!/requestable}}
+          {{!#requestable}}
+          {{{!requests}}}
+          {{!/requestable}}
         </div>
       </div>
     </div>
