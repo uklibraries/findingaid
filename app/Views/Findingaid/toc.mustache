@@ -1,33 +1,35 @@
-<div class="fa-toc fa-long">
-  <nav id="{{id}}" aria-label="{{label}}">
-    <h3>{{label}}</h3>
+<div class="section-nav section-nav--blue-gray">
+  <div class="fa-toc fa-long">
+    <nav id="{{id}}" aria-label="{{label}}">
+      <h2>{{label}}</h2>
+        <ul class="no-decoration">
+          {{#entries}}
+          <li><a class="fa-toc-entry" href="#{{id}}">{{label}}</a>
+            {{#subentries}}
+            <ul>
+              {{#contents_entries}}
+              <li><a class="fa-toc-entry" href="#{{id}}">{{{label}}}</a></li>
+              {{/contents_entries}}
+            </ul>
+            {{/subentries}}
+          </li>
+          {{/entries}}
+        </ul>
+        <ul class="no-decoration">
+          {{#links}}
+          <li><a class="fa-toc-entry" href="{{url}}">{{label}}</a></li>
+          {{/links}}
+        </ul>
+    </nav>
+    {{#toc_component}}
+    <div>
       <ul class="no-decoration">
-        {{#entries}}
-        <li><a class="fa-toc-entry" href="#{{id}}">{{label}}</a>
-          {{#subentries}}
-          <ul>
-            {{#contents_entries}}
-            <li><a class="fa-toc-entry" href="#{{id}}">{{{label}}}</a></li>
-            {{/contents_entries}}
-          </ul>
-          {{/subentries}}
+        <li>
+        {{summary}}
+        <input type="hidden" class="fa-requestable fa-toc" id="{{id}}" value="{{container_list}}" data-volume="{{volume}}" data-container="{{container}}">
         </li>
-        {{/entries}}
       </ul>
-      <ul class="no-decoration">
-        {{#links}}
-        <li><a class="fa-toc-entry" href="{{url}}">{{label}}</a></li>
-        {{/links}}
-      </ul>
-  </nav>
-  {{#toc_component}}
-  <div>
-    <ul class="no-decoration">
-      <li>
-      {{summary}}
-      <input type="hidden" class="fa-requestable fa-toc" id="{{id}}" value="{{container_list}}" data-volume="{{volume}}" data-container="{{container}}">
-      </li>
-    </ul>
+    </div>
+    {{/toc_component}}
   </div>
-  {{/toc_component}}
 </div>
