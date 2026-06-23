@@ -44,9 +44,9 @@
             {{{requests}}}
             {{/requestable}}
           </div>
-          <div class="grid__column grid__column--major editorial">
+          <!--<div class="grid__column grid__column--major">-->
               {{{content}}}
-          </div>
+          <!--</div>-->
         </div>
       </div>
     </div>
@@ -82,8 +82,8 @@
   <script>
   requests.init({
       title: "{{title}}",
-      button_active: "Selected",
-      button_inactive: "Select",
+      button_active: "Remove request",
+      button_inactive: "Request item",
       button_toc_active: "Selected",
       button_toc_inactive: "Select this collection"
   });
