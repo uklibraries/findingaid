@@ -50,11 +50,11 @@
     padding: 1em;
 }
 
-.fa-viewer {
+/*.fa-viewer {
     overflow: hidden;
     height: 100vh;
     overflow-y: scroll;
-}
+}*/
 
 .fa-toc-entry-highlight {
     font-weight: bold;
