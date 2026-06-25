@@ -235,3 +235,16 @@ a:hover.underline-link {
         margin: 2rem 0;
     }
 }
+
+/*Archive content banner*/
+@scope (.slab--micro) {
+    :scope{
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+    }
+    .icon-label--micro {
+        font-size: .81rem;
+        margin-top: .2rem;
+        margin-bottom: .2rem; 
+    }    
+}
