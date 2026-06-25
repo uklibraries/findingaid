@@ -1,14 +1,17 @@
-<div class="fa-section" id="{{heading_id}}">
-  <h3>{{{label}}}</h3>
-  <div id="{{body_id}}">
+<!--<div class="fa-section" id="{{heading_id}}">-->
+<div class="editorial" id="{{heading_id}}">
+  <h2 class="headline-group">
+    <span class="headline-group__head">{{{label}}}</span>
+  </h2>
+  <div class="editorial" id="{{body_id}}">
     {{single-field}}
     {{#multi-field}}
-    <dl id="{{field_id}}">
-    <dt>{{label}}</dt>
-    {{#entries}}
-    <dd>{{{content}}}</dd>
-    {{/entries}}
-    </dl>
+      <dl id="{{field_id}}">
+      <dt>{{label}}</dt>
+      {{#entries}}
+      <dd>{{{content}}}</dd>
+      {{/entries}}
+      </dl>
     {{/multi-field}}
     {{#components}}
     {{{component}}}
