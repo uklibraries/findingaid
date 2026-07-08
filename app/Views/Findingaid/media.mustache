@@ -1,19 +1,19 @@
-<div>
 {{#links}}
-  {{#image}}
-  <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/></a>
-  {{/image}}
-  {{#extra}}
-  {{>image_controls}}
-  {{/extra}}
-  {{#image_overflow}}
-  <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="image-overflow" data-src="{{thumb}}"/></a>
-  {{/image_overflow}}
-  {{#audio}}
-  <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-  {{/audio}}
-  {{#video}}
-  <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-  {{/video}}
+  <div>
+    {{#image}}
+    <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/></a>
+    {{/image}}
+    {{#extra}}
+    {{>image_controls}}
+    {{/extra}}
+    {{#image_overflow}}
+    <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="image-overflow" data-src="{{thumb}}"/></a>
+    {{/image_overflow}}
+    {{#audio}}
+    <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
+    {{/audio}}
+    {{#video}}
+    <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
+    {{/video}}
+  </div>
 {{/links}}
-</div>

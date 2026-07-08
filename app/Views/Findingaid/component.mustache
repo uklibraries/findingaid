@@ -1,35 +1,30 @@
 <div class="fa-component" id="{{heading_id}}">
   <h3 class="headline-group">{{{label}}}</h3>
+  THIS IS A COMPONENT
   <div id="{{body_id}}">
     <ul class="list-unstyled">
     {{#container_lists}}
-    {{{container_list}}}
+      {{{container_list}}}
     {{/container_lists}}
     </ul>
-    <div>
-        {{#bioghist_head}}
-        <h5>{{{p}}}</h5>
-        {{/bioghist_head}}
-        {{#bioghist}}
-        <p>{{{p}}}</p>
-        {{/bioghist}}
-    </div>
-    <div>
-        {{#scopecontent_head}}
-        <h5>{{{p}}}</h5>
-        {{/scopecontent_head}}
-        {{#scopecontent}}
-        <p>{{{p}}} this is the scope content</p>
-        {{/scopecontent}}
-    </div>
-    <div>
-        {{#processinfo_head}}
-        <h5>{{{p}}}</h5>
-        {{/processinfo_head}}
-        {{#processinfo}}
-        <p>{{{p}}} this is the process info</p>
-        {{/processinfo}}
-    </div>
+    {{#bioghist_head}}
+      <h5>{{{p}}}</h5>
+    {{/bioghist_head}}
+    {{#bioghist}}
+      <p>{{{p}}}</p>
+    {{/bioghist}}
+    {{#scopecontent_head}}
+      <h5>{{{p}}}</h5>
+    {{/scopecontent_head}}
+    {{#scopecontent}}
+      <p>{{{p}}} this is the scope content</p>
+    {{/scopecontent}}
+    {{#processinfo_head}}
+      <h5>{{{p}}}</h5>
+    {{/processinfo_head}}
+    {{#processinfo}}
+      <p>{{{p}}} this is the process info</p>
+    {{/processinfo}}
     {{> media}}
     {{#subcomponents}}
     {{{subcomponent}}}
