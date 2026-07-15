@@ -32,20 +32,30 @@
         buttonSuffixClass: '__header',
         panelSuffixClass: '__panel',
         direction: 'ltr',
-        accordionPrefixId: 'accordion'
+        accordionPrefixId: 'accordion',
+        accordionSelector: '.js-accordion'
     };
+
+    function ownedBy($el, $boundary, accordionSelector) {
+        return $el.parentsUntil($boundary).filter(accordionSelector).length === 0;
+    }
 
     var Accordion = function($el, options) {
         this.options = $.extend({}, defaultConfig, options);
 
         this.$wrapper = $el;
-        this.$panels = $(this.options.panelsSelector, this.$wrapper);
+        var accordionSelector = this.options.accordionSelector;
+        this.$panels = $(this.options.panelsSelector, this.$wrapper).filter(function() {
+            return ownedBy($(this), $el, accordionSelector);
+        });
 
         this.initAttributes();
         this.initEvents();
     };
 
     Accordion.prototype.initAttributes = function() {
+        var accordionSelector = this.options.accordionSelector;
+
         this.$wrapper.attr({
             'role': 'tablist',
             'aria-multiselectable': this.options.multiselectable.toString()
@@ -59,7 +69,9 @@
 
         this.$panels.each($.proxy(function(index, el) {
             var $panel = $(el);
-            var $header = $(this.options.headersSelector, $panel);
+            var $header = $(this.options.headersSelector, $panel).filter(function() {
+                return ownedBy($(this), $panel, accordionSelector);
+            });
             var $button = this.options.buttonsGeneratedContent === 'html' ? this.options.button.clone().html($header.html()) : this.options.button.clone().text($header.text());
 
             $header.attr('tabindex', '0').addClass(this.options.prefixClass + this.options.headerSuffixClass);
@@ -102,7 +114,10 @@
             }
         }, this));
 
-        this.$buttons = $(this.options.buttonsSelector, this.$wrapper);
+        var $wrapper = this.$wrapper;
+        this.$buttons = $(this.options.buttonsSelector, this.$wrapper).filter(function() {
+            return ownedBy($(this), $wrapper, accordionSelector);
+        });
     };
 
     Accordion.prototype.initEvents = function() {
@@ -119,7 +134,7 @@
         var $target = $(e.target);
         var $button = $target.is('button') ? $target : $target.closest('button');
 
-        $(this.options.buttonsSelector, this.$wrapper).attr({
+        this.$buttons.attr({
             'tabindex': '-1',
             'aria-selected': 'false'
         });
@@ -133,6 +148,11 @@
     Accordion.prototype.clickButtonEventHandler = function(e) {
         var $target = $(e.target);
         var $button = $target.is('button') ? $target : $target.closest('button');
+
+        if (!ownedBy($button, this.$wrapper, this.options.accordionSelector)) {
+            return;
+        }
+
         var $panel = $('#' + $button.attr('aria-controls'));
 
         this.$buttons.attr('aria-selected', 'false');
@@ -163,6 +183,11 @@
     Accordion.prototype.keydownButtonEventHandler = function(e) {
         var $target = $(e.target);
         var $button = $target.is('button') ? $target : $target.closest('button');
+
+        if (!ownedBy($button, this.$wrapper, this.options.accordionSelector)) {
+            return;
+        }
+
         var $firstButton = this.$buttons.first();
         var $lastButton = this.$buttons.last();
         var index = this.$buttons.index($button);
@@ -218,6 +243,11 @@
 
     Accordion.prototype.keydownPanelEventHandler = function(e) {
         var $panel = $(e.target).closest(this.options.panelsSelector);
+
+        if (!ownedBy($panel, this.$wrapper, this.options.accordionSelector)) {
+            return;
+        }
+
         var $button = $('#' + $panel.attr('aria-labelledby'));
         var $firstButton = this.$buttons.first();
         var $lastButton = this.$buttons.last();
@@ -276,7 +306,7 @@
             };
             specificOptions = $.extend({}, options, specificOptions);
 
-            $el.data[PLUGIN] = new Accordion($el, specificOptions); 
+            $el.data[PLUGIN] = new Accordion($el, specificOptions);
         });
     };
 
