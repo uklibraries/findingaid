@@ -1,9 +1,55 @@
+@layer overrides, limestone;
+
+/* creates a layer encapsulating all limestone styles; browser has a <link rel="preload" as="style"> to prewarm, this import blocks render. Unlayered styles always win conflicting rules regardless of specificity. */
+@import url("https://webcdn.uky.edu/limestone/1.0.0/css/style.css") layer(limestone);
+
+/* When limestone uses !important, it will win against unlayered rules. Overrides for limestone rules must live here */
+@layer overrides {
+  .fa-component .fa-component {
+    padding-left: 3rem !important;
+  }
+
+  .js-accordion__panel[aria-hidden="true"] {
+    contain: content;
+  }
+}
+
 :root {
     /* Limestone brand colors (names mirror Limestone's modifier classes) */
     --color-wildcat-blue: #0033a0;
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
 }
+
+.fa-component {
+  background-color: var(--color-blue-gray);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.container_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.editorial {
+  padding: 0;
+}
+
+.fa-expand-all-wrap {
+    margin: 0 0 0.75rem;
+    text-align: right;
+}
+
+.editorial > p {
+  padding-left: 1em;
+}
+
+.accordion__panel {
+  padding-right: 1rem;
+}
+
 
 .fa-request.fa-requestable-toc {
     display: block;
@@ -181,23 +227,12 @@ label {
 }
 
 /* UK LIMESTONE STYLES */
-/* styling to match Limestone's Underline Link */
-a.underline-link {
-    color:#000000;
-    background-attachment: scroll;
-    background-image: linear-gradient(to top,rgba(161,211,237,0.4) 0,rgba(161,211,237,0.4) 0.5em,transparent 0.5em,transparent 110%),linear-gradient(to top,rgba(0,51,160,0.4) 0,rgba(0,51,160,0.4) 2px,transparent 2px,transparent 100%);
-    background-repeat: no-repeat;
-    background-position: 0 0.5em, 0 0;
-    position: relative;
-    transition: 0.2s background-position ease-out;
-    font-weight: 400;
-    z-index: 1;
-    text-decoration: none;
-}
-
-a:hover.underline-link {
-    color: var(--color-wildcat-blue);
-    background-position: 0 0, 1000px 2px;
+/* Fix Limestone bug - `.button--ghost` both focused and hovered should have white background text and blue background */
+button:focus:hover.button--ghost,
+.default-colors button:focus:hover.button--ghost {
+    background-color: var(--color-wildcat-blue);
+    border-color: var(--color-wildcat-blue);
+    color: #fff;
 }
 
 /* styling to match central webcom's in-page alert*/

@@ -95,7 +95,7 @@ var requests = (function() {
         if (model.has(id)) {
             item = model.remove(id);
             jid = '#' + id;
-            $(jid).addClass('button--ghost').removeClass('button--wildcat-blue').html($(jid).attr('data-inactive'));
+            $(jid).addClass('button--wildcat-blue').removeClass('button--ghost').html($(jid).attr('data-inactive'));
             target = $(jid).attr('data-target') + '-remove';
 
             /* Remove hidden inputs */
@@ -127,7 +127,7 @@ var requests = (function() {
             pos = model.add(item);
             if (pos !== false) {
                 count = model.get_count();
-                $(jid).addClass('button--wildcat-blue').removeClass('button--ghost').html($(jid).attr('data-active'));
+                $(jid).addClass('button--ghost').removeClass('button--wildcat-blue').html($(jid).attr('data-active'));
 
                 /* Display selected item and add toggle control */
                 removable_element = requests_view.render({
@@ -705,7 +705,7 @@ var requests = (function() {
                 var id = $(this).attr('id');
                 if ($(this).hasClass('fa-toc')) {
                     $(this).after([
-                        '<button type="button" class="button button--ghost fa-request fa-requestable-toc" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-toc" data-status="inactive" data-active="',
                         button_toc_active,
                         '" data-inactive="',
                         button_toc_inactive,
@@ -720,7 +720,7 @@ var requests = (function() {
                 }
                 else {
                     $(this).after([
-                        '<button type="button" class="button button--ghost fa-request fa-requestable-contents" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-contents" data-status="inactive" data-active="',
                         button_active,
                         '" data-inactive="',
                         button_inactive,

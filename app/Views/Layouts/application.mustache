@@ -50,22 +50,7 @@
         </div>
       </div>
     </div>
-    
-
-    <div class="slab">
-      <div class="slab__wrapper">
-        <div class="heading-section">
-          {{!#requestable}}
-          {{!> advance_note}}
-          {{!/requestable}}
-          {{!#requestable}}
-          {{{!requests}}}
-          {{!/requestable}}
-        </div>
-      </div>
-    </div>
-   
-    <div class="slab slab--wildcat-white">
+       <div class="slab slab--wildcat-white">
         {{> harmful_language_statement}}
     </div>
   </main>
@@ -76,7 +61,6 @@
   {{#js}}
   <script src="{{href}}?hash={{hash}}"></script>
   {{/js}}
-  <script src="https://webcdn.uky.edu/limestone/1.0.0/js/lib/jquery-accessible-accordion.js"></script>
   <script>jQuery('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });</script>
   {{#requestable}}
   <script>

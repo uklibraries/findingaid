@@ -119,5 +119,15 @@
             a.href = refUrl.href;
             li.classList.remove('fa-hidden');
         })();
+
+        $('.fa-expand-all').on('click', function () {
+            var $btn = $(this);
+            var expanded = $btn.attr('data-state') === 'expanded';
+            var $scope = $btn.closest('.editorial');
+            $scope.find('button.js-accordion__header').attr('aria-expanded', expanded ? 'false' : 'true');
+            $scope.find('.js-accordion__panel').attr('aria-hidden', expanded ? 'true' : 'false');
+            $btn.attr('data-state', expanded ? 'collapsed' : 'expanded')
+            .text(expanded ? 'Expand all' : 'Collapse all');
+        });
     });
 })();

@@ -1,35 +1,47 @@
-<div class="fa-component" id="{{heading_id}}">
-  <h3 class="headline-group">{{{label}}}</h3>
-  THIS IS A COMPONENT
-  <div id="{{body_id}}">
-    <ul class="list-unstyled">
-    {{#container_lists}}
-      {{{container_list}}}
-    {{/container_lists}}
-    </ul>
-    {{#bioghist_head}}
-      <h5>{{{p}}}</h5>
-    {{/bioghist_head}}
-    {{#bioghist}}
-      <p>{{{p}}}</p>
-    {{/bioghist}}
-    {{#scopecontent_head}}
-      <h5>{{{p}}}</h5>
-    {{/scopecontent_head}}
-    {{#scopecontent}}
-      <p>{{{p}}} this is the scope content</p>
-    {{/scopecontent}}
-    {{#processinfo_head}}
-      <h5>{{{p}}}</h5>
-    {{/processinfo_head}}
-    {{#processinfo}}
-      <p>{{{p}}} this is the process info</p>
-    {{/processinfo}}
-    {{> media}}
-    {{#subcomponents}}
-    {{{subcomponent}}}
-    {{/subcomponents}}
-    {{^subcomponents}}
-    {{/subcomponents}}
+<div id="{{heading_id}}" class="slab fa-component">
+  <div class="slab__wrapper">
+    {{#collapsible}}
+    <div class="js-accordion">
+      <div class="js-accordion__panel">
+        <h5 class="js-accordion__header headline-group">
+          <span class="headline-group__head">{{{label}}}</span>
+        </h5>
+        <div class="editorial">
+          {{> media}}
+          {{#container_lists}}
+          <ul class="fa-component list-unstyled">
+            {{{container_list}}}
+          </ul>
+          {{/container_lists}}
+          {{#bioghist}}
+          <p>{{{p}}}</p>
+          {{/bioghist}}
+          {{#scopecontent}}
+          <p>{{{p}}}</p>
+          {{/scopecontent}}
+          {{#processinfo}}
+          <p>{{{p}}}</p>
+          {{/processinfo}}
+          {{#subcomponents}}
+          {{{subcomponent}}}
+          {{/subcomponents}}
+        </div>
+      </div>
+    </div>
+    {{/collapsible}}
+
+    {{^collapsible}}
+    <h5 class="headline-group">
+      <span class="headline-group__head">{{{label}}}</span>
+    </h5>
+    <div class="editorial">
+      {{> media}}
+      <ul class="container_list">
+        {{#container_lists}}
+        {{{container_list}}}
+        {{/container_lists}}
+      </ul>
+    </div>
+    {{/collapsible}}
   </div>
 </div>

@@ -13,8 +13,16 @@
       {{/entries}}
       </dl>
     {{/multi-field}}
-    {{#components}}
-    {{{component}}}
-    {{/components}}
+    {{#expandable}}
+    <div class="fa-expand-all-wrap">
+      <button type="button" class="button fa-expand-all" data-state="collapsed">Expand all</button>
+    </div>
+    {{/expandable}}
+    <div id="components">
+      {{#components}}
+      {{{component}}}
+      {{/components}}
+    </div>
   </div>
 </div>
+

@@ -129,6 +129,9 @@ class Findingaid extends Controller
                             $panel['components'][] = [
                                 'component' => $details[0],
                             ];
+                            if ($details[1]['collapsible']) {
+                                $panel['expandable'] = true;
+                            }
                             if ($details[1]['level'] === 'series') {
                                 $attributes = $c->attributes();
                                 $toc_subentries[] = $details[1]['metadata'];
@@ -417,18 +420,29 @@ class Findingaid extends Controller
                 ];
             }
 
+            $bioghist_head = $component->bioghistHead();
+            $bioghist = $component->bioghist();
+            $scopecontent_head = $component->scopecontentHead();
+            $scopecontent = $component->scopecontent();
+            $processinfo_head = $component->processinfoHead();
+            $processinfo = $component->processinfo();
+
+            $has_children = count($subcomponent_content) > 0;
+            $has_notes = !empty($bioghist) || !empty($scopecontent) || !empty($processinfo)
+                || !empty($bioghist_head) || !empty($scopecontent_head) || !empty($processinfo_head);
+
             $component_content = $renderer->render(
                 $this->templates['component'],
                 [
                     'label' => fa_brevity($component->title()),
-                    'collapsible' => true,
+                    'collapsible' => $has_children || $has_notes,
                     'container_lists' => $container_lists,
-                    'bioghist_head' => $component->bioghistHead(),
-                    'bioghist' => $component->bioghist(),
-                    'scopecontent_head' => $component->scopecontentHead(),
-                    'scopecontent' => $component->scopecontent(),
-                    'processinfo_head' => $component->processinfoHead(),
-                    'processinfo' => $component->processinfo(),
+                    'bioghist_head' => $bioghist_head,
+                    'bioghist' => $bioghist,
+                    'scopecontent_head' => $scopecontent_head,
+                    'scopecontent' => $scopecontent,
+                    'processinfo_head' => $processinfo_head,
+                    'processinfo' => $processinfo,
                     'links' => $component->links,
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,
@@ -442,6 +456,7 @@ class Findingaid extends Controller
             $component_content,
             [
                 'level' => (string)$component->level(),
+                'collapsible' => $has_children || $has_notes,
                 'metadata' => [
                     'label' => fa_brevity($component->title()),
                     'id' => $heading_id,
