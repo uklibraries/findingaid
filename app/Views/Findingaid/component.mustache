@@ -3,9 +3,9 @@
     {{#collapsible}}
     <div class="js-accordion">
       <div class="js-accordion__panel">
-        <h5 class="js-accordion__header headline-group">
+        <h3 class="js-accordion__header headline-group">
           <span class="headline-group__head">{{{label}}}</span>
-        </h5>
+        </h3>
         <div class="editorial">
           {{> media}}
           {{#container_lists}}
@@ -16,6 +16,10 @@
           {{#bioghist}}
           <p>{{{p}}}</p>
           {{/bioghist}}
+          <!--TODO: Removed labels on purpose? -->
+          {{#scopecontent_head}}
+            <h3>{{{p}}}</h3>
+          {{/scopecontent_head}}
           {{#scopecontent}}
           <p>{{{p}}}</p>
           {{/scopecontent}}
@@ -31,9 +35,9 @@
     {{/collapsible}}
 
     {{^collapsible}}
-    <h5 class="headline-group">
+    <h3 class="headline-group">
       <span class="headline-group__head">{{{label}}}</span>
-    </h5>
+    </h3>
     <div class="editorial">
       {{> media}}
       <ul class="container_list">
