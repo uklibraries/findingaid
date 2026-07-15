@@ -1,19 +1,29 @@
-{{#links}}
-  <div>
-    {{#image}}
-    <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/></a>
-    {{/image}}
-    {{#extra}}
-    {{>image_controls}}
-    {{/extra}}
-    {{#image_overflow}}
-    <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="image-overflow" data-src="{{thumb}}"/></a>
-    {{/image_overflow}}
-    {{#audio}}
-    <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-    {{/audio}}
-    {{#video}}
-    <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-    {{/video}}
-  </div>
-{{/links}}
+<!-- TODO: Add logic to check for any media in config.js, if yes render <aside>. -->
+<!-- TODO: Handle other media types -->
+<!-- TODO: Check if modal is broken, add limestone styles -->
+
+<aside class="editorial__aside align-left">
+  {{#links}}
+      {{#image}}
+      <div class="image-gallery">
+        <div class="image-gallery__block">
+          <a id="{{href_id}}" class="image-sequence" href="{{full}}">
+            <img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/>
+          </a>
+        </div>
+      </div>
+      {{/image}}
+      {{#extra}}
+      {{>image_controls}}
+      {{/extra}}
+      {{#image_overflow}}
+      <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="image-overflow" data-src="{{thumb}}"/></a>
+      {{/image_overflow}}
+      {{#audio}}
+      <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
+      {{/audio}}
+      {{#video}}
+      <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
+      {{/video}}
+  {{/links}}
+</aside>
