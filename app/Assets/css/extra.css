@@ -17,6 +17,7 @@
 :root {
     /* Limestone brand colors (names mirror Limestone's modifier classes) */
     --color-wildcat-blue: #0033a0;
+    --color-wildcat-white: #fff;
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
 }
@@ -85,13 +86,6 @@
     border-radius: 6px;
 }
 
-/*.fa-request-ul {
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin: 1em;
-}*/
-
 .fa-options {
     padding: 1em;
 }
@@ -119,16 +113,6 @@ dd {
 label {
     font-weight: 300;
 }
-
-/* unused style */
-/*.hd {
-    height: 3px;
-    background-color: #0a3a5e;
-}
-
-.nav-tabs {
-   float: right;
-}*/
 
 .fa-section {
     margin-bottom: 2rem;
@@ -183,34 +167,13 @@ label {
 .viewer-control {
     background: transparent;
     display: inline;
-    color: transparent;
+    color: var(--color-wildcat-white);
     font-size: 6vh;
 }
 
 #viewer-img {
     height: 80vh;
 }
-/* un-used style */
-/*.alert-harmful {
-    background: #b1c9e8;
-    color: #282828;
-}
-
-
-.red-alert {
-    color: #ff0033;
-    font-size: larger;
-}
-
-.red-alert-text {
-    font-size: larger;
-    color: #313132;
-    font-weight: bold;
-}
-
-.green-alert-text {
-    color: #246024;
-}*/
 
 .fa-request-summary {
     background-color: var(--color-blue-gray);
@@ -232,7 +195,7 @@ button:focus:hover.button--ghost,
 .default-colors button:focus:hover.button--ghost {
     background-color: var(--color-wildcat-blue);
     border-color: var(--color-wildcat-blue);
-    color: #fff;
+    color: var(--color-wildcat-white);
 }
 
 /* styling to match central webcom's in-page alert*/
