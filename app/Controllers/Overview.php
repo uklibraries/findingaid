@@ -47,7 +47,6 @@ class Overview extends Controller
 
                 "css/jquery-ui.min.css",
                 "css/extra.css",
-                "css/footer.css",
                 "css/lity.min.css",
                 "css/mediaelementplayer.min.css",
             ];
