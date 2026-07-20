@@ -568,7 +568,7 @@ var requests = (function() {
                 pieces.push('<li id="' + item["id"] + '">');
                 pieces.push('<p class="fa-summary-item">');
                 if (("removable" in item) && item["removable"]) {
-                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> ');
+                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><span class="ic ic--close" aria-hidden="true"></span>Remove</a> ');
                 }
                 pieces.push(item["label"]);
                 pieces.push('</p></li>');
@@ -652,8 +652,8 @@ var requests = (function() {
             collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
-            button_toc_active = options["button_toc_active"];
-            button_toc_inactive = options["button_toc_inactive"];
+            //button_toc_active = options["button_toc_active"];
+            //button_toc_inactive = options["button_toc_inactive"];
 
             model.init();
             update();
@@ -703,22 +703,22 @@ var requests = (function() {
 
             $('.fa-requestable').each(function () {
                 var id = $(this).attr('id');
-                if ($(this).hasClass('fa-toc')) {
-                    $(this).after([
-                        '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-toc" data-status="inactive" data-active="',
-                        button_toc_active,
-                        '" data-inactive="',
-                        button_toc_inactive,
-                        '" data-target="',
-                        id,
-                        '" id="',
-                        id,
-                        '-button">',
-                        button_toc_inactive,
-                        '</button>'
-                    ].join(''));
-                }
-                else {
+                //if ($(this).hasClass('fa-toc')) {
+                //    $(this).after([
+                //        '<button type="button" class="button button--ghost fa-request fa-requestable-toc" data-status="inactive" data-active="',
+                //        button_toc_active,
+                //        '" data-inactive="',
+                //        button_toc_inactive,
+                //        '" data-target="',
+                //        id,
+                //        '" id="',
+                //        id,
+                //        '-button">',
+                //        button_toc_inactive,
+                //        '</button>'
+                //    ].join(''));
+                //}
+                //else {
                     $(this).after([
                         '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-contents" data-status="inactive" data-active="',
                         button_active,
@@ -732,7 +732,7 @@ var requests = (function() {
                         button_inactive,
                         '</button>'
                     ].join(''));
-                }
+                //}
             });
 
             $('form.fa-request-fieldset').submit(function () {
