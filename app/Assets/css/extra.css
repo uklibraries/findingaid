@@ -17,6 +17,7 @@
 :root {
     /* Limestone brand colors (names mirror Limestone's modifier classes) */
     --color-wildcat-blue: #0033a0;
+    --color-wildcat-white: #fff;
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
     --color-sky: #b1c9e8;
@@ -93,13 +94,6 @@
     border-radius: 6px;
 }
 
-/*.fa-request-ul {
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin: 1em;
-}*/
-
 .fa-options {
     padding: 1em;
 }
@@ -167,7 +161,7 @@ label {
 .viewer-control {
     background: transparent;
     display: inline;
-    color: transparent;
+    color: var(--color-wildcat-white);
     font-size: 6vh;
 }
 
@@ -195,7 +189,7 @@ button:focus:hover.button--ghost,
 .default-colors button:focus:hover.button--ghost {
     background-color: var(--color-wildcat-blue);
     border-color: var(--color-wildcat-blue);
-    color: #fff;
+    color: var(--color-wildcat-white);
 }
 
 /* Fix Limestone bug - `.social-media-links` assume a light background, so override with appropriate color for footer. */
