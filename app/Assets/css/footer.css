@@ -4,6 +4,10 @@ footer {
    font-weight: normal;
 }
 
+.global-footer .social-media-links__linkset a {
+    text-decoration: none;
+}
+
 #connectWithUs {
     font-weight: 300;
     font-size: smaller;

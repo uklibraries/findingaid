@@ -32,6 +32,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 0;
+}
+
+.container_list_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .editorial {
@@ -57,9 +64,9 @@
     margin: 0 auto;
 }
 
-/*.fa-request.fa-requestable-contents {
+.fa-request.fa-requestable-contents {
     float: right;
-}*/
+}
 
 .fa-request-summary-note {
     font-style: italic;
