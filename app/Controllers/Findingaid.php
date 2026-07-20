@@ -444,6 +444,8 @@ class Findingaid extends Controller
                     'processinfo_head' => $processinfo_head,
                     'processinfo' => $processinfo,
                     'links' => $component->links,
+                    'has_media' => !empty($component->links),
+                    'has_image_overflow' => $component->has_image_overflow,
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,
                     'body_id' => $body_id,

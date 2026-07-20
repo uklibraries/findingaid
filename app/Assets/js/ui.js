@@ -26,25 +26,50 @@
             player.play();
             $(this).remove();
         });
-        function update_click_to_load(element) {
-            var p = element.parent();
-            var images_remaining = p.find('.image-overflow').length;
+        // The controls live in an .image-gallery__controls sibling that follows
+        // the gallery, so hop between the two rather than assuming a shared parent.
+        function gallery_of(controls) {
+            return controls.closest('.image-gallery__controls').prev('.image-gallery');
+        }
+        function controls_of(gallery) {
+            return gallery.next('.image-gallery__controls');
+        }
+        // Revealed overflow images were measured at zero size while hidden, so
+        // masonry must re-read them before laying out.
+        function relayout(gallery) {
+            if (gallery.data('masonry')) {
+                gallery.masonry('reloadItems').masonry('layout');
+            }
+        }
+        // Move overflow images into the visible masonry flow: load the thumbnail,
+        // drop the marker classes on both the <img> and its block wrapper.
+        function reveal_overflow(imgs) {
+            imgs.reveal().removeClass('image-overflow');
+            imgs.closest('.image-gallery__block').removeClass('image-gallery__block--overflow');
+        }
+        function update_click_to_load(gallery) {
+            var controls = controls_of(gallery);
+            var images_remaining = gallery.find('img.image-overflow').length;
             if (images_remaining == 0) {
-                p.find('.click-to-load-images').remove();
-                p.find('.click-to-load-all-images').remove();
+                controls.find('.click-to-load-images').remove();
+                controls.find('.click-to-load-all-images').remove();
             }
             else {
-                p.find('.click-to-load-all-images').removeClass('fa-hidden');
+                controls.find('.click-to-load-all-images').removeClass('fa-hidden');
             }
         }
         $('.click-to-load-images').click(function () {
-            $(this).siblings().find('.image-overflow').slice(0, 4).reveal().removeClass('image-overflow');
-            update_click_to_load($(this));
+            var gallery = gallery_of($(this));
+            reveal_overflow(gallery.find('img.image-overflow').slice(0, 4));
+            update_click_to_load(gallery);
+            relayout(gallery);
         });
         $('.click-to-load-all-images').click(function () {
-            $(this).siblings().find('.image-overflow').reveal();
-            $(this).siblings('.click-to-load-images').remove();
+            var gallery = gallery_of($(this));
+            reveal_overflow(gallery.find('img.image-overflow'));
+            controls_of(gallery).find('.click-to-load-images').remove();
             $(this).remove();
+            relayout(gallery);
         });
         $('img.lazy').unveil(200);
         $('.image-sequence').click(function () {
@@ -56,21 +81,31 @@
         $(document).on('lity:close', function () {
             lity_open = false;
         });
+        // All the image anchors of the gallery containing #id, in document order.
+        function sequence_of(id) {
+            return $('#' + id).closest('.image-gallery').find('.image-sequence');
+        }
         function lity_load(id) {
-            if ($('#' + id).length > 0) {
-                $('#' + id).find('.image-overflow').reveal().removeClass('image-overflow');
-                update_click_to_load($('#' + id));
-                $('#viewer-img').attr(
-                    'src',
-                    $('#' + id).attr('href')
-                );
-                if ($('#' + id).prev('.image-sequence').length > 0) {
+            var a = $('#' + id);
+            if (a.length > 0) {
+                var gallery = a.closest('.image-gallery');
+                var overflow = a.find('img.image-overflow');
+                if (overflow.length > 0) {
+                    reveal_overflow(overflow);
+                    update_click_to_load(gallery);
+                    relayout(gallery);
+                }
+                $('#viewer-img').attr('src', a.attr('href'));
+                $('#viewer-img').attr('alt', a.find('img').attr('alt') || '');
+                var seq = sequence_of(id);
+                var idx = seq.index(a);
+                if (idx > 0) {
                     $('.viewer-prev').css('color', 'white');
                 }
                 else {
                     $('.viewer-prev').css('color', 'transparent');
                 }
-                if ($('#' + id).next('.image-sequence').length > 0) {
+                if (idx > -1 && idx < seq.length - 1) {
                     $('.viewer-next').css('color', 'white');
                 }
                 else {
@@ -87,12 +122,20 @@
         });
         function prev_image() {
             if (lity_open && current_image) {
-                lity_load($('#' + current_image).prev('.image-sequence').attr('id'));
+                var seq = sequence_of(current_image);
+                var idx = seq.index($('#' + current_image));
+                if (idx > 0) {
+                    lity_load(seq.eq(idx - 1).attr('id'));
+                }
             }
         }
         function next_image() {
             if (lity_open && current_image) {
-                lity_load($('#' + current_image).next('.image-sequence').attr('id'));
+                var seq = sequence_of(current_image);
+                var idx = seq.index($('#' + current_image));
+                if (idx > -1 && idx < seq.length - 1) {
+                    lity_load(seq.eq(idx + 1).attr('id'));
+                }
             }
         }
         Mousetrap.bind('left', function () {

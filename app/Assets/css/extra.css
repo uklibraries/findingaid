@@ -19,6 +19,7 @@
     --color-wildcat-blue: #0033a0;
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
+    --color-sky: #b1c9e8;
 }
 
 .fa-component {
@@ -120,16 +121,6 @@ label {
     font-weight: 300;
 }
 
-/* unused style */
-/*.hd {
-    height: 3px;
-    background-color: #0a3a5e;
-}
-
-.nav-tabs {
-   float: right;
-}*/
-
 .fa-section {
     margin-bottom: 2rem;
 }
@@ -138,32 +129,14 @@ label {
     font-size: 1.5rem;
 }
 
-/* .fa-component { */
-/*     background-color: #eff4fd; */
-/*     padding: 1rem; */
-/*     margin-bottom: 0.5rem; */
-/* } */
-
 .editorial .fa-component h4 {
     font-size: 1.15rem;
     font-weight: 400;
 }
 
-/*.fa-component .list-unstyled {
+.fa-component .list-unstyled {
     list-style: none;
     padding-left: 0;
-}*/
-
-/*.fa-component .list-unstyled li {
-    font-size: 0.9rem;
-    color: #555;
-    padding: 0.5rem 0.75rem;
-    margin-bottom: 0.25rem;
-}*/
-
-.fa-component img {
-    max-width: 150px;
-    max-height: 150px;
 }
 
 /*.fa-component .fa-request.fa-requestable-contents {
@@ -172,8 +145,12 @@ label {
     margin-left: 0.5rem;
 }*/
 
-.click-to-load-images, .image-overflow {
-    display: inline;
+/* .click-to-load-images, .image-overflow { */
+/*     display: inline; */
+/* } */
+
+.click-to-load-images {
+  /* position: relative; */
 }
 
 #viewer {
@@ -190,27 +167,6 @@ label {
 #viewer-img {
     height: 80vh;
 }
-/* un-used style */
-/*.alert-harmful {
-    background: #b1c9e8;
-    color: #282828;
-}
-
-
-.red-alert {
-    color: #ff0033;
-    font-size: larger;
-}
-
-.red-alert-text {
-    font-size: larger;
-    color: #313132;
-    font-weight: bold;
-}
-
-.green-alert-text {
-    color: #246024;
-}*/
 
 .fa-request-summary {
     background-color: var(--color-blue-gray);
@@ -233,6 +189,13 @@ button:focus:hover.button--ghost,
     background-color: var(--color-wildcat-blue);
     border-color: var(--color-wildcat-blue);
     color: #fff;
+}
+
+/* Fix Limestone bug - `.social-media-links` assume a light background, so override with appropriate color for footer. */
+.global-footer .social-media-links a:hover,
+.global-footer .social-media-links a:focus,
+.global-footer .social-media-links a:active {
+    color: var(--color-sky);
 }
 
 /* styling to match central webcom's in-page alert*/
@@ -280,12 +243,10 @@ button:focus:hover.button--ghost,
     .icon-label--micro {
         font-size: .81rem;
         margin-top: .2rem;
-        margin-bottom: .2rem; 
-    }    
+        margin-bottom: .2rem;
+    }
 }
 
-@scope (.image-gallery){
-    .image-gallery__block {
-        width: 100%
-    }
+.image-gallery__block--overflow {
+    display: none;
 }

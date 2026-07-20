@@ -62,6 +62,26 @@
   <script src="{{href}}?hash={{hash}}"></script>
   {{/js}}
   <script>jQuery('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });</script>
+  <script>
+  jQuery(function () {
+      // Limestone's image-gallery.js defines image_gallery() but never calls it
+      if (typeof image_gallery === 'function') {
+          image_gallery();
+      }
+      // Masonry measures image heights at init, but thumbnails lazy-load via
+      // unveil, so re-layout each gallery as its images actually arrive.
+      jQuery('.image-gallery').each(function () {
+          var gallery = this;
+          var pending;
+          gallery.addEventListener('load', function () {
+              clearTimeout(pending);
+              pending = setTimeout(function () {
+                  jQuery(gallery).masonry('layout');
+              }, 50);
+          }, true);
+      });
+  });
+  </script>
   {{#requestable}}
   <script>
   requests.init({

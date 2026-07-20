@@ -9,7 +9,17 @@
           <span class="headline-group__head">{{{label}}}</span>
         </h3>
         <div class="editorial">
-          {{> media}}
+          {{#has_media}}
+          <div class="image-gallery">
+            <div class="image-gallery__block-sizer"></div>
+            {{#links}}
+            {{> media}}
+            {{/links}}
+          </div>
+          {{#has_image_overflow}}
+          <p class="image-gallery__controls">{{> image_controls}}</p>
+          {{/has_image_overflow}}
+          {{/has_media}}
           {{#container_lists}}
           <ul class="fa-component list-unstyled">
             {{{container_list}}}
@@ -40,7 +50,17 @@
       <span class="headline-group__head">{{{label}}}</span>
     </h3>
     <div class="editorial">
-      {{> media}}
+      {{#has_media}}
+      <div class="image-gallery">
+        <div class="image-gallery__block-sizer"></div>
+        {{#links}}
+        {{> media}}
+        {{/links}}
+      </div>
+      {{#has_image_overflow}}
+      <p class="image-gallery__controls">{{> image_controls}}</p>
+      {{/has_image_overflow}}
+      {{/has_media}}
       <ul class="container_list">
         {{#container_lists}}
         {{{container_list}}}
@@ -50,3 +70,5 @@
     {{/collapsible}}
   </div>
 </div>
+
+
