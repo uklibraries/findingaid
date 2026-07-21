@@ -12,6 +12,10 @@
   .js-accordion__panel[aria-hidden="true"] {
     contain: content;
   }
+
+  .universal-breadcrumb ul{
+    font-family: "usual", sans-serif !important;
+  }
 }
 
 :root {
