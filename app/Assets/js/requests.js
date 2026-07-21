@@ -174,8 +174,8 @@ var requests = (function() {
             "save-for-later",
             "request-reproductions"
         ];
-        var default_request_type = "schedule-retrieval";
-        /*var default_request_type = "save-for-later";*/
+        /*var default_request_type = "schedule-retrieval";*/
+        var default_request_type = "save-for-later";
         var request_type;
         var pages_items_to_be_reproduced = '';
         var formats = [
@@ -566,11 +566,10 @@ var requests = (function() {
             render: function (item) {
                 var pieces = [];
                 pieces.push('<li id="' + item["id"] + '">');
-                pieces.push('<p class="fa-summary-item">');
+                pieces.push('<p class="fa-summary-item">' + item["label"] + '</br>');
                 if (("removable" in item) && item["removable"]) {
-                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><span class="ic ic--close" aria-hidden="true"></span>Remove</a> ');
+                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><b>Remove<b></a>');
                 }
-                pieces.push(item["label"]);
                 pieces.push('</p></li>');
                 return pieces.join('');
             }
