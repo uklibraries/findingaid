@@ -199,6 +199,10 @@ button:focus:hover.button--ghost,
     color: var(--color-sky);
 }
 
+.global-footer .social-media-links__linkset a {
+    text-decoration: none;
+}
+
 /* styling to match central webcom's in-page alert*/
 .in-page-alert {
     background-color: var(--color-blue-gray);
