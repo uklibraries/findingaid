@@ -6,15 +6,20 @@
 /* When limestone uses !important, it will win against unlayered rules. Overrides for limestone rules must live here */
 @layer overrides {
   .fa-component .fa-component {
-    padding-left: 3rem !important;
+    margin-left: 1rem !important;
+    padding-left: 1rem !important;
   }
 
   .js-accordion__panel[aria-hidden="true"] {
     contain: content;
   }
 
-  .universal-breadcrumb ul{
+  .universal-breadcrumb ul {
     font-family: "usual", sans-serif !important;
+  }
+
+  .left-border {
+    border-left: 5px solid var(--color-wildcat-blue);
   }
 }
 
@@ -25,6 +30,15 @@
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
     --color-sky: #b1c9e8;
+}
+
+.lity-content > div {
+  display: flex;
+  align-items: center;
+}
+
+.fa-component .slab__wrapper {
+  padding: 1rem 0;
 }
 
 .fa-component {
