@@ -108,6 +108,9 @@ class Component extends Model
                         }
                         $link['audio']['href'] = $href;
                         $link['audio']['href_id'] = $g_minter->mint();
+                        $link['audio']['play_label'] = $base_title !== ''
+                            ? 'Play audio: ' . $base_title
+                            : 'Play audio';
                         break;
                     case 'reference_video':
                         if (empty($link['video'])) {
@@ -115,6 +118,9 @@ class Component extends Model
                         }
                         $link['video']['href'] = $href;
                         $link['video']['href_id'] = $g_minter->mint();
+                        $link['video']['play_label'] = $base_title !== ''
+                            ? 'Play video: ' . $base_title
+                            : 'Play video';
                         break;
                     default:
                         break;

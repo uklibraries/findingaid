@@ -4,27 +4,33 @@
     var lity_open = false;
     var lightbox = lity();
     $(document).ready(function () {
-    $('.click-to-play-audio').click(function () {
-            var href_id = $(this).attr('data-id');
-            var href = $(this).attr('data-href');
-            $(this).after('<audio id="' + href_id + '" src="' + href  + '" style="display:block, width: 305px; height: 30px;" width="305" height="30"></audio>');
-            $('#' + href_id).mediaelementplayer();
-            var player = new MediaElement(href_id);
-            player.pause();
-            player.setSrc(href);
-            player.play();
-            $(this).remove();
+        function play_media(trigger, tag) {
+            var href_id = trigger.attr('data-id');
+            var href = trigger.attr('data-href');
+            var block = trigger.closest('.image-gallery__block');
+            var gallery = block.closest('.image-gallery');
+            block.addClass('image-gallery__block--player');
+            trigger.after(
+                '<' + tag + ' id="' + href_id + '" class="fa-media" src="' + href + '"></' + tag + '>'
+            );
+            trigger.remove();
+            $('#' + href_id).mediaelementplayer({
+                success: function (media) {
+                    media.play();
+                    relayout(gallery);
+                    // wait for the mejs control bar to put focus on controls
+                    setTimeout(function () {
+                        $('#' + href_id).closest('.mejs-container')
+                            .find('.mejs-playpause-button button').trigger('focus');
+                    }, 0);
+                }
+            });
+        }
+        $('.click-to-play-audio').click(function () {
+            play_media($(this), 'audio');
         });
         $('.click-to-play-video').click(function () {
-            var href_id = $(this).attr('data-id');
-            var href = $(this).attr('data-href');
-            $(this).after('<video id="' + href_id + '" src="' + href  + '" style="display:block, width: 360px; height: 240px;" width="360" height="240"></audio>');
-            $('#' + href_id).mediaelementplayer();
-            var player = new MediaElement(href_id);
-            player.pause();
-            player.setSrc(href);
-            player.play();
-            $(this).remove();
+            play_media($(this), 'video');
         });
         // The controls live in an .image-gallery__controls sibling that follows
         // the gallery, so hop between the two rather than assuming a shared parent.
@@ -71,6 +77,9 @@
             $(this).remove();
             relayout(gallery);
         });
+        function set_viewer_control(control, enabled) {
+            control.prop('disabled', !enabled);
+        }
         $('img.lazy').unveil(200);
         $('.image-sequence').click(function () {
             current_image = $(this).attr('id');
@@ -99,18 +108,8 @@
                 $('#viewer-img').attr('alt', a.find('img').attr('alt') || '');
                 var seq = sequence_of(id);
                 var idx = seq.index(a);
-                if (idx > 0) {
-                    $('.viewer-prev').css('color', 'white');
-                }
-                else {
-                    $('.viewer-prev').css('color', 'transparent');
-                }
-                if (idx > -1 && idx < seq.length - 1) {
-                    $('.viewer-next').css('color', 'white');
-                }
-                else {
-                    $('.viewer-next').css('color', 'transparent');
-                }
+                set_viewer_control($('.viewer-prev'), idx > 0);
+                set_viewer_control($('.viewer-next'), idx > -1 && idx < seq.length - 1);
                 current_image = id;
             }
         }

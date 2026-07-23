@@ -3,10 +3,10 @@
 <!-- TODO: Check if modal is broken, add limestone styles -->
 
 {{#image}}
-<div class="image-gallery__block" >
+<div class="image-gallery__block">
   <a id="{{href_id}}" class="image-sequence" href="{{full}}">
     <figure>
-      <img class="lazy media-top" src="images/loading.gif" data-src="{{thumb}}" alt="{{alt}}"/>
+      <img class="lazy media-top" src="images/loading.gif" data-src="{{thumb}}" alt="{{alt}}" />
     </figure>
   </a>
 </div>
@@ -15,14 +15,26 @@
 <div class="image-gallery__block image-gallery__block--overflow">
   <a id="{{href_id}}" class="image-sequence" href="{{full}}">
     <figure>
-      <img class="image-overflow media-top" data-src="{{thumb}}" alt="{{alt}}"/>
+      <img class="image-overflow media-top" data-src="{{thumb}}" alt="{{alt}}" />
     </figure>
   </a>
 </div>
 {{/image_overflow}}
 {{#audio}}
-<p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="ic ic--play-triangle"></span><br>play</p>
+<div class="image-gallery__block">
+  <button type="button" class="click-to-play-audio button" data-id="{{href_id}}" data-href="{{href}}"
+    aria-label="{{play_label}}">
+    <span class="ic ic--audio" aria-hidden="true"></span>
+    <span>play</span>
+  </button>
+</div>
 {{/audio}}
 {{#video}}
-  <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="ic ic--play-triangle"></span><br>play</p>
+<div class="image-gallery__block">
+  <button type="button" class="click-to-play-video button" data-id="{{href_id}}" data-href="{{href}}"
+    aria-label="{{play_label}}">
+    <span class="ic ic--video" aria-hidden="true"></span>
+    <span>play</span>
+  </button>
+</div>
 {{/video}}

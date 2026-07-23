@@ -719,7 +719,7 @@ var requests = (function() {
                 //}
                 //else {
                     $(this).after([
-                        '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-contents" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--wildcat-blue fa-request fa-requestable-contents fa-request__button" data-status="inactive" data-active="',
                         button_active,
                         '" data-inactive="',
                         button_inactive,
