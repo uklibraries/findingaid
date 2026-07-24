@@ -13,10 +13,6 @@
     font-family: "usual", sans-serif !important;
   }
 
-  .left-border {
-    /* border-left: 2px solid var(--color-sky); */
-  }
-
   .viewer-control:disabled {
     background-color: transparent !important;
     border-color: transparent !important;
@@ -104,7 +100,12 @@
 }
 
 .editorial > p {
-  padding-left: 1em;
+  padding-left: var(--space-lg);
+}
+
+.fa-component .editorial > :is(h1, h2, h3, h4, h5, h6),
+.fa-component .editorial > [role="heading"] {
+  padding-left: var(--space-lg);
 }
 
 .fa-request.fa-requestable-toc {
@@ -386,7 +387,9 @@ button:focus:hover.button--ghost,
 
 /* Large */
 @media screen and (min-width: 76rem) {
-
+  .fa-component .slab__wrapper {
+    padding-left: var(--space-lg);
+  }
 }
 
 /* X-Large */
