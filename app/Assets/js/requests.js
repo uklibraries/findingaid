@@ -75,8 +75,20 @@ var requests = (function() {
         }
         else {
             request_type = model.get_request_type();
-            $('button.fa-request-option').addClass('button--ghost').removeClass('button--wildcat-blue');
-            $('button[data-option="' + request_type + '"]').addClass('button--wildcat-blue').removeClass('button--ghost');
+
+            //handle form radio select options
+            $('.fa-request-option').each(function () {
+                var $this = $(this);
+                var isSelected = ($this.attr('data-option') === request_type);
+
+                //set radio property
+                if ($this.is(':radio')) {
+                    $this.prop('checked', isSelected);
+                }
+            });
+
+            //$('button.fa-request-option').addClass('button--ghost').removeClass('button--wildcat-blue');
+            //$('button[data-option="' + request_type + '"]').addClass('button--wildcat-blue').removeClass('button--ghost');
             $('div.fa-request-option').addClass('fa-request-hidden');
             if (model.get_count() > 0) {
                 $('[data-option="' + request_type + '"]').removeClass('fa-request-hidden');
@@ -657,7 +669,7 @@ var requests = (function() {
             model.init();
             update();
 
-            $('.fa-request-option').click(function () {
+            $('.fa-request-option').on('click change', function () {
                 var option = $(this).attr('data-option');
                 model.set_request_type(option);
                 update();
