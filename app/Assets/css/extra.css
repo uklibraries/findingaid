@@ -296,7 +296,6 @@ button:focus:hover.button--ghost,
         margin: 2rem 0;
     }
 }
-
 /*Archive content banner*/
 @scope (.slab--micro) {
     :scope{
@@ -379,3 +378,19 @@ button:focus:hover.button--ghost,
 @media screen and (min-width: 80rem) {
 
 }
+
+
+/* shared exploreuk-web-app styles */
+@scope(.search-form){
+    button {
+        margin: 0;
+    }
+}
+
+@scope (.search-brief) {
+    button {
+        margin: 0;
+    }
+}
+
+
