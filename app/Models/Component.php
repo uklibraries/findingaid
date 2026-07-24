@@ -241,20 +241,30 @@ class Component extends Model
 
     public function bioghistHead()
     {
-        $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['bioghist_head']));
+        return $this->noteHead('bioghist', 'Biography / History');
     }
 
     public function scopecontentHead()
     {
-        $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['scopecontent_head']));
+        return $this->noteHead('scopecontent', 'Scope and Content');
     }
 
     public function processinfoHead()
     {
+        return $this->noteHead('processinfo', 'Processing Info');
+    }
+
+    private function noteHead($key, $default)
+    {
         $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['processinfo_head']));
+        $head = $this->renderParagraphs($this->xpath($contents_config[$key . '_head']));
+        if (!empty($head)) {
+            return $head;
+        }
+        if (!empty($this->xpath($contents_config[$key]))) {
+            return [['p' => $default]];
+        }
+        return [];
     }
 
     public function bioghist()
