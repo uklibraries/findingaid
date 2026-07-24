@@ -30,17 +30,30 @@
 }
 
 :root {
-    /* Limestone brand colors (names mirror Limestone's modifier classes) */
+    /* Limestone values */
+    /* Limestone brand colors */
     --color-wildcat-blue: #0033a0;
     --color-wildcat-white: #fff;
     --color-blue-gray: #eff4fd;
     --color-cool-neutral: #dcddde;
     --color-sky: #b1c9e8;
     --color-dark-gray: #515664;
+
+    /* Type scale */
+    --font-size-base: 1.1667rem;
+    --font-size-lg: 1.5rem;
+    --line-height: 1.5rem;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
 }
 
 .fa-component .slab__wrapper {
-  padding: 0 1rem;
+  padding: 0 var(--space-md);
 }
 
 .fa-component {
@@ -66,7 +79,7 @@
 .container_list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   padding: 0;
 }
 
@@ -86,7 +99,7 @@
 }
 
 .fa-expand-all-wrap {
-    margin: 0 0 0.75rem;
+    margin: 0 0 var(--space-sm);
     text-align: right;
 }
 
@@ -147,25 +160,27 @@ label {
 }
 
 .fa-section {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
 }
 
 .editorial .fa-section h3 {
-    font-size: 1.5rem;
+    font-size: var(--font-size-lg);
 }
 
 .editorial .fa-component h4 {
-    font-size: 1.15rem;
-    font-weight: 400;
+    /* Compact hierarchy, but on Limestone's grid: base hN size, normal weight
+       (was an off-grid 1.15rem / 400). */
+    font-size: var(--font-size-base);
+    font-weight: normal;
 }
 
 .editorial [role="heading"],
 .editorial [role="heading"].headline-group .headline-group__head {
-    font-size: 1.1667rem;
-    line-height: 1.5rem;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
     font-family: "usual", sans-serif;
     font-weight: 700;
-    margin: 0 0 1rem;
+    margin: 0 0 var(--space-md);
 }
 
 .fa-component .list-unstyled {
@@ -351,7 +366,7 @@ button:focus:hover.button--ghost,
  .container_list_item {
    flex-direction: row;
    align-items: center;
-   gap: 0.75rem;
+   gap: var(--space-sm);
    max-width: 32rem;
  }
 
@@ -364,7 +379,7 @@ button:focus:hover.button--ghost,
  .container_list_item > p::after {
    content: "";
    flex: 1;
-   margin-left: 0.75rem;
+   margin-left: var(--space-sm);
    border-top: 2px dotted var(--color-sky);
  }
 }
