@@ -54,7 +54,6 @@ class Component extends Controller
             ];
         }
 
-        $subcomponents = $model->subcomponents();
         $subcomponent_content = [];
         foreach ($model->subcomponents() as $subcomponent) {
             $subcomponent_content[] = [
@@ -62,7 +61,10 @@ class Component extends Controller
                     $component_template,
                     [
                         'label' => fa_brevity($subcomponent->title()),
-                        'collapsible' => true,
+                        'collapsible' => count($subcomponent->subcomponents()) > 0,
+                        'links' => $subcomponent->links,
+                        'has_media' => !empty($subcomponent->links),
+                        'has_image_overflow' => $subcomponent->has_image_overflow,
                         'bioghist_head' => $model->bioghistHead(),
                         'bioghist' => $subcomponent->bioghist(),
                         'scopecontent_head' => $model->scopecontentHead(),
@@ -80,7 +82,10 @@ class Component extends Controller
             $component_template,
             [
                 'label' => fa_brevity($model->title()),
-                'collapsible' => true,
+                'collapsible' => !empty($subcomponent_content),
+                'links' => $model->links,
+                'has_media' => !empty($model->links),
+                'has_image_overflow' => $model->has_image_overflow,
                 'container_lists' => $container_lists,
                 'has_container_lists' => !empty($container_lists),
                 'bioghist_head' => $model->bioghistHead(),

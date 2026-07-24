@@ -130,6 +130,27 @@
         {{{container_list}}}
         {{/container_lists}}
       </ul>
+      {{#bioghist_head}}
+      {{#note_heading}}
+      {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+      {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+      {{/note_heading}}
+      {{/bioghist_head}}
+      {{#bioghist}}
+      <p>{{{p}}}</p>
+      {{/bioghist}}
+      {{#scopecontent_head}}
+      {{#note_heading}}
+      {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+      {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+      {{/note_heading}}
+      {{/scopecontent_head}}
+      {{#scopecontent}}
+      <p>{{{p}}}</p>
+      {{/scopecontent}}
+      {{#processinfo}}
+      <p>{{{p}}}</p>
+      {{/processinfo}}
     </div>
     {{/collapsible}}
   </div>

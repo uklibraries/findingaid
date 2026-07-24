@@ -427,14 +427,12 @@ class Findingaid extends Controller
             $processinfo = $component->processinfo();
 
             $has_children = count($subcomponent_content) > 0;
-            $has_notes = !empty($bioghist) || !empty($scopecontent) || !empty($processinfo)
-                || !empty($bioghist_head) || !empty($scopecontent_head) || !empty($processinfo_head);
 
             $component_content = $renderer->render(
                 $this->templates['component'],
                 [
                     'label' => fa_brevity($component->title()),
-                    'collapsible' => $has_children || $has_notes,
+                    'collapsible' => $has_children,
                     'container_lists' => $container_lists,
                     'has_container_lists' => !empty($container_lists),
                     'bioghist_head' => $bioghist_head,
@@ -461,7 +459,7 @@ class Findingaid extends Controller
             $component_content,
             [
                 'level' => (string)$component->level(),
-                'collapsible' => $has_children || $has_notes,
+                'collapsible' => $has_children,
                 'metadata' => [
                     'label' => fa_brevity($component->title()),
                     'id' => $heading_id,
