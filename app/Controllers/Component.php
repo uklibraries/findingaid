@@ -69,6 +69,8 @@ class Component extends Controller
                         'scopecontent' => $subcomponent->scopecontent(),
                         'processinfo_head' => $model->processinfoHead(),
                         'processinfo' => $subcomponent->processinfo(),
+                        'heading' => fa_heading_context(4),
+                        'note_heading' => fa_heading_context(5),
                     ]
                 ),
             ];
@@ -80,6 +82,7 @@ class Component extends Controller
                 'label' => fa_brevity($model->title()),
                 'collapsible' => true,
                 'container_lists' => $container_lists,
+                'has_container_lists' => !empty($container_lists),
                 'bioghist_head' => $model->bioghistHead(),
                 'bioghist' => $model->bioghist(),
                 'scopecontent_head' => $model->scopecontentHead(),
@@ -87,6 +90,8 @@ class Component extends Controller
                 'processinfo_head' => $model->processinfoHead(),
                 'processinfo' => $model->processinfo(),
                 'subcomponents' => $subcomponent_content,
+                'heading' => fa_heading_context(3),
+                'note_heading' => fa_heading_context(4),
             ]
         );
 

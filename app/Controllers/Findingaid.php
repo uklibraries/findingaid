@@ -392,7 +392,7 @@ class Findingaid extends Controller
         echo $page;
     }
 
-    public function renderComponent($renderer, $component_xml)
+    public function renderComponent($renderer, $component_xml, $level = 3)
     {
         $component_content = '';
         $attributes = $component_xml->attributes();
@@ -402,7 +402,7 @@ class Findingaid extends Controller
             $component = new ComponentModel($this->params['id'], $attributes['id']);
             $subcomponent_content = [];
             foreach ($component->subcomponents() as $subcomponent) {
-                $subcomponent_details = $this->renderComponent($renderer, $subcomponent->xml());
+                $subcomponent_details = $this->renderComponent($renderer, $subcomponent->xml(), $level + 1);
                 $subcomponent_content[] = [
                     'subcomponent' => $subcomponent_details[0],
                 ];
@@ -436,6 +436,7 @@ class Findingaid extends Controller
                     'label' => fa_brevity($component->title()),
                     'collapsible' => $has_children || $has_notes,
                     'container_lists' => $container_lists,
+                    'has_container_lists' => !empty($container_lists),
                     'bioghist_head' => $bioghist_head,
                     'bioghist' => $bioghist,
                     'scopecontent_head' => $scopecontent_head,
@@ -448,6 +449,9 @@ class Findingaid extends Controller
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,
                     'body_id' => $body_id,
+                    'heading' => fa_heading_context($level),
+                    // (bioghist/scopecontent) sit one level below the label.
+                    'note_heading' => fa_heading_context($level + 1),
                 ]
             );
         } else {
