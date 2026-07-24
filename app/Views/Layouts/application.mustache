@@ -61,27 +61,6 @@
   {{#js}}
   <script src="{{href}}?hash={{hash}}"></script>
   {{/js}}
-  <script>jQuery('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });</script>
-  <script>
-  jQuery(function () {
-      // Limestone's image-gallery.js defines image_gallery() but never calls it
-      if (typeof image_gallery === 'function') {
-          image_gallery();
-      }
-      // Masonry measures image heights at init, but thumbnails lazy-load via
-      // unveil, so re-layout each gallery as its images actually arrive.
-      jQuery('.image-gallery').each(function () {
-          var gallery = this;
-          var pending;
-          gallery.addEventListener('load', function () {
-              clearTimeout(pending);
-              pending = setTimeout(function () {
-                  jQuery(gallery).masonry('layout');
-              }, 50);
-          }, true);
-      });
-  });
-  </script>
   {{#requestable}}
   <script>
   requests.init({
@@ -93,20 +72,6 @@
   });
   </script>
   {{/requestable}}
-  <script>
-  jQuery(function () {
-      function highlight_current() {
-          jQuery('.fa-toc-entry').each(function () {
-              if (jQuery(this).attr('href') === window.location.hash) {
-                  jQuery(this).addClass('fa-toc-entry-highlight');
-              } else {
-                  jQuery(this).removeClass('fa-toc-entry-highlight');
-              }
-          });
-      }
-      jQuery(window).on('hashchange', function () { highlight_current(); });
-      highlight_current();
-  });
   </script>
   {{>viewer}}
 </body>

@@ -4,6 +4,46 @@
     var lity_open = false;
     var lightbox = lity();
     $(document).ready(function () {
+        // Limestone accordions: generate the accessible toggle buttons.
+        $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
+
+        // Limestone ships these init functions but never calls them
+        if (typeof image_gallery === 'function') {
+            image_gallery();
+        }
+        if (typeof togglebutton === 'function') {
+            togglebutton();
+        }
+        if (typeof modals === 'function') {
+            modals();
+        }
+
+        // Masonry measures image heights at init, but thumbnails lazy-load via
+        // unveil, so re-layout each gallery as its images actually arrive.
+        $('.image-gallery').each(function () {
+            var gallery = this;
+            var pending;
+            gallery.addEventListener('load', function () {
+                clearTimeout(pending);
+                pending = setTimeout(function () {
+                    $(gallery).masonry('layout');
+                }, 50);
+            }, true);
+        });
+
+        // Highlight the table-of-contents entry matching the current URL hash.
+        function highlight_current() {
+            $('.fa-toc-entry').each(function () {
+                if ($(this).attr('href') === window.location.hash) {
+                    $(this).addClass('fa-toc-entry-highlight');
+                } else {
+                    $(this).removeClass('fa-toc-entry-highlight');
+                }
+            });
+        }
+        $(window).on('hashchange', function () { highlight_current(); });
+        highlight_current();
+
         function play_media(trigger, tag) {
             var href_id = trigger.attr('data-id');
             var href = trigger.attr('data-href');
