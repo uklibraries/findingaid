@@ -29,6 +29,15 @@ The application should then be available at `http://localhost:8080/<id>`.
 Developers should run `make help` to see a list of helper commands through
 [make](https://www.gnu.org/software/make/).
 
+#### Some Helpful Findingaids
+Here is a small list of findingaid identifiers that are helpful for viewing
+particular functionality:
+
+- xt7x3f4knz7q - Watts family papers - Components with many images
+- xt754746qt9q - Claude Sullivan Recordings - Audio examples
+- xt7w0v89kz6h - Edward T. Ned Breathitt films - Video examples
+- xt75736m0k6d - Dean Cadle collection, 1919-1997 - Many nested levels of components
+
 ### Dependencies
 
 We use [Docker](https://www.docker.com/) for reproducible environments.
@@ -58,7 +67,7 @@ Finding aids must be arranged in a
 [PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy in
 the `xml` directory. The files are not pure EAD, but must be preprocessed using
 a different program. For an example, install the
-[sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz) (which expands
+[sample data](https://solrindex.uky.edu/fa/findingaid/xml.tar.gz) (which expands
 to just shy of a gigabyte):
 
 ```shell
