@@ -87,8 +87,6 @@ var requests = (function() {
                 }
             });
 
-            //$('button.fa-request-option').addClass('button--ghost').removeClass('button--wildcat-blue');
-            //$('button[data-option="' + request_type + '"]').addClass('button--wildcat-blue').removeClass('button--ghost');
             $('div.fa-request-option').addClass('fa-request-hidden');
             if (model.get_count() > 0) {
                 $('[data-option="' + request_type + '"]').removeClass('fa-request-hidden');
@@ -663,8 +661,6 @@ var requests = (function() {
             collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
-            //button_toc_active = options["button_toc_active"];
-            //button_toc_inactive = options["button_toc_inactive"];
 
             model.init();
             update();
@@ -714,22 +710,6 @@ var requests = (function() {
 
             $('.fa-requestable').each(function () {
                 var id = $(this).attr('id');
-                //if ($(this).hasClass('fa-toc')) {
-                //    $(this).after([
-                //        '<button type="button" class="button button--ghost fa-request fa-requestable-toc" data-status="inactive" data-active="',
-                //        button_toc_active,
-                //        '" data-inactive="',
-                //        button_toc_inactive,
-                //        '" data-target="',
-                //        id,
-                //        '" id="',
-                //        id,
-                //        '-button">',
-                //        button_toc_inactive,
-                //        '</button>'
-                //    ].join(''));
-                //}
-                //else {
                     $(this).after([
                         '<button type="button" class="button button--ghost fa-request fa-requestable-contents fa-request__button" data-status="inactive" data-active="',
                         button_active,
