@@ -98,11 +98,22 @@
   padding-left: var(--space-lg);
 }
 
-/* Accordion content needs some padding inset */
+/* Accordion content needs same padding inset */
 .js-accordion__panel > .editorial > .fa-availability,
 .js-accordion__panel > .editorial > ul.list-unstyled,
 .js-accordion__panel > .editorial > .image-gallery {
   padding-left: var(--space-lg);
+}
+
+/* Accordion with both content and accordions needs content further inset */
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > .fa-availability,
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > ul.list-unstyled,
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > .image-gallery {
+  padding-left: calc(var(--space-lg) * 2);
+}
+
+.js-accordion__panel > .editorial:has(> ul.list-unstyled) > .slab.fa-component {
+  margin-left: var(--space-lg);
 }
 
 .fa-request.fa-requestable-toc {
@@ -411,5 +422,3 @@ button:focus:hover.button--ghost,
         margin: 0;
     }
 }
-
-
