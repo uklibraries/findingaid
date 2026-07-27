@@ -58,16 +58,7 @@
   padding-bottom: 0;
 }
 
-.checkered-divider {
-  display: none;
-}
 
-/* Reveal the checkered divider only between nested sibling components */
-.editorial > .slab.fa-component + .slab.fa-component > .checkered-divider {
-  display: block;
-}
-
-/* At nested levels the checkered divider handles sibling separation */
 .editorial > .slab.fa-component .js-accordion__header {
   border-top: 0;
 }
