@@ -1,3 +1,6 @@
+<!-- TODO: Style form -->
+<!-- TODO: handle required fields gracefully -->
+
 <div class="fa-request-summary fa-long js-accordion" id="{{id}}">
   <div aria-live="polite" aria-atomic="true" class="show-for-sr fa-request-announce"></div>
   <div class="js-accordion__panel">
@@ -11,40 +14,33 @@
         </ul>
       </div>
       <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/logon" method="post" target="_blank">
-        <div class="fa-extra-options fa-request-hidden">
+        <div class="fa-extra-options fa-request-hidden form-item">
           <label for="fa-special-request">Special Requests/Questions?
               <textarea class="fa-extra-input" id="fa-special-request" name="SpecialRequest">Special Request</textarea>
           </label>
         </div>
-        <div class="fa-request-options fa-request-hidden">
+        <div class="fa-request-options fa-request-hidden form-item">
           <fieldset>
-            <legend>Please select request type:</legend>
-            <input type="radio" id="fa-schedule-retrieval" class="fa-request-option" data-option="schedule-retrieval" required>
+            <legend class="js-form-required form-required">Please select request type:</legend>
+            <input type="radio" id="fa-schedule-retrieval" class="fa-request-option" data-option="schedule-retrieval" name="request_option">
             <label for="fa-schedule-retrieval">Request Retrieval</label>
 
-            <input type="radio" id="fa-save-for-later" class="fa-request-option" data-option="save-for-later" required>
+            <input type="radio" id="fa-save-for-later" class="fa-request-option" data-option="save-for-later" name="request_option">
             <label for="fa-save-for-later">Save for Later</label>
 
-            <input type="radio" id="fa-request-reproductions" class="fa-request-option" data-option="request-reproductions" required>
+            <input type="radio" id="fa-request-reproductions" class="fa-request-option" data-option="request-reproductions" name="request_option">
             <label for="fa-request-reproductions">Request Reproductions</label>
 
           </fieldset>      
-        <!--
-          <button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval">Request Retrieval</button>
-          <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
-          <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
-        -->
         </div>
-        <!-- display this if request retrieval is selected -->
-        <div class="fa-options" id="fa-schedule-retrieval-options">
+        <div class="fa-options form-item" id="fa-schedule-retrieval-options">
             <p>Submit a request to retrieve SCRC materials.</p>
         </div>
-        <!--display these options if Request reproductions is selected -->
-        <div class="fa-options" id="fa-request-reproductions-options">
-            <label for="fa-pages">Pages/Items to be Reproduced
+        <div class="fa-options form-item" id="fa-request-reproductions-options">
+            <label for="fa-pages" class="js-form-required form-required">Pages/Items to be Reproduced</label>
                 <textarea class="fa-request-reproductions-input" id="fa-pages" name="ItemInfo3"></textarea>
-            </label>
-            <label for="fa-format">Format
+            
+            <label for="fa-format" class="js-form-required form-required">Format</label>
                 <select class="fa-request-reproductions-input" id="fa-format" name="Format">
                   <option>Select one</option>
                   <option value="A/V (may incur costs)">A/V (may incur costs)</option>
@@ -52,8 +48,8 @@
                   <option value="PDF">PDF</option>
                   <option value="TIFF">TIFF</option>
                 </select>
-            </label>
-            <label for="fa-service-level">Intended Use
+            
+            <label for="fa-service-level" class="js-form-required form-required">Intended Use</label>
                 <select class="fa-request-reproductions-input" id="fa-service-level" name="ServiceLevel">
                     <option>Select one</option>
                     <option value="Commercial/For-profit">Commercial/For-profit</option>
@@ -63,10 +59,10 @@
                     <option value="Press/Journalism/Public Relations">Press/Journalism/Public Relations</option>
                     <option value="Social Media">Social Media</option>
                 </select>
-            </label>
-            <label for="fa-project">Project Description
+            
+            <label for="fa-project" class="js-form-required form-required">Project Description</label>
                 <textarea class="fa-request-reproductions-input" id="fa-project" name="ItemInfo4"></textarea>
-            </label>
+
             <input type="hidden" id="fa-skip-estimate" name="SkipOrderEstimate" value="Yes">
         </div>
         <input type="hidden" name="RequestType" value="Loan">
