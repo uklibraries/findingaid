@@ -7,6 +7,27 @@
         // Limestone accordions: generate the accessible toggle buttons.
         $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
 
+        // Open every accordion on the path to the target then scroll to
+        // view.
+        function reveal_hash_target() {
+            var hash = window.location.hash;
+            if (!hash || hash.length < 2) return;
+            var target;
+            try { target = document.querySelector(hash); } catch (e) { return; }
+            if (!target) return;
+            var $own = $(target).children('.slab__wrapper')
+                .children('.js-accordion').children('.js-accordion__panel');
+            $(target).parents('.js-accordion__panel').add($own).each(function () {
+                var $panel = $(this);
+                $panel.attr('aria-hidden', 'false');
+                $('#' + $panel.attr('aria-labelledby')).attr('aria-expanded', 'true');
+            });
+            // Let the panels open before scrolling.
+            setTimeout(function () { target.scrollIntoView(); }, 0);
+        }
+        reveal_hash_target();
+        $(window).on('hashchange', function () { reveal_hash_target(); });
+
         // Limestone ships these init functions but never calls them
         if (typeof image_gallery === 'function') {
             image_gallery();
