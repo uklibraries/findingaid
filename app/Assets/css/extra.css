@@ -274,6 +274,27 @@ button:focus:hover.button--ghost,
     color: var(--color-wildcat-white);
 }
 
+.button:focus:not(:focus-visible) {
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+.button--wildcat-blue:focus:not(:focus-visible) {
+  background-color: var(--color-wildcat-blue);
+  color: var(--color-wildcat-white);
+}
+
+.button--ghost:focus:not(:focus-visible) {
+  background-color: transparent;
+  color: var(--color-wildcat-blue);
+}
+.button:focus-visible {
+  outline: 3px solid #0033a0 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #ffffff !important;
+}
+
 /* Fix Limestone bug - `.social-media-links` assume a light background, so override with appropriate color for footer. */
 .global-footer .social-media-links a:hover,
 .global-footer .social-media-links a:focus,
