@@ -62,11 +62,6 @@
   padding-bottom: 0;
 }
 
-
-.editorial > .slab.fa-component .js-accordion__header {
-  border-top: 0;
-}
-
 .container_list {
   display: flex;
   flex-direction: column;
@@ -100,6 +95,13 @@
 
 .fa-component .editorial > :is(h1, h2, h3, h4, h5, h6),
 .fa-component .editorial > [role="heading"] {
+  padding-left: var(--space-lg);
+}
+
+/* Accordion content needs some padding inset */
+.js-accordion__panel > .editorial > .fa-availability,
+.js-accordion__panel > .editorial > ul.list-unstyled,
+.js-accordion__panel > .editorial > .image-gallery {
   padding-left: var(--space-lg);
 }
 

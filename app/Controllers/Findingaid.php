@@ -125,10 +125,7 @@ class Findingaid extends Controller
                             $this->templates[$template] = load_template("Findingaid/$template");
                         }
                         foreach ($model->xpath('contents/c') as $index => $c) {
-                            // Top-level components have no enclosing section, so
-                            // "following sibling" and "following content" coincide.
-                            $has_following = $index < $component_count - 1;
-                            $details = $this->renderComponent($m, $c, 3, $has_following, $has_following);
+                            $details = $this->renderComponent($m, $c, 3, $index < $component_count - 1);
                             $panel['components'][] = [
                                 'component' => $details[0],
                             ];
@@ -399,8 +396,7 @@ class Findingaid extends Controller
         $renderer,
         $component_xml,
         $level = 3,
-        $has_following_sibling = false,
-        $has_following_content = false
+        $has_following_sibling = false
     ) {
         $component_content = '';
         $attributes = $component_xml->attributes();
@@ -411,25 +407,16 @@ class Findingaid extends Controller
             $subcomponent_content = [];
             $subcomponents = $component->subcomponents();
             $last_subcomponent = count($subcomponents) - 1;
-            $last_child_is_leaf = false;
             foreach ($subcomponents as $index => $subcomponent) {
-                $child_has_following_sibling = $index < $last_subcomponent;
-                // A child has content after it if it has a later sibling, or if
-                // this component itself is followed by more content on the page.
-                $child_has_following_content = $child_has_following_sibling ? true : $has_following_content;
                 $subcomponent_details = $this->renderComponent(
                     $renderer,
                     $subcomponent->xml(),
                     $level + 1,
-                    $child_has_following_sibling,
-                    $child_has_following_content
+                    $index < $last_subcomponent
                 );
                 $subcomponent_content[] = [
                     'subcomponent' => $subcomponent_details[0],
                 ];
-                if ($index === $last_subcomponent) {
-                    $last_child_is_leaf = !$subcomponent_details[1]['collapsible'];
-                }
             }
 
             $container_lists = [];
@@ -452,11 +439,9 @@ class Findingaid extends Controller
 
             $has_children = count($subcomponent_content) > 0;
 
-            if ($has_children) {
-                $trailing_divider = $last_child_is_leaf && $has_following_content;
-            } else {
-                $trailing_divider = $has_following_sibling;
-            }
+            // Only leaf items get a divider, and only to separate them from a
+            // following sibling. Accordions get none (no end-of-section divider).
+            $trailing_divider = !$has_children && $has_following_sibling;
 
             $component_content = $renderer->render(
                 $this->templates['component'],
