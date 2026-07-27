@@ -52,6 +52,10 @@
   padding: 0 var(--space-md);
 }
 
+.slab.fa-component > .slab__wrapper:not(:has(> .js-accordion)) {
+  padding-left: calc(var(--space-md) + var(--space-lg));
+}
+
 .fa-component {
   background-color: var(--color-blue-gray);
   padding-top: 0;
@@ -380,6 +384,10 @@ button:focus:hover.button--ghost,
 @media screen and (min-width: 76rem) {
   .fa-component .slab__wrapper {
     padding-left: var(--space-lg);
+  }
+
+  .slab.fa-component > .slab__wrapper:not(:has(> .js-accordion)) {
+    padding-left: calc(var(--space-lg) + var(--space-lg));
   }
 }
 
