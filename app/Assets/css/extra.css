@@ -121,10 +121,6 @@
     margin: 0 auto;
 }
 
-.fa-request-summary-note {
-    font-style: italic;
-}
-
 .fa-request-hidden {
     display: none;
 }
@@ -137,25 +133,8 @@
     display: none;
 }
 
-.fa-request-form {
-    overflow: auto;
-    background: #FDFDF6;
-    padding: 20px;
-    width: 600px;
-    max-width: 100%;
-    border-radius: 6px;
-}
-
-.fa-options {
-    padding: 1em;
-}
-
 .fa-toc-entry-highlight {
     font-weight: bold;
-}
-
-.fa-taggable {
-    width: 10em;
 }
 
 dd {
@@ -164,9 +143,9 @@ dd {
     margin-top: 5px;
 }
 
-label {
+/* label {
     font-weight: 300;
-}
+} */
 
 .fa-section {
     margin-bottom: var(--space-xl);
@@ -228,7 +207,6 @@ label {
 .image-gallery__block--player {
   width: 100%;
 }
-
 
 #viewer {
     background: black;
@@ -389,8 +367,8 @@ button:focus:hover.button--ghost,
 
 /* Responsive breakpoints (match limestone) */
 /* Small */
-@media screen and (min-width: 35rem) {
-}
+/* @media screen and (min-width: 35rem) {
+} */
 
 @media screen and (min-width: 58rem) {
  .container_list_item {
@@ -426,9 +404,9 @@ button:focus:hover.button--ghost,
 }
 
 /* X-Large */
-@media screen and (min-width: 80rem) {
+/* @media screen and (min-width: 80rem) {
 
-}
+} */
 
 
 /* shared exploreuk-web-app styles */
@@ -442,4 +420,39 @@ button:focus:hover.button--ghost,
     button {
         margin: 0;
     }
+}
+
+/* Style request form */
+@scope (.fa-request-fieldset){
+  padding: 1.25rem;
+  line-height: 1.5rem;
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  legend {
+    display: block;
+    font-weight: 500;
+    font-size: 1.16667rem;
+  }
+  
+  legend.form-required::after {
+    color: #c12c2b; /* Limestone alert color */
+    content: '*';
+  }
+
+  .fa-request-option-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .fa-request-option-group label {
+    font-weight: 300;
+  }
+  
 }
