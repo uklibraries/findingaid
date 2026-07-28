@@ -74,6 +74,30 @@ to just shy of a gigabyte):
 make sample
 ```
 
+### Redirecting a finding aid
+
+When a finding aid is withdrawn and its content is superseded by another finding
+aid under a different id, add an entry to `app/Config/redirects.json` so that
+old links redirect to the new id:
+
+```json
+{
+    "<retired_id>": {
+        "to": "<new_id>",
+        "note": "Retired 2026-07; content merged into the Foo Bar Papers."
+    }
+}
+```
+
+The `note` is never displayed, it is a record to keep for future developers
+and/or archivists.
+
+Requests for the retired id return `301 Moved Permanently`.
+
+Browsers cache `301` responses indefinitely, so a redirect is effectively
+irreversible for anyone who has followed it. Confirm the pairing before adding
+it.
+
 ## Coding standard
 
 This program attempts to adhere to the
