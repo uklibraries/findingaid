@@ -4,7 +4,9 @@
     <span class="headline-group__head">{{{label}}}</span>
   </h2>
   <div class="editorial" id="{{body_id}}">
-    {{single-field}}
+    {{#single-field}}
+    <p>{{single-field}}</p>
+    {{/single-field}}
     {{#multi-field}}
       <dl id="{{field_id}}">
       <dt>{{label}}</dt>

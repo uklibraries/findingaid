@@ -89,10 +89,7 @@
     text-align: right;
 }
 
-.editorial > p {
-  padding-left: var(--space-lg);
-}
-
+.fa-component .editorial > p,
 .fa-component .editorial > :is(h1, h2, h3, h4, h5, h6),
 .fa-component .editorial > [role="heading"] {
   padding-left: var(--space-lg);
