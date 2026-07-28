@@ -19,11 +19,6 @@ class Overview extends Model
         }
     }
 
-    public function headerXML()
-    {
-        return $this->xml->asXML();
-    }
-
     public function bioghist()
     {
         $result = [];

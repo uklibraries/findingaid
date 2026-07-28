@@ -10,30 +10,14 @@ use Mustache_Loader_CascadingLoader;
 
 class Overview extends Controller
 {
-    private $templates;
-
     public function __construct($params = [])
     {
         parent::__construct($params);
-        $templates = [];
     }
 
     public function show()
     {
         $id = $this->params['id'];
-
-#        $m = new Mustache_Engine(array(
-#            'partials_loader' => new Mustache_Loader_FilesystemLoader(
-#                implode(
-#                    DIRECTORY_SEPARATOR,
-#                    array(
-#                        APP,
-#                        'views',
-#                        'overview',
-#                    )
-#                )
-#            ),
-#        ));
 
         $model = new OverviewModel($this->params['id']);
 
@@ -72,9 +56,7 @@ class Overview extends Controller
                     'title' => $model->title(),
                     'bioghist' => $model->bioghist(),
                     'scopecontent' => $model->scopecontent(),
-                    #'content' => $content,
                     'css' => $css,
-                    #'title' => $model->title(),
                 ]
             );
         }
