@@ -93,7 +93,7 @@ var requests = (function() {
             }
         }
     }
-
+    
     function toggle(id) {
         var jid;
         var target;
@@ -113,7 +113,7 @@ var requests = (function() {
             $('input[data-root="' + reqid + '"]').remove();
             $('#' + reqid).remove();
 
-            /* Remove removal control */
+            /* Remove removal control */ 
             $('#' + target).remove();
         }
         else {
@@ -139,7 +139,7 @@ var requests = (function() {
                 count = model.get_count();
                 $(jid).addClass('button--wildcat-blue').removeClass('button--ghost').html($(jid).attr('data-active'));
 
-                /* Display selected item and add toggle control */
+                /* Display selected item in summary list and add toggle control*/ 
                 removable_element = requests_view.render({
                     id: target + '-remove',
                     label: item["label"],
@@ -161,6 +161,24 @@ var requests = (function() {
                     $('#' + target).after(removable_element);
                 }
             }
+        }
+
+        /* sync duplicate buttons  */
+        var baseTarget = $('#' + id).attr('data-target') || target;
+        if (baseTarget) {
+            var isSelected = model.has(id);
+            $('[data-target="' + baseTarget + '"].fa-request').each(function (){
+                var $btn = $(this);
+                if (isSelected) {
+                    $btn.addClass('button--wildcat-blue')
+                        .removeClass('button--ghost')
+                        .html($btn.attr('data-active') || 'Remove');
+                } else {
+                    $btn.addClass('button--ghost')
+                        .removeClass('button--wildcat-blue')
+                        .html($btn.attr('data-inactive') || 'Request');
+                }
+            });
         }
     }
 
