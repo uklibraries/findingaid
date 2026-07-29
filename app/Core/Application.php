@@ -11,7 +11,6 @@ class Application
         'home' => \App\Controllers\Home::class,
         'findingaid' => \App\Controllers\Findingaid::class,
         'component' => \App\Controllers\Component::class,
-        'overview' => \App\Controllers\Overview::class
     ];
 
     public function __construct()
@@ -40,9 +39,6 @@ class Application
         }
 
         $query = "id=$target";
-        if (isset($_GET['overview']) and $_GET['overview'] == 1) {
-            $query .= '&overview=1';
-        }
         # The app is mounted at / in development and at /fa/findingaid in
         # production, and nginx sets SCRIPT_NAME to match, so derive the base
         # rather than hardcoding it.
@@ -90,10 +86,6 @@ class Application
                     $this->url_controller = 'component';
                 } else {
                     $this->url_controller = 'findingaid';
-                }
-
-                if (isset($_GET['overview']) and $_GET['overview'] == 1) {
-                    $this->url_controller = 'overview';
                 }
             } else {
                 $this->url_controller = 'home';
