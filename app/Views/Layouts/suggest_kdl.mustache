@@ -1,117 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Error page for resources which were on KDL and are no longer available">
-<title>This Kentucky Digital Library resource has changed</title>
-<link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet"> 
-<style type="text/css">
-body {
-    font-family: 'Muli', sans-serif;
-    color: #2c2a29;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
-}
+    <head>
+        <title>Error | KDL resource change</title>
+        {{> head-common}}
+    </head>
+    <body>
+        {{> maintenance_notice}}
+        {{> nav}}
+        <div class="slab slab--wildcat-white page-header page-header--text">
+            <div class="slab__wrapper">
+                <h1 class="headline-group">
+                <span class="headline-group__head">
+                    {{title}}
+                </span>
+                </h1>
+            </div>
+        </div>
 
-header {
-    text-align: center;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #0033a0;
-}
+        {{> breadcrumbs}}
 
-.full-width {
-    width: 100%;
-    margin: 0;
-}
+        <main id="content">
+            <div class="slab__wrapper">
+                <div class="alert in-page-alert">
+                    <div class="icon-wrapper">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="24" fill="#1E8AFF"></circle>
+                            <rect x="22" y="12" width="4.54545" height="4.54545" fill="white"></rect>
+                            <rect x="22" y="19.9545" width="4.54545" height="17.0455" fill="white"></rect>
+                        </svg>
+                    </div>
+                    <div class="message">
+                        <h2>This Kentucky Digital Library resource has changed</h2>
+                        <p>
+                            The <a href="https://kdl.kyvl.org" rel="noopener">Kentucky Digital Library</a> changed October 1, 2019.  Some materials are no longer available on ExploreUK.
+                        </p>
 
-h1 {
-    font-size: 18px;
-    text-align: center;
-    color: #ffffff;
-    background-color: #0033a0;
-    padding: 0.2em;
-    margin-top: 0;
-}
-
-h2, p {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
-
-h1 {
-    font-size: 18px;
-}
-
-h2 {
-    font-size: 24px;
-}
-
-p {
-    font-size: 22px;
-}
-
-.deemphasize {
-    font-size: 16px;
-}
-
-.centered {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: minmax(10em, 20em);
-}
-
-.logo {
-    display: inline-block;
-    width: 100%;
-}
-
-section {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    grid-template-columns: minmax(20em, 40em);
-}
-
-a:link,
-a:active {
-    color: #143887;
-}
-a:visited {
-    color: #202c5f;
-}
-a:hover {
-    color: #1897d4;
-}
-</style>
-</head>
-<body>
-
-<header>
-<h1>This Kentucky Digital Library resource has changed</h1>
-</header>
-
-<section>
-<div class="main">
-<h2>{{title}}</h2>
-
-<p>
-You may be able to find it at <a href="https://kdl.kyvl.org" target="_blank" rel="noopener">https://kdl.kyvl.org</a>.
-</p>
-<p>
-This resource belongs to {{repository}}.
-</p>
-
-<p class="deemphasize">
-The <a href="https://kdl.kyvl.org" target="_blank" rel="noopener">Kentucky Digital Library</a> changed October 1, 2019.  Some materials are no longer available on the KDL.
-</p>
-
-<p class="centered">
-<a href="https://kdl.kyvl.org" target="_blank" rel="noopener"><img class="logo" src="images/KDL_Logo.png" alt="Kentucky Digital Library"></a>
-</p>
-</div>
-</section>
+                    </div>
+                </div>
+            </div>
+            <div class="slab">
+                <div class="slab__wrapper">
+                    <div class="editorial">
+                        <p>This resource belongs to {{repository}}.</p>
+                        <p>You may be able to find {{title}} on the <a href="https://kdl.kyvl.org" rel="noopener">Kentucky Digital Library website</a>.</p>
+                        <p><a href="https://kdl.kyvl.org" rel="noopener"><img class="logo" src="images/KDL_Logo.png" alt="Kentucky Digital Library"></a></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {{> global-footer}}
+        {{> universal-footer}}
+        {{> limestone-resources}}
+    </body>
+</html>
