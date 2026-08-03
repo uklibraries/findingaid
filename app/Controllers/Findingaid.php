@@ -289,19 +289,6 @@ class Findingaid extends Controller
                 $requests = '';
             }
 
-            $css_hrefs = [
-
-                "css/jquery-ui.min.css",
-                "css/extra.css",
-                "css/lity.min.css",
-                "css/mediaelementplayer.min.css",
-            ];
-
-            $css = [];
-            foreach ($css_hrefs as $href) {
-                $css[] = ['href' => $href];
-            }
-
             $layout = new Mustache_Engine([
                 'partials_loader' => new Mustache_Loader_CascadingLoader([
                     new Mustache_Loader_FilesystemLoader(
@@ -318,7 +305,6 @@ class Findingaid extends Controller
                     'content' => $content,
                     'toc' => $toc,
                     'requests' => $requests,
-                    'css' => $css,
                     'js' => [[
                         'href' => 'js/app.js',
                         'hash' => hash_file('sha256', implode(

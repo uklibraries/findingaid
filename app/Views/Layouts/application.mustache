@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
   <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
-  {{#css}}
-  <link rel="stylesheet" href="{{href}}">
-  {{/css}}
   {{> head-common}}
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPRYLHP028"></script>
@@ -51,7 +48,8 @@
       </div>
     </div>
        <div class="slab slab--wildcat-white">
-        {{> harmful_language_statement}}
+          {{> harmful_language_statement}}
+        </div>
     </div>
   </main>
    
