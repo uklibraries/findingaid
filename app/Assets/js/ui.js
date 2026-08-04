@@ -2,7 +2,6 @@
     var $ = jQuery;
     var current_image = null;
     var lity_open = false;
-    var lightbox = lity();
     $(document).ready(function () {
         // Limestone accordions: generate the accessible toggle buttons.
         $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
@@ -176,7 +175,7 @@
         }
         $('.image-sequence').click(function (event) {
             event.stopPropagation();
-            lightbox('#viewer');
+            lity('#viewer');
             lity_load($(this).attr('id'));
             return false;
         });
