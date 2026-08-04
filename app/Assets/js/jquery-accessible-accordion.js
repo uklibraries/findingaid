@@ -1,9 +1,10 @@
 /*
  * jQuery Accessible Accordion system, using ARIA
- * @version v2.5.2
+ * @version v2.5.2 + local patches (see below)
  * Website: https://a11y.nicolas-hoffmann.net/accordion/
  * License MIT: https://github.com/nico3333fr/jquery-accessible-accordion-aria/blob/master/LICENSE
  */
+
 (function(factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -74,7 +75,7 @@
             });
             var $button = this.options.buttonsGeneratedContent === 'html' ? this.options.button.clone().html($header.html()) : this.options.button.clone().text($header.text());
 
-            $header.attr('tabindex', '0').addClass(this.options.prefixClass + this.options.headerSuffixClass);
+            $header.addClass(this.options.prefixClass + this.options.headerSuffixClass);
             $panel.before($button);
 
             var panelId = $panel.attr('id') || this.$wrapper.attr('id') + '-' + index;
@@ -133,6 +134,10 @@
     Accordion.prototype.focusButtonEventHandler = function(e) {
         var $target = $(e.target);
         var $button = $target.is('button') ? $target : $target.closest('button');
+
+        if (!ownedBy($button, this.$wrapper, this.options.accordionSelector)) {
+            return;
+        }
 
         this.$buttons.attr({
             'tabindex': '-1',

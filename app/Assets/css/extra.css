@@ -113,6 +113,11 @@
   margin-left: var(--space-lg);
 }
 
+/* remove visibility for hidden accordions to preserve tab behavior */
+[aria-hidden="true"].accordion__panel .accordion__panel {
+  visibility: hidden;
+}
+
 .fa-request.fa-requestable-toc {
     display: block;
     margin: 0 auto;
