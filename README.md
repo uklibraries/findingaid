@@ -113,7 +113,7 @@ automatically fixed. These deliberately exclude line length as a fix.
 This program is Copyright (C) 2016-2024 MLE Slone. For
 details, consult LICENSE.txt.
 
-This program uses the following libraries:
+This program uses the following software:
 
 - Luis Almeida's [unveil.js](https://github.com/luis-almeida/unveil)
 - John Dyer's [MediaElement.js](http://mediaelementjs.com)
@@ -122,4 +122,4 @@ This program uses the following libraries:
 - Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
 - [Bootstrap](https://getbootstrap.com)
 - [jQuery](https://jquery.org)
-- [jQuery UI](https://jqueryui.com)
+- [Fontawesome](https://fontawesome.com/)

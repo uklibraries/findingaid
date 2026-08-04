@@ -277,6 +277,12 @@ button:focus:hover.button--ghost,
     text-decoration: none;
 }
 
+.global-footer .icon-label .ic--svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
 /* styling to match central webcom's in-page alert*/
 @scope(.in-page-alert){ 
     :scope{
@@ -431,7 +437,7 @@ button:focus:hover.button--ghost,
     font-weight: 500;
     font-size: 1.16667rem;
   }
-  
+
   legend.form-required::after {
     color: #c12c2b; /* Limestone alert color */
     content: '*';
@@ -446,5 +452,5 @@ button:focus:hover.button--ghost,
   .fa-request-option-group label {
     font-weight: 300;
   }
-  
+
 }
