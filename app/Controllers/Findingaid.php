@@ -295,7 +295,7 @@ class Findingaid extends Controller
                         implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
                     ),
                     new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Shared'])
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
                     ),
                 ]),
             ]);
@@ -330,7 +330,7 @@ class Findingaid extends Controller
                         implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
                     ),
                     new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Shared'])
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
                     ),
                 ]),
             ]);
