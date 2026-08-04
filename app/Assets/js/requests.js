@@ -2,7 +2,6 @@ var requests = (function() {
     var $ = jQuery;
     var count = 0;
     var request_type = null;
-    var datepicker_initialized = false;
     var collection_title;
 
     function sortkey(label) {
@@ -223,7 +222,7 @@ var requests = (function() {
         var service_level = '';
 
         var ids = [
-            'fa-datepicker',
+            'fa-schedule-retrieval-subform',
             'fa-save-for-later',
             ''
         ];
@@ -231,7 +230,6 @@ var requests = (function() {
         var subforms = [
             (function () {
                 var id;
-                var jid;
                 var hidden;
                 var enabled = false;
                 var initialized = false;
@@ -250,15 +248,12 @@ var requests = (function() {
                             'name', ''
                         );
                     }
-                    $(jid).attr('name', '');
                     $('#fa-schedule-retrieval-options').hide();
-                    $(jid).hide();
                     enabled = false;
                 }
 
                 return {
                   init: function (id) {
-                      jid = '#' + id;
                       hidden = id + '-hidden';
 
                       var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
@@ -278,9 +273,7 @@ var requests = (function() {
                                 'name', hidden_names[hidden_fields[i]]
                             );
                         }
-                        $(jid).attr('name', 'ScheduledDate');
                         $('#fa-schedule-retrieval-options').show();
-                        $(jid).show();
                         $('input[name="RequestType"]').val('Loan');
                         enabled = true;
                     },
@@ -288,15 +281,7 @@ var requests = (function() {
                         disable_form();
                     },
                     valid: function () {
-                        if (!initialized) {
-                            return false;
-                        }
-                        if ($(jid).val() === "01/01/1901") {
-                            return false;
-                        }
-                        else {
-                            return true;
-                        }
+                        return initialized;
                     }
                 }
             })(),
