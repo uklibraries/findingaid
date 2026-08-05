@@ -366,6 +366,11 @@ button:focus:hover.button--ghost,
   padding: 0;
 }
 
+.image-gallery__block-sizer,
+.image-gallery__block {
+    width: 100%;
+}
+
 .fa-request__button.fa-requestable-contents::before {
     margin-right: 0.4em;
     font-weight: 700;
@@ -380,6 +385,11 @@ button:focus:hover.button--ghost,
 }
 
 @media screen and (min-width: 58rem) {
+ .image-gallery__block-sizer,
+ .image-gallery__block {
+   width: 33.3333%;
+ }
+
  .container_list_item {
    flex-direction: row;
    align-items: center;
