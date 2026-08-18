@@ -212,11 +212,16 @@ var requests = (function() {
         ];
         var format = "";
         var service_levels = [
+            "Broadcast",
             "Commercial/For-profit",
+            "Documentary",
             "Educational/Non-profit",
-            "For Publication",
+            "ILL",
             "Other",
+            "Personal Use",
+            "Personal/Non-profit",
             "Press/Journalism/Public Relations",
+            "Print Publication",
             "Social Media"
         ];
         var service_level = '';
