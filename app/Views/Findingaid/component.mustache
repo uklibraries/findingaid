@@ -1,40 +1,149 @@
-<div class="fa-component" id="{{heading_id}}">
-  <h3 class="headline-group">{{{label}}}</h3>
-  <div id="{{body_id}}">
-    <ul class="list-unstyled">
-    {{#container_lists}}
-    {{{container_list}}}
-    {{/container_lists}}
-    </ul>
-    <div>
-        {{#bioghist_head}}
-        <h5>{{{p}}}</h5>
-        {{/bioghist_head}}
-        {{#bioghist}}
-        <p>{{{p}}}</p>
-        {{/bioghist}}
+<div id="{{heading_id}}" class="slab fa-component left-border">
+  <div class="slab__wrapper">
+    {{#collapsible}}
+    <div class="js-accordion">
+      <div class="js-accordion__panel">
+        {{#heading}}
+        {{#native}}
+        <{{tag}} class="js-accordion__header headline-group">
+          <span class="headline-group__head">{{{label}}}</span>
+        </{{tag}}>
+        {{/native}}
+        {{^native}}
+        <div role="heading" aria-level="{{level}}" class="js-accordion__header headline-group">
+          <span class="headline-group__head">{{{label}}}</span>
+        </div>
+        {{/native}}
+        {{/heading}}
+        <div class="editorial">
+          {{#scopecontent_head}}
+          {{#note_heading}}
+          {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+          {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+          {{/note_heading}}
+          {{/scopecontent_head}}
+          {{#scopecontent}}
+          <p>{{{p}}}</p>
+          {{/scopecontent}}
+          {{#bioghist_head}}
+          {{#note_heading}}
+          {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+          {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+          {{/note_heading}}
+          {{/bioghist_head}}
+          {{#bioghist}}
+          <p>{{{p}}}</p>
+          {{/bioghist}}
+          {{#processinfo}}
+          <p>{{{p}}}</p>
+          {{/processinfo}}
+          {{#has_media}}
+          <dl class="fa-availability">
+            <dt class="show-for-sr">Availability</dt>
+            <dd>available online - request to view on-site</dd>
+          </dl>
+          {{/has_media}}
+          {{^has_media}}
+          {{#has_container_lists}}
+          <dl class="fa-availability">
+            <dt class="show-for-sr">Availability</dt>
+            <dd>non-digitized material - request reproductions or to view on-site</dd>
+          </dl>
+          {{/has_container_lists}}
+          {{/has_media}}
+          {{#container_lists}}
+          <ul class="fa-component list-unstyled">
+            {{{container_list}}}
+          </ul>
+          {{/container_lists}}
+          {{#has_media}}
+          <div class="image-gallery">
+            <div class="image-gallery__block-sizer"></div>
+            {{#links}}
+            {{> media}}
+            {{/links}}
+          </div>
+          {{#has_image_overflow}}
+          <p class="image-gallery__controls">{{> image_controls}}</p>
+          {{/has_image_overflow}}
+          {{/has_media}}
+          {{#subcomponents}}
+          {{{subcomponent}}}
+          {{/subcomponents}}
+        </div>
+      </div>
     </div>
-    <div>
-        {{#scopecontent_head}}
-        <h5>{{{p}}}</h5>
-        {{/scopecontent_head}}
-        {{#scopecontent}}
-        <p>{{{p}}} this is the scope content</p>
-        {{/scopecontent}}
+    {{/collapsible}}
+
+    {{^collapsible}}
+    {{#heading}}
+    {{#native}}
+    <{{tag}} class="headline-group">
+      <span class="headline-group__head">{{{label}}}</span>
+    </{{tag}}>
+    {{/native}}
+    {{^native}}
+    <div role="heading" aria-level="{{level}}" class="headline-group">
+      <span class="headline-group__head">{{{label}}}</span>
     </div>
-    <div>
-        {{#processinfo_head}}
-        <h5>{{{p}}}</h5>
-        {{/processinfo_head}}
-        {{#processinfo}}
-        <p>{{{p}}} this is the process info</p>
-        {{/processinfo}}
+    {{/native}}
+    {{/heading}}
+   <div class="editorial">
+      {{#scopecontent_head}}
+      {{#note_heading}}
+      {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+      {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+      {{/note_heading}}
+      {{/scopecontent_head}}
+      {{#scopecontent}}
+      <p>{{{p}}}</p>
+      {{/scopecontent}}
+      {{#bioghist_head}}
+      {{#note_heading}}
+      {{#native}}<{{tag}}>{{{p}}}</{{tag}}>{{/native}}
+      {{^native}}<div role="heading" aria-level="{{level}}">{{{p}}}</div>{{/native}}
+      {{/note_heading}}
+      {{/bioghist_head}}
+      {{#bioghist}}
+      <p>{{{p}}}</p>
+      {{/bioghist}}
+      {{#processinfo}}
+      <p>{{{p}}}</p>
+      {{/processinfo}}
+      {{#has_media}}
+      <dl class="fa-availability">
+        <dt class="show-for-sr">Availability</dt>
+        <dd>available online - request to view on-site</dd>
+      </dl>
+      {{/has_media}}
+      {{^has_media}}
+      {{#has_container_lists}}
+      <dl class="fa-availability">
+        <dt class="show-for-sr">Availability</dt>
+        <dd>non-digitized material - request reproductions or to view on-site</dd>
+      </dl>
+      {{/has_container_lists}}
+      {{/has_media}}
+      <ul class="container_list list-unstyled">
+        {{#container_lists}}
+        {{{container_list}}}
+        {{/container_lists}}
+      </ul>
+      {{#has_media}}
+      <div class="image-gallery">
+        <div class="image-gallery__block-sizer"></div>
+        {{#links}}
+        {{> media}}
+        {{/links}}
+      </div>
+      {{#has_image_overflow}}
+      <p class="image-gallery__controls">{{> image_controls}}</p>
+      {{/has_image_overflow}}
+      {{/has_media}}
     </div>
-    {{> media}}
-    {{#subcomponents}}
-    {{{subcomponent}}}
-    {{/subcomponents}}
-    {{^subcomponents}}
-    {{/subcomponents}}
+    {{#trailing_divider}}{{> checkered_divider}}{{/trailing_divider}}
+    {{/collapsible}}
   </div>
 </div>
+
+

@@ -25,9 +25,18 @@ make sample
 make dev
 ```
 
-The application should then be available at `http://localhost:8080/<id>`.
+The application should then be available at `http://localhost:8080/?id=<id>`.
 Developers should run `make help` to see a list of helper commands through
 [make](https://www.gnu.org/software/make/).
+
+#### Some Helpful Findingaids
+Here is a small list of findingaid identifiers that are helpful for viewing
+particular functionality:
+
+- xt7x3f4knz7q - Watts family papers - Components with many images
+- xt754746qt9q - Claude Sullivan Recordings - Audio examples
+- xt7w0v89kz6h - Edward T. Ned Breathitt films - Video examples
+- xt75736m0k6d - Dean Cadle collection, 1919-1997 - Many nested levels of components
 
 ### Dependencies
 
@@ -58,12 +67,36 @@ Finding aids must be arranged in a
 [PairTree](https://confluence.ucop.edu/display/Curation/PairTree) hierarchy in
 the `xml` directory. The files are not pure EAD, but must be preprocessed using
 a different program. For an example, install the
-[sample data](https://exploreuk.uky.edu/fa/findingaid/xml.tar.gz) (which expands
+[sample data](https://solrindex.uky.edu/fa/findingaid/xml.tar.gz) (which expands
 to just shy of a gigabyte):
 
 ```shell
 make sample
 ```
+
+### Redirecting a finding aid
+
+When a finding aid is withdrawn and its content is superseded by another finding
+aid under a different id, add an entry to `app/Config/redirects.json` so that
+old links redirect to the new id:
+
+```json
+{
+    "<retired_id>": {
+        "to": "<new_id>",
+        "note": "Retired 2026-07; content merged into the Foo Bar Papers."
+    }
+}
+```
+
+The `note` is never displayed, it is a record to keep for future developers
+and/or archivists.
+
+Requests for the retired id return `301 Moved Permanently`.
+
+Browsers cache `301` responses indefinitely, so a redirect is effectively
+irreversible for anyone who has followed it. Confirm the pairing before adding
+it.
 
 ## Coding standard
 
@@ -80,7 +113,7 @@ automatically fixed. These deliberately exclude line length as a fix.
 This program is Copyright (C) 2016-2024 MLE Slone. For
 details, consult LICENSE.txt.
 
-This program uses the following libraries:
+This program uses the following software:
 
 - Luis Almeida's [unveil.js](https://github.com/luis-almeida/unveil)
 - John Dyer's [MediaElement.js](http://mediaelementjs.com)
@@ -89,4 +122,4 @@ This program uses the following libraries:
 - Jan Sorgalla's [Lity](http://sorgalla.com/lity/)
 - [Bootstrap](https://getbootstrap.com)
 - [jQuery](https://jquery.org)
-- [jQuery UI](https://jqueryui.com)
+- [Fontawesome](https://fontawesome.com/)

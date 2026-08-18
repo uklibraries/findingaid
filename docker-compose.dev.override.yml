@@ -7,5 +7,5 @@ services:
     develop:
       watch:
         - action: restart
-          path: ./app/Assets/js
-          target: /opt/findingaid/app/Assets/js
+          path: ./app
+          target: /opt/findingaid/app

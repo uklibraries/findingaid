@@ -11,6 +11,7 @@ class Component extends Model
     private $basename;
     public $config;
     public $links;
+    public $has_image_overflow = false;
     public $xml;
 
     public function __construct(protected $id, private $component_id)
@@ -52,6 +53,15 @@ class Component extends Model
         $thumb_count = 0;
         $ref_count = 0;
         $image_threshold = 5;
+        $base_title = trim(strip_tags($this->title()));
+        $total_images = 0;
+        foreach ($links_raw as $link_raw) {
+            foreach ($link_raw['links'] as $use => $href) {
+                if (str_replace(' ', '_', $use) === 'thumbnail') {
+                    $total_images++;
+                }
+            }
+        }
         foreach ($links_raw as $link_raw) {
             $link = [];
             foreach ($link_raw['links'] as $use => $href) {
@@ -68,6 +78,16 @@ class Component extends Model
                             $link[$field] = [];
                         }
                         $link[$field]['thumb'] = $href;
+                        if ($total_images > 1) {
+                            if ($base_title !== '') {
+                                $link[$field]['alt'] = $base_title
+                                    . ' (image ' . $thumb_count . ' of ' . $total_images . ')';
+                            } else {
+                                $link[$field]['alt'] = 'image ' . $thumb_count . ' of ' . $total_images;
+                            }
+                        } else {
+                            $link[$field]['alt'] = $base_title !== '' ? $base_title : 'image';
+                        }
                         break;
                     case 'reference_image':
                         $ref_count++;
@@ -88,6 +108,9 @@ class Component extends Model
                         }
                         $link['audio']['href'] = $href;
                         $link['audio']['href_id'] = $g_minter->mint();
+                        $link['audio']['play_label'] = $base_title !== ''
+                            ? 'Play audio: ' . $base_title
+                            : 'Play audio';
                         break;
                     case 'reference_video':
                         if (empty($link['video'])) {
@@ -95,6 +118,9 @@ class Component extends Model
                         }
                         $link['video']['href'] = $href;
                         $link['video']['href_id'] = $g_minter->mint();
+                        $link['video']['play_label'] = $base_title !== ''
+                            ? 'Play video: ' . $base_title
+                            : 'Play video';
                         break;
                     default:
                         break;
@@ -102,9 +128,8 @@ class Component extends Model
             }
             $links[] = $link;
         }
-        if (($thumb_count > $image_threshold) || ($ref_count > $image_threshold)) {
-            $links[] = ['extra' => true];
-        }
+        $this->has_image_overflow =
+            ($thumb_count > $image_threshold) || ($ref_count > $image_threshold);
         return $links;
     }
 
@@ -216,20 +241,30 @@ class Component extends Model
 
     public function bioghistHead()
     {
-        $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['bioghist_head']));
+        return $this->noteHead('bioghist', 'Biography / History');
     }
 
     public function scopecontentHead()
     {
-        $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['scopecontent_head']));
+        return $this->noteHead('scopecontent', 'Scope and Content');
     }
 
     public function processinfoHead()
     {
+        return $this->noteHead('processinfo', 'Processing Info');
+    }
+
+    private function noteHead($key, $default)
+    {
         $contents_config = $this->config->get('contents');
-        return $this->renderParagraphs($this->xpath($contents_config['processinfo_head']));
+        $head = $this->renderParagraphs($this->xpath($contents_config[$key . '_head']));
+        if (!empty($head)) {
+            return $head;
+        }
+        if (!empty($this->xpath($contents_config[$key]))) {
+            return [['p' => $default]];
+        }
+        return [];
     }
 
     public function bioghist()

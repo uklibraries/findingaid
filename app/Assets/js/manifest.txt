@@ -1,9 +1,8 @@
 # List required files in the desired order
 mousetrap.min.js
-jquery-ui.min.js
-lity.min.js
 jquery.unveil.js
 reveal.js
 mediaelementplayer.min.js
+jquery-accessible-accordion.js
 requests.js
 ui.js

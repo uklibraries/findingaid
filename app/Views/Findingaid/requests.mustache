@@ -3,44 +3,63 @@
   <div class="js-accordion__panel">
     <h2 class="js-accordion__header">{{label}} (<span class="fa-request-count">0</span>)</h2>
     <div>
-      <p class="fa-request-summary-note fa-request-hidden">
-        No items have been requested.
-      </p>
-      <ul class="fa-request-ul fa-long" id="{{list_id}}">
-      </ul>
+      <div class="editorial">
+        <ul class="fa-request-ul fa-long" id="{{list_id}}">
+        </ul>
+      </div>
       <form class="fa-request-fieldset" action="https://requests-libraries.uky.edu/logon" method="post" target="_blank">
-      <div class="fa-extra-options fa-request-hidden">
-        <label for="fa-special-request">Special Requests/Questions?
-            <input class="fa-extra-input" type="textarea" id="fa-special-request" name="SpecialRequest">
-        </label>
-        <br>
-      </div>
-      <div class="fa-request-options fa-request-hidden">
-        <!--<button type="button" id="fa-schedule-retrieval" class="btn btn-default fa-request-option" data-option="schedule-retrieval" disabled>Request Retrieval</button>-->
-        <button type="button" id="fa-save-for-later" class="btn btn-default fa-request-option" data-option="save-for-later">Save for Later</button>
-        <button type="button" id="fa-request-reproductions" class="btn btn-default fa-request-option" data-option="request-reproductions">Request Reproductions</button>
-      </div>
-      <br>
-      <div class="fa-options" id="fa-schedule-retrieval-options">
-          <p>Submit a request for SCRC materials.</p>
-      </div>
-      <div class="fa-options" id="fa-request-reproductions-options">
-          <label for="fa-pages">Pages/Items to be Reproduced
-              <input class="fa-request-reproductions-input" type="textarea" id="fa-pages" name="ItemInfo3">
+        <div class="fa-request-options fa-request-hidden form-item">
+          <fieldset>
+            <div class="js-form-required form-required">
+              <legend class="js-form-required form-required">Select request type</legend>
+            </div>
+            
+            <div class="fa-request-option-group">
+              <input type="radio" id="fa-schedule-retrieval" class="fa-request-option" data-option="schedule-retrieval" name="request_option">
+              <label for="fa-schedule-retrieval">Request retrieval</label>
+            </div>
+
+            <div class="fa-request-option-group">
+              <input type="radio" id="fa-save-for-later" class="fa-request-option" data-option="save-for-later" name="request_option">
+              <label for="fa-save-for-later">Save for later</label>
+            </div>
+
+            <div class="fa-request-option-group">
+              <input type="radio" id="fa-request-reproductions" class="fa-request-option" data-option="request-reproductions" name="request_option">
+              <label for="fa-request-reproductions">Request reproductions</label>
+            </div>
+          </fieldset>      
+        </div>
+
+        <div class="fa-extra-options fa-request-hidden form-item">
+          <label for="fa-special-request">Special requests or questions?
+              <textarea class="fa-extra-input" id="fa-special-request" name="SpecialRequest"></textarea>
           </label>
-          <br>
-          <label for="fa-format">Format</label>
-              <select class="fa-request-reproductions-input" id="fa-format" name="Format">
-                <option>Select one</option>
-                <option value="A/V (may incur costs)">A/V (may incur costs)</option>
-                <option value="JPG">JPG</option>
-                <option value="PDF">PDF</option>
-                <option value="TIFF">TIFF</option>
-              </select>
-          </label>
-          <br>
-          <label for="fa-service-level">Intended Use
-              <select class="fa-request-reproductions-input" id="fa-service-level" name="ServiceLevel">
+        </div>
+
+        <div class="form-item" id="fa-schedule-retrieval-options">
+            <p>Submit a request to retrieve SCRC materials.</p>
+        </div>
+        <div class="form-item" id="fa-request-reproductions-options">
+          <div class="form-item">
+            <label for="fa-pages" class="js-form-required form-required">List pages/items to be reproduced</label>
+                <textarea class="fa-request-reproductions-input" id="fa-pages" name="ItemInfo3"></textarea>
+          </div>
+          
+          <div class="form-item">
+            <label for="fa-format" class="js-form-required form-required">Format</label>
+                <select class="fa-request-reproductions-input" id="fa-format" name="Format">
+                  <option>Select one</option>
+                  <option value="A/V (may incur costs)">A/V (may incur costs)</option>
+                  <option value="JPG">JPG</option>
+                  <option value="PDF">PDF</option>
+                  <option value="TIFF">TIFF</option>
+                </select>
+          </div>
+
+          <div class="form-item">
+            <label for="fa-service-level" class="js-form-required form-required">Intended use</label>
+                <select class="fa-request-reproductions-input" id="fa-service-level" name="ServiceLevel">
                   <option>Select one</option>
                   <option value="Broadcast">Broadcast</option>
                   <option value="Commercial/For-profit">Commercial/For-profit</option>
@@ -54,27 +73,33 @@
                   <option value="Print Publication">Print Publication</option>
                   <option value="Social Media">Social Media</option>
               </select>
-          </label>
-          <br>
-          <label for="fa-project">Project Description
-              <input class="fa-request-reproductions-input" type="textarea" id="fa-project" name="ItemInfo4">
-          </label>
-          <input type="hidden" id="fa-skip-estimate" name="SkipOrderEstimate" value="Yes">
-      </div>
-      <input type="hidden" name="RequestType" value="Loan">
-      <input type="hidden" name="AeonForm" value="EADRequest">
-      <input type="hidden" name="ItemTitle" value="{{title}}">
-      <input type="hidden" name="EADNumber" value="{{call_number}}">
-      <input type="hidden" name="GroupRequestsByLocation" value="Yes">
-      <input type="hidden" name="GroupingIdentifier" value="ItemVolume">
-      <input type="hidden" name="GroupingOption_ItemVolume" value="FirstValue">
-      <input type="hidden" name="GroupingOption_ItemIssue" value="Concatenate">
-      <input type="hidden" name="ItemInfo2" value="{{item_url}}">
-      <input type="hidden" name="CallNumber" value="{{call_number}}">
-      <input type="hidden" name="ItemDate" value="{{item_date}}">
-      <input type="hidden" name="SubmitButton" value="Submit Request">
-      <input type="hidden" name="SpecialRequest" value="">
-      <button id="fa-request-submit" class="button button--wildcat-blue" type="submit" disabled="disabled">Submit Request</button>
+          </div>
+
+          <div class="form-item">
+            <label for="fa-project" class="js-form-required form-required">Project description</label>
+                <textarea class="fa-request-reproductions-input" id="fa-project" name="ItemInfo4"></textarea>
+          </div>
+            <input type="hidden" id="fa-skip-estimate" name="SkipOrderEstimate" value="Yes">
+        </div>
+        <input type="hidden" name="RequestType" value="Loan">
+        <input type="hidden" name="AeonForm" value="EADRequest">
+        <input type="hidden" name="ItemTitle" value="{{title}}">
+        <input type="hidden" name="EADNumber" value="{{call_number}}">
+        <input type="hidden" name="GroupRequestsByLocation" value="Yes">
+        <input type="hidden" name="GroupingIdentifier" value="ItemVolume">
+        <input type="hidden" name="GroupingOption_ItemVolume" value="FirstValue">
+        <input type="hidden" name="GroupingOption_ItemIssue" value="Concatenate">
+        <input type="hidden" name="ItemInfo2" value="{{item_url}}">
+        <input type="hidden" name="CallNumber" value="{{call_number}}">
+        <input type="hidden" name="ItemDate" value="{{item_date}}">
+        <input type="hidden" name="SubmitButton" value="Submit Request">
+        <input type="hidden" name="SpecialRequest" value="">
+        
+        <p class="fa-request-summary-note fa-request-hidden">
+          No items have been requested.
+        </p>
+
+        <button id="fa-request-submit" class="button button--wildcat-blue" type="submit" disabled="disabled">Submit Request</button>
       </form>
     </div>
   </div>

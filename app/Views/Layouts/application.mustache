@@ -2,19 +2,7 @@
 <html lang="en">
 <head>
   <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
-  {{#css}}
-  <link rel="stylesheet" href="{{href}}">
-  {{/css}}
   {{> head-common}}
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPRYLHP028"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-FPRYLHP028', { 'anonymize_ip': true });
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23584444-4"></script>
 </head>
 <body>
   {{> maintenance_notice}}
@@ -50,21 +38,6 @@
         </div>
       </div>
     </div>
-    
-
-    <div class="slab">
-      <div class="slab__wrapper">
-        <div class="heading-section">
-          {{!#requestable}}
-          {{!> advance_note}}
-          {{!/requestable}}
-          {{!#requestable}}
-          {{{!requests}}}
-          {{!/requestable}}
-        </div>
-      </div>
-    </div>
-   
     <div class="slab slab--wildcat-white">
         {{> harmful_language_statement}}
     </div>
@@ -76,34 +49,15 @@
   {{#js}}
   <script src="{{href}}?hash={{hash}}"></script>
   {{/js}}
-  <script src="https://webcdn.uky.edu/limestone/1.0.0/js/lib/jquery-accessible-accordion.js"></script>
-  <script>jQuery('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });</script>
   {{#requestable}}
   <script>
   requests.init({
       title: "{{title}}",
-      button_active: "Remove request",
-      button_inactive: "Request item",
-      button_toc_active: "Selected",
-      button_toc_inactive: "Select this collection"
+      button_active: "Remove",
+      button_inactive: "Request"
   });
   </script>
   {{/requestable}}
-  <script>
-  jQuery(function () {
-      function highlight_current() {
-          jQuery('.fa-toc-entry').each(function () {
-              if (jQuery(this).attr('href') === window.location.hash) {
-                  jQuery(this).addClass('fa-toc-entry-highlight');
-              } else {
-                  jQuery(this).removeClass('fa-toc-entry-highlight');
-              }
-          });
-      }
-      jQuery(window).on('hashchange', function () { highlight_current(); });
-      highlight_current();
-  });
-  </script>
   {{>viewer}}
 </body>
 </html>

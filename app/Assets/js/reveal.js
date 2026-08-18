@@ -13,9 +13,11 @@
             var img = $(this),
                 src = img.data("src");
 
-            src && img.attr("src", src).load(function () {
-                img[args[0]||"show"].apply(img, args.splice(1));
-            });
+            // Bind the load handler before assigning src, and use .one('load')
+            // rather than the .load(fn) event shorthand, which jQuery 3 removed
+            src && img.one("load", function () {
+                img[args[0]||"show"].apply(img, args.slice(1));
+            }).attr("src", src);
         });
     }
 })(jQuery);
