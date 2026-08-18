@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Core;
+
 class Model
 {
     protected $xml = null;
@@ -12,9 +15,9 @@ class Model
         ];
         $tree = $this->id;
         while (strlen($tree) >= 2) {
-          $prefix = substr($tree, 0, 2);
-          $tree = substr($tree, 2);
-          $array[] = $prefix;
+            $prefix = substr($tree, 0, 2);
+            $tree = substr($tree, 2);
+            $array[] = $prefix;
         }
         $array[] = $this->id;
         return implode(DIRECTORY_SEPARATOR, $array);

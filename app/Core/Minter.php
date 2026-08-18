@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Core;
+
 class Minter
 {
     private $counter;

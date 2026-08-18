@@ -1,5 +1,11 @@
 <?php
-class ComponentModel extends Model
+
+namespace App\Models;
+
+use SimpleXMLElement;
+use App\Core\Model;
+
+class Component extends Model
 {
     protected $subcomponents = [];
     private $basename;
@@ -14,14 +20,14 @@ class ComponentModel extends Model
         $this->config = $g_config;
         $component_file = $this->ppath() . DIRECTORY_SEPARATOR . $this->basename;
         if (file_exists($component_file)) {
-          $this->xml = new SimpleXMLElement(file_get_contents($component_file));
+            $this->xml = new SimpleXMLElement(file_get_contents($component_file));
         }
         $this->links = $this->links();
         $contents_config = $this->config->get('contents');
         foreach ($this->xpath($contents_config['component']) as $c) {
             $cattrs = $c->attributes();
             $cid = $cattrs['id'];
-            $this->subcomponents[] = new ComponentModel($this->id, $cid);
+            $this->subcomponents[] = new Component($this->id, $cid);
         }
     }
 
@@ -51,49 +57,47 @@ class ComponentModel extends Model
             foreach ($link_raw['links'] as $use => $href) {
                 $use = str_replace(' ', '_', $use);
                 switch ($use) {
-                case 'thumbnail':
-                    $thumb_count++;
-                    if ($thumb_count <= $image_threshold) {
-                        $field = 'image';
-                    }
-                    else {
-                        $field = 'image_overflow';
-                    }
-                    if (empty($link[$field])) {
-                        $link[$field] = [];
-                    }
-                    $link[$field]['thumb'] = $href;
-                    break;
-                case 'reference_image':
-                    $ref_count++;
-                    if ($ref_count <= $image_threshold) {
-                        $field = 'image';
-                    }
-                    else {
-                        $field = 'image_overflow';
-                    }
-                    if (empty($link[$field])) {
-                        $link[$field] = [];
-                    }
-                    $link[$field]['full'] = $href;
-                    $link[$field]['href_id'] = $g_minter->mint();
-                    break;
-                case 'reference_audio':
-                    if (empty($link['audio'])) {
-                        $link['audio'] = [];
-                    }
-                    $link['audio']['href'] = $href;
-                    $link['audio']['href_id'] = $g_minter->mint();
-                    break;
-                case 'reference_video':
-                    if (empty($link['video'])) {
-                        $link['video'] = [];
-                    }
-                    $link['video']['href'] = $href;
-                    $link['video']['href_id'] = $g_minter->mint();
-                    break;
-                default:
-                    break;
+                    case 'thumbnail':
+                        $thumb_count++;
+                        if ($thumb_count <= $image_threshold) {
+                            $field = 'image';
+                        } else {
+                            $field = 'image_overflow';
+                        }
+                        if (empty($link[$field])) {
+                            $link[$field] = [];
+                        }
+                        $link[$field]['thumb'] = $href;
+                        break;
+                    case 'reference_image':
+                        $ref_count++;
+                        if ($ref_count <= $image_threshold) {
+                            $field = 'image';
+                        } else {
+                            $field = 'image_overflow';
+                        }
+                        if (empty($link[$field])) {
+                            $link[$field] = [];
+                        }
+                        $link[$field]['full'] = $href;
+                        $link[$field]['href_id'] = $g_minter->mint();
+                        break;
+                    case 'reference_audio':
+                        if (empty($link['audio'])) {
+                            $link['audio'] = [];
+                        }
+                        $link['audio']['href'] = $href;
+                        $link['audio']['href_id'] = $g_minter->mint();
+                        break;
+                    case 'reference_video':
+                        if (empty($link['video'])) {
+                            $link['video'] = [];
+                        }
+                        $link['video']['href'] = $href;
+                        $link['video']['href_id'] = $g_minter->mint();
+                        break;
+                    default:
+                        break;
                 }
             }
             $links[] = $link;
@@ -113,8 +117,7 @@ class ComponentModel extends Model
                 $this->xpath('did/unittitle'),
                 $this->xpath('did/unitdate')
             );
-        }
-        else {
+        } else {
             $pieces = array_merge($pieces, $this->xpath('did/unittitle'));
         }
         $segments = [];
@@ -124,7 +127,7 @@ class ComponentModel extends Model
         return implode(', ', $segments);
     }
 
-    public function container_lists()
+    public function containerLists()
     {
         $container_lists = [];
         $order = [];
@@ -142,14 +145,13 @@ class ComponentModel extends Model
         foreach ($this->xpath($contents_config['container']) as $container) {
             $attributes = $container->attributes();
             $aspect = [
-                'type'    => $this->container_type($attributes),
+                'type'    => $this->containerType($attributes),
                 'content' => (string)$container,
             ];
 
             if (isset($attributes['id'])) {
                 $id = trim($attributes['id']);
-            }
-            else {
+            } else {
                 $id = md5((string) $container->asXML());
             }
             $aspect['id'] = $id;
@@ -159,8 +161,7 @@ class ComponentModel extends Model
                 $ancestor = $section_id_for[$pid];
                 $section_id_for[$id] = $ancestor;
                 $section[$ancestor][] = $aspect;
-            }
-            else {
+            } else {
                 $section_id_for[$id] = $id;
                 $section[$id] = [$aspect];
                 $section_ids[] = $id;
@@ -194,7 +195,7 @@ class ComponentModel extends Model
                     }
                     $volume = $container_list_pieces[0];
                     $summary = implode(', ', $container_list_pieces);
-                    $full_container_list = fa_brevity($summary . ': '. $this->title(), FA_AEON_MAX);
+                    $full_container_list = fa_brevity($summary . ': ' . $this->title(), FA_AEON_MAX);
                     array_shift($container_list_pieces);
                     $rest = implode(', ', $container_list_pieces);
                     $container_list = [
@@ -216,40 +217,40 @@ class ComponentModel extends Model
     public function bioghistHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['bioghist_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['bioghist_head']));
     }
 
     public function scopecontentHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['scopecontent_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['scopecontent_head']));
     }
 
     public function processinfoHead()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['processinfo_head']));
+        return $this->renderParagraphs($this->xpath($contents_config['processinfo_head']));
     }
 
     public function bioghist()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['bioghist']));
+        return $this->renderParagraphs($this->xpath($contents_config['bioghist']));
     }
 
     public function scopecontent()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['scopecontent']));
+        return $this->renderParagraphs($this->xpath($contents_config['scopecontent']));
     }
 
     public function processinfo()
     {
         $contents_config = $this->config->get('contents');
-        return $this->render_paragraphs($this->xpath($contents_config['processinfo']));
+        return $this->renderParagraphs($this->xpath($contents_config['processinfo']));
     }
 
-    public function render_paragraphs($p_list)
+    public function renderParagraphs($p_list)
     {
         $render = [];
         foreach ($p_list as $p) {
@@ -274,26 +275,22 @@ class ComponentModel extends Model
         return $attributes['level'];
     }
 
-    private function container_type($attributes)
+    private function containerType($attributes)
     {
         if (isset($attributes['type'])) {
             $type = trim($attributes['type']);
             if ($type === 'othertype') {
                 if (isset($attributes['label'])) {
                     return trim($attributes['label']);
-                }
-                else {
+                } else {
                     return 'container';
                 }
-            }
-            else {
+            } else {
                 return $type;
             }
-        }
-        else if (isset($attributes['label'])) {
+        } elseif (isset($attributes['label'])) {
             return trim($attributes['label']);
-        }
-        else {
+        } else {
             return 'container';
         }
     }

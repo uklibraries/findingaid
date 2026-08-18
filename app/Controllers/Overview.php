@@ -1,4 +1,12 @@
 <?php
+
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Overview as OverviewModel;
+use Mustache_Engine;
+use Mustache_Loader_FilesystemLoader;
+
 class Overview extends Controller
 {
     private $templates;
@@ -54,14 +62,14 @@ class Overview extends Controller
                         DIRECTORY_SEPARATOR,
                         [
                             APP,
-                            'views',
-                            'layouts',
+                            'Views',
+                            'Layouts',
                         ]
                     )
                 ),
             ]);
             $page = $layout->render(
-                load_template('layouts/overview'),
+                load_template('Layouts/overview'),
                 [
                     'title' => $model->title(),
                     'bioghist' => $model->bioghist(),
