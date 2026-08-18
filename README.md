@@ -25,7 +25,7 @@ make sample
 make dev
 ```
 
-The application should then be available at `http://localhost:8080/<id>`.
+The application should then be available at `http://localhost:8080/?id=<id>`.
 Developers should run `make help` to see a list of helper commands through
 [make](https://www.gnu.org/software/make/).
 
