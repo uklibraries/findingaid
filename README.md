@@ -108,10 +108,13 @@ detects and can repair many PSR-12 violations. Developers can use `make lint` to
 get a report of linting violations, and `make lint-fix` to fix those that can be
 automatically fixed. These deliberately exclude line length as a fix.
 
+## Contributors
+Sarah Dorpinghaus, Neal Powers, Nicole Sand, and MLE Slone. For details, consult [CONTRIBUTORS](CONTRIBUTORS.md).
+
 ## Copyright
 
-This program is Copyright (C) 2016-2024 MLE Slone. For
-details, consult LICENSE.txt.
+This program is Copyright (C) 2016-2026 University of Kentucky. For
+details, consult [LICENSE](LICENSE.txt).
 
 This program uses the following software:
 
