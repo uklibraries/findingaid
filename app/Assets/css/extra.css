@@ -1,14 +1,126 @@
+@layer overrides, limestone;
+
+/* creates a layer encapsulating all limestone styles; browser has a <link rel="preload" as="style"> to prewarm, this import blocks render. Unlayered styles always win conflicting rules regardless of specificity. */
+@import url("https://webcdn.uky.edu/limestone/1.0.0/css/style.css") layer(limestone);
+
+/* When limestone uses !important, it will win against unlayered rules. Overrides for limestone rules must live here */
+@layer overrides {
+  .js-accordion__panel[aria-hidden="true"] {
+    contain: content;
+  }
+
+  .universal-breadcrumb ul {
+    font-family: "usual", sans-serif !important;
+  }
+
+  .viewer-control:disabled {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: transparent !important;
+  }
+
+  .fa-requestable-contents:focus-visible {
+    outline: 2px solid var(--color-wildcat-blue) !important;
+    outline-offset: 2px !important;
+  }
+}
+
+:root {
+    /* Limestone values */
+    /* Limestone brand colors */
+    --color-wildcat-blue: #0033a0;
+    --color-wildcat-white: #fff;
+    --color-blue-gray: #eff4fd;
+    --color-cool-neutral: #dcddde;
+    --color-sky: #b1c9e8;
+    --color-dark-gray: #515664;
+
+    /* Type scale */
+    --font-size-base: 1.1667rem;
+    --font-size-lg: 1.5rem;
+    --line-height: 1.5rem;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+}
+
+.fa-component .slab__wrapper {
+  padding: 0 var(--space-md);
+}
+
+.slab.fa-component > .slab__wrapper:not(:has(> .js-accordion)) {
+  padding-left: calc(var(--space-md) + var(--space-lg));
+}
+
+.fa-component {
+  background-color: var(--color-blue-gray);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.container_list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 0;
+}
+
+.container_list_item {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.container_list_item > p {
+  margin: 0;
+  padding: 0;
+}
+
+.editorial {
+  padding: 0;
+}
+
+.fa-expand-all-wrap {
+    margin: 0 0 var(--space-sm);
+    text-align: right;
+}
+
+.fa-component .editorial > p,
+.fa-component .editorial > :is(h1, h2, h3, h4, h5, h6),
+.fa-component .editorial > [role="heading"] {
+  padding-left: var(--space-lg);
+}
+
+/* Accordion content needs same padding inset */
+.js-accordion__panel > .editorial > .fa-availability,
+.js-accordion__panel > .editorial > ul.list-unstyled,
+.js-accordion__panel > .editorial > .image-gallery {
+  padding-left: var(--space-lg);
+}
+
+/* Accordion with both content and accordions needs content further inset */
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > .fa-availability,
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > ul.list-unstyled,
+.js-accordion__panel > .editorial:has(> .slab.fa-component) > .image-gallery {
+  padding-left: calc(var(--space-lg) * 2);
+}
+
+.js-accordion__panel > .editorial:has(> ul.list-unstyled) > .slab.fa-component {
+  margin-left: var(--space-lg);
+}
+
+/* remove visibility for hidden accordions to preserve tab behavior */
+[aria-hidden="true"].accordion__panel .accordion__panel {
+  visibility: hidden;
+}
+
 .fa-request.fa-requestable-toc {
     display: block;
     margin: 0 auto;
-}
-
-.fa-request.fa-requestable-contents {
-    float: right;
-}
-
-.fa-request-summary-note {
-    font-style: italic;
 }
 
 .fa-request-hidden {
@@ -19,39 +131,12 @@
     display: none;
 }
 
-.fa-request-form {
-    overflow: auto;
-    background: #FDFDF6;
-    padding: 20px;
-    width: 600px;
-    max-width: 100%;
-    border-radius: 6px;
-}
-
-.fa-request-ul {
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin: 1em;
-    height: 10em;
-}
-
-.fa-options {
-    padding: 1em;
-}
-
-.fa-viewer {
-    overflow: hidden;
-    height: 100vh;
-    overflow-y: scroll;
+.breadcrumbs ul li.fa-hidden {
+    display: none;
 }
 
 .fa-toc-entry-highlight {
     font-weight: bold;
-}
-
-.fa-taggable {
-    width: 10em;
 }
 
 dd {
@@ -60,126 +145,327 @@ dd {
     margin-top: 5px;
 }
 
-label {
-    font-weight: 300;
+.fa-section {
+    margin-bottom: var(--space-xl);
 }
 
-.hd {
-    height: 3px;
-    background-color: #0a3a5e;
+.editorial .fa-section h3 {
+    font-size: var(--font-size-lg);
 }
 
-.nav-tabs {
-   float: right;
+.editorial .fa-component h4 {
+    /* Compact hierarchy, but on Limestone's grid: base hN size, normal weight
+       (was an off-grid 1.15rem / 400). */
+    font-size: var(--font-size-base);
+    font-weight: normal;
 }
 
-.container-fluid {
-   width: 80% !important;
-   background-color: #ffffff !important;
+.editorial [role="heading"],
+.editorial [role="heading"].headline-group .headline-group__head {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    font-family: "usual", sans-serif;
+    font-weight: 700;
+    margin: 0 0 var(--space-md);
 }
 
-.panel-heading[data-toggle="collapse"] .panel-title:after {
-    font-family: "Glyphicons Halflings";
-    color: #666;
-    float: right;
-    content: "\e114";
+.fa-component .list-unstyled {
+    list-style: none;
+    padding-left: 0;
 }
 
-.panel-heading[data-toggle="collapse"].collapsed .panel-title:after {
-    content: "\e080";
+.fa-availability dd {
+    font-style: italic;
+    color: var(--color-dark-gray);
 }
 
-.panel-title a {
-    color: #337ab7 !important;
-}
-
-.toplink {
-    padding: 1em;
-    float: right;
+.fa-request__button, .button {
+    min-width: 44px; /* WCAG */
+    min-height: 44px; /* WCAG */
+    font-size: 0.75rem;
+    padding: 0.15rem 0.65rem;
 }
 
 .click-to-load-images, .image-overflow {
-    display: inline;
+  display: inline;
+}
+
+.click-to-play-audio, .click-to-play-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fa-media,
+.mejs-container {
+  max-width: 100%;
+}
+
+.image-gallery__block--player {
+  width: 100%;
 }
 
 #viewer {
     background: black;
 }
 
+/* overwrite limestone default button styles */
 .viewer-control {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0 1rem;
+    border: none;
     background: transparent;
-    display: inline;
-    color: transparent;
+    color: var(--color-wildcat-white);
     font-size: 6vh;
+    line-height: 1;
 }
 
-#viewer-img {
-    height: 80vh;
+.viewer-control:disabled {
+    visibility: hidden;
 }
 
-.alert-harmful {
-    background: #b1c9e8;
-    color: #282828;
+.fa-request-summary {
+    background-color: var(--color-blue-gray);
+    padding: 1rem 1.5rem;
 }
-
-.red-alert {
-    color: #ff0033;
-    font-size: larger;
+.fa-request-summary .heading--display span {
+    background-color: var(--color-blue-gray);
 }
-
-.red-alert-text {
-    font-size: larger;
-    color: #313132;
-    font-weight: bold;
-}
-
-.green-alert-text {
-    color: #246024;
+.fa-request-summary .accordion__header,
+.fa-request-summary .accordion__header:hover,
+.fa-request-summary .accordion__header:focus,
+.fa-request-summary .accordion__header:active {
+    background-color: var(--color-blue-gray);
 }
 
 /* UK LIMESTONE STYLES */
-/* styling to match Limestone's Underline Link */
-a.underline-link {
-    color:#000000;
-    background-attachment: scroll;
-    background-image: linear-gradient(to top,rgba(161,211,237,0.4) 0,rgba(161,211,237,0.4) 0.5em,transparent 0.5em,transparent 110%),linear-gradient(to top,rgba(0,51,160,0.4) 0,rgba(0,51,160,0.4) 2px,transparent 2px,transparent 100%);
-    background-repeat: no-repeat;
-    background-position: 0 0.5em, 0 0;
-    position: relative;
-    transition: 0.2s background-position ease-out;
-    font-weight: 400;
-    z-index: 1;
+/* Fix Limestone bug - `.button--ghost` both focused and hovered should have white background text and blue background */
+button:focus:hover.button--ghost,
+.default-colors button:focus:hover.button--ghost {
+    background-color: var(--color-wildcat-blue);
+    border-color: var(--color-wildcat-blue);
+    color: var(--color-wildcat-white);
+}
+
+.button:focus:not(:focus-visible) {
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+.button--wildcat-blue:focus:not(:focus-visible) {
+  background-color: var(--color-wildcat-blue);
+  color: var(--color-wildcat-white);
+}
+
+.button--ghost:focus:not(:focus-visible) {
+  background-color: transparent;
+  color: var(--color-wildcat-blue);
+}
+.button:focus-visible {
+  outline: 3px solid #0033a0 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #ffffff !important;
+}
+
+/* Fix Limestone bug - `.social-media-links` assume a light background, so override with appropriate color for footer. */
+.global-footer .social-media-links a:hover,
+.global-footer .social-media-links a:focus,
+.global-footer .social-media-links a:active {
+    color: var(--color-sky);
+}
+
+.global-footer .social-media-links__linkset a {
     text-decoration: none;
 }
 
-a:hover.underline-link {
-    color:#0033A0;
-    background-position: 0 0, 1000px 2px;
+.global-footer .icon-label .ic--svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
 }
 
 /* styling to match central webcom's in-page alert*/
-.in-page-alert {
-    background-color: #EFF4FD;
-    border-left: 7px solid #1E8AFF;
-    padding: 1rem;
-    align-items: center;
-    color:#000000
-}
-.in-page-alert h2 {
+@scope(.in-page-alert){ 
+    :scope{
+      background-color: var(--color-blue-gray);
+      border-left: 7px solid #1E8AFF;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    h2 {
         text-transform: uppercase;
         font-size: 1.75rem;
         font-weight: 900;
-        margin-top: 0;
-        color: #0033A0;
+        margin: 0;
+        color: var(--color-wildcat-blue);
         line-height: 1.2;
-}
-.in-page-alert h3 {
+    }
+
+    h3 {
         text-transform: uppercase;
         font-size: 1.5rem;
         font-weight: 500;
         margin-bottom: 5px;
         margin-top: 10px;
-        color: #0033A0;
+        color: var(--color-wildcat-blue);
         line-height: 1.2;
-        
+    }
+
+    .icon-wrapper{
+      margin-right: 2rem;
+    }
+}
+
+.heading-section {
+    margin: 1rem 0;
+}
+
+@scope(.heading-section){
+    .heading--display {
+        margin: 2rem 0;
+    }
+}
+
+/*Archive content banner*/
+@scope (.slab--micro) {
+    :scope{
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+    }
+    .icon-label--micro {
+        font-size: .81rem;
+        margin-top: .2rem;
+        margin-bottom: .2rem;
+    }
+}
+
+@scope (.lity-content) {
+  .viewer {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 80vh;
+    height: auto;
+  }
+}
+
+.image-gallery__block--overflow {
+    display: none;
+}
+
+.image-gallery__controls {
+  padding: 0;
+}
+
+.image-gallery__block-sizer,
+.image-gallery__block {
+    width: 100%;
+}
+
+.fa-request__button.fa-requestable-contents::before {
+    margin-right: 0.4em;
+    font-weight: 700;
+}
+
+.fa-request__button.fa-requestable-contents.button--ghost::before {
+    content: "\FF0B"; /* ＋ */
+}
+
+.fa-request__button.fa-requestable-contents.button--wildcat-blue::before {
+    content: "\2715"; /* ✕ */
+}
+
+@media screen and (min-width: 58rem) {
+ .image-gallery__block-sizer,
+ .image-gallery__block {
+   width: 33.3333%;
+ }
+
+ .container_list_item {
+   flex-direction: row;
+   align-items: center;
+   gap: var(--space-sm);
+   max-width: 32rem;
+ }
+
+ .container_list_item > p {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   white-space: nowrap;
+ }
+ .container_list_item > p::after {
+   content: "";
+   flex: 1;
+   margin-left: var(--space-sm);
+   border-top: 2px dotted var(--color-sky);
+ }
+}
+
+/* Large */
+@media screen and (min-width: 76rem) {
+  .fa-component .slab__wrapper {
+    padding-left: var(--space-lg);
+  }
+
+  .slab.fa-component > .slab__wrapper:not(:has(> .js-accordion)) {
+    padding-left: calc(var(--space-lg) + var(--space-lg));
+  }
+}
+
+/* shared exploreuk-web-app styles */
+@scope(.search-form){
+    button {
+        margin: 0;
+    }
+}
+
+@scope (.search-brief) {
+    button {
+        margin: 0;
+    }
+}
+
+/* Style request form */
+@scope (.fa-request-fieldset){
+  padding: 1.25rem;
+  line-height: 1.5rem;
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  legend {
+    display: block;
+    font-weight: 500;
+    font-size: 1.16667rem;
+  }
+
+  legend.form-required::after {
+    color: #c12c2b; /* Limestone alert color */
+    content: '*';
+  }
+
+  .fa-request-option-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .fa-request-option-group label {
+    font-weight: 300;
+  }
+
 }

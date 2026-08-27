@@ -2,41 +2,62 @@
 <html lang="en">
 <head>
   <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
-  {{#css}}
-  <link rel="stylesheet" href="{{href}}">
-  {{/css}}
-  {{#js}}
-  <script src="{{href}}?hash={{hash}}"></script>
-  {{/js}}
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPRYLHP028"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-FPRYLHP028', { 'anonymize_ip': true });
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23584444-4"></script>
+  {{> head-common}}
 </head>
 <body>
-  {{> nav}}
-  <div id="content">
   {{> maintenance_notice}}
-  <div class='container-fluid'>
-    <div class='row'>
-      {{{content}}}
-      <div class="tab-content">
-        <div id="metadata" class="tab-pane fade active in">
-          {{{toc}}}
-        </div>
-        <div id="access" class="tab-pane fade">
-          {{{requests}}}
+  {{> nav}}
+  <div class="slab slab--wildcat-white page-header page-header--text">
+    <div class="slab__wrapper">
+      <h1 class="headline-group">
+        <span class="headline-group__head">
+          {{title}}{{^title}}Welcome to ExploreUK{{/title}}
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  {{> breadcrumbs}}
+
+  <main id="content">
+    <div class="slab">
+      <div class="slab__wrapper">
+        <div class="grid grid--major-right">
+          <div class="grid__column grid__column--minor">
+            {{{toc}}}
+            {{#requestable}}
+            {{> contact_info}}
+            {{/requestable}}
+            {{#requestable}}
+            {{{requests}}}
+            {{/requestable}}
+          </div>
+          <!--<div class="grid__column grid__column--major">-->
+              {{{content}}}
+          <!--</div>-->
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  {{>footer}}
+    <div class="slab slab--wildcat-white">
+        {{> harmful_language_statement}}
+    </div>
+  </main>
+   
+  {{> global-footer}}
+  {{> universal-footer}}
+  {{> limestone-resources}}
+  {{#js}}
+  <script src="{{href}}?hash={{hash}}"></script>
+  {{/js}}
+  {{#requestable}}
+  <script>
+  requests.init({
+      title: "{{title}}",
+      button_active: "Remove",
+      button_inactive: "Request"
+  });
+  </script>
+  {{/requestable}}
   {{>viewer}}
 </body>
 </html>

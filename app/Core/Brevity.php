@@ -33,3 +33,13 @@ function fa_brevity($message, $length = 0)
     }
     return $message;
 }
+
+function fa_heading_context($level)
+{
+    $level = max(1, (int) $level);
+    return [
+        'level' => $level,          // true aria-level for level > 6
+        'native' => $level <= 6,    // can we use a real heading?
+        'tag' => 'h' . min($level, 6),
+    ];
+}

@@ -19,7 +19,6 @@ class SmokeTest extends TestCase
     {
         $this->assertTrue(class_exists('App\Models\Findingaid'));
         $this->assertTrue(class_exists('App\Models\Component'));
-        $this->assertTrue(class_exists('App\Models\Overview'));
     }
 
     public function testBrevityFunction(): void

@@ -7,6 +7,7 @@ use App\Models\Findingaid as FindingaidModel;
 use App\Models\Component as ComponentModel;
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
+use Mustache_Loader_CascadingLoader;
 
 class Findingaid extends Controller
 {
@@ -104,14 +105,14 @@ class Findingaid extends Controller
                                 'entries' => $metadata,
                             ];
                             $skip = false;
-                        }
-                        if (array_key_exists('in_toc', $entry)) {
-                            if ($entry['in_toc']) {
-                                $toc_entry = [
-                                    'label' => fa_brevity($entry['label']),
-                                    'id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
-                                ];
-                                $toc_entries_unsorted[$entry['id']] = $toc_entry;
+                            if (array_key_exists('in_toc', $entry)) {
+                                if ($entry['in_toc']) {
+                                    $toc_entry = [
+                                        'label' => fa_brevity($entry['label']),
+                                        'id' => "fa-fields-{$panel['body_id']}-{$entry['id']}",
+                                    ];
+                                    $toc_entries_unsorted[$entry['id']] = $toc_entry;
+                                }
                             }
                         }
                     }
@@ -123,11 +124,14 @@ class Findingaid extends Controller
                         foreach ($templates as $template) {
                             $this->templates[$template] = load_template("Findingaid/$template");
                         }
-                        foreach ($model->xpath('contents/c') as $c) {
-                            $details = $this->renderComponent($m, $c);
+                        foreach ($model->xpath('contents/c') as $index => $c) {
+                            $details = $this->renderComponent($m, $c, 3, $index < $component_count - 1);
                             $panel['components'][] = [
                                 'component' => $details[0],
                             ];
+                            if ($details[1]['collapsible']) {
+                                $panel['expandable'] = true;
+                            }
                             if ($details[1]['level'] === 'series') {
                                 $attributes = $c->attributes();
                                 $toc_subentries[] = $details[1]['metadata'];
@@ -285,31 +289,15 @@ class Findingaid extends Controller
                 $requests = '';
             }
 
-            $css_hrefs = [
-                "css/bootstrap.min.css",
-                "css/jquery-ui.min.css",
-                "css/extra.css",
-                "css/footer.css",
-                "css/lity.min.css",
-                "css/mediaelementplayer.min.css",
-            ];
-
-            $css = [];
-            foreach ($css_hrefs as $href) {
-                $css[] = ['href' => $href];
-            }
-
             $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_FilesystemLoader(
-                    implode(
-                        DIRECTORY_SEPARATOR,
-                        [
-                            APP,
-                            'Views',
-                            'Layouts',
-                        ]
-                    )
-                ),
+                'partials_loader' => new Mustache_Loader_CascadingLoader([
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
+                    ),
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
+                    ),
+                ]),
             ]);
             $page = $layout->render(
                 load_template('Layouts/application'),
@@ -317,7 +305,6 @@ class Findingaid extends Controller
                     'content' => $content,
                     'toc' => $toc,
                     'requests' => $requests,
-                    'css' => $css,
                     'js' => [[
                         'href' => 'js/app.js',
                         'hash' => hash_file('sha256', implode(
@@ -338,16 +325,14 @@ class Findingaid extends Controller
             set_cache($id, $page);
         } else {
             $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_FilesystemLoader(
-                    implode(
-                        DIRECTORY_SEPARATOR,
-                        [
-                            APP,
-                            'Views',
-                            'Layouts',
-                        ]
-                    )
-                ),
+                'partials_loader' => new Mustache_Loader_CascadingLoader([
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
+                    ),
+                    new Mustache_Loader_FilesystemLoader(
+                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
+                    ),
+                ]),
             ]);
             $meta = $this->config->getNonUK($id);
             if ($meta) {
@@ -393,8 +378,12 @@ class Findingaid extends Controller
         echo $page;
     }
 
-    public function renderComponent($renderer, $component_xml)
-    {
+    public function renderComponent(
+        $renderer,
+        $component_xml,
+        $level = 3,
+        $has_following_sibling = false
+    ) {
         $component_content = '';
         $attributes = $component_xml->attributes();
         if (isset($attributes['id'])) {
@@ -402,8 +391,15 @@ class Findingaid extends Controller
             $body_id = "fa-body-{$attributes['id']}";
             $component = new ComponentModel($this->params['id'], $attributes['id']);
             $subcomponent_content = [];
-            foreach ($component->subcomponents() as $subcomponent) {
-                $subcomponent_details = $this->renderComponent($renderer, $subcomponent->xml());
+            $subcomponents = $component->subcomponents();
+            $last_subcomponent = count($subcomponents) - 1;
+            foreach ($subcomponents as $index => $subcomponent) {
+                $subcomponent_details = $this->renderComponent(
+                    $renderer,
+                    $subcomponent->xml(),
+                    $level + 1,
+                    $index < $last_subcomponent
+                );
                 $subcomponent_content[] = [
                     'subcomponent' => $subcomponent_details[0],
                 ];
@@ -420,22 +416,42 @@ class Findingaid extends Controller
                 ];
             }
 
+            $bioghist_head = $component->bioghistHead();
+            $bioghist = $component->bioghist();
+            $scopecontent_head = $component->scopecontentHead();
+            $scopecontent = $component->scopecontent();
+            $processinfo_head = $component->processinfoHead();
+            $processinfo = $component->processinfo();
+
+            $has_children = count($subcomponent_content) > 0;
+
+            // Only leaf items get a divider, and only to separate them from a
+            // following sibling. Accordions get none (no end-of-section divider).
+            $trailing_divider = !$has_children && $has_following_sibling;
+
             $component_content = $renderer->render(
                 $this->templates['component'],
                 [
                     'label' => fa_brevity($component->title()),
-                    'collapsible' => true,
+                    'collapsible' => $has_children,
+                    'trailing_divider' => $trailing_divider,
                     'container_lists' => $container_lists,
-                    'bioghist_head' => $component->bioghistHead(),
-                    'bioghist' => $component->bioghist(),
-                    'scopecontent_head' => $component->scopecontentHead(),
-                    'scopecontent' => $component->scopecontent(),
-                    'processinfo_head' => $component->processinfoHead(),
-                    'processinfo' => $component->processinfo(),
+                    'has_container_lists' => !empty($container_lists),
+                    'bioghist_head' => $bioghist_head,
+                    'bioghist' => $bioghist,
+                    'scopecontent_head' => $scopecontent_head,
+                    'scopecontent' => $scopecontent,
+                    'processinfo_head' => $processinfo_head,
+                    'processinfo' => $processinfo,
                     'links' => $component->links,
+                    'has_media' => !empty($component->links),
+                    'has_image_overflow' => $component->has_image_overflow,
                     'subcomponents' => $subcomponent_content,
                     'heading_id' => $heading_id,
                     'body_id' => $body_id,
+                    'heading' => fa_heading_context($level),
+                    // (bioghist/scopecontent) sit one level below the label.
+                    'note_heading' => fa_heading_context($level + 1),
                 ]
             );
         } else {
@@ -445,6 +461,7 @@ class Findingaid extends Controller
             $component_content,
             [
                 'level' => (string)$component->level(),
+                'collapsible' => $has_children,
                 'metadata' => [
                     'label' => fa_brevity($component->title()),
                     'id' => $heading_id,

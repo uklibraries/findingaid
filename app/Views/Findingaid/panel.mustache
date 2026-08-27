@@ -1,19 +1,29 @@
-<div class="panel panel-default" id="{{heading_id}}">
-  <div class="panel-heading" {{#collapsible}}data-toggle="collapse" data-target="#{{body_id}}" aria-expanded="true"{{/collapsible}}>
-      <h4 class="panel-title">{{label}}</h4>
-  </div>
-  <div class="panel-body{{#collapsible}} collapse in{{/collapsible}}" id="{{body_id}}">
-    {{single-field}}
+<div class="editorial" id="{{heading_id}}">
+  <h2 class="headline-group">
+    <span class="headline-group__head">{{{label}}}</span>
+  </h2>
+  <div class="editorial" id="{{body_id}}">
+    {{#single-field}}
+    <p>{{single-field}}</p>
+    {{/single-field}}
     {{#multi-field}}
-    <dl id="{{field_id}}">
-    <dt>{{label}}</dt>
-    {{#entries}}
-    <dd>{{{content}}}</dd>
-    {{/entries}}
-    </dl>
+      <dl id="{{field_id}}">
+      <dt>{{label}}</dt>
+      {{#entries}}
+      <dd>{{{content}}}</dd>
+      {{/entries}}
+      </dl>
     {{/multi-field}}
-    {{#components}}
-    {{{component}}}
-    {{/components}}
+    {{#expandable}}
+    <div class="fa-expand-all-wrap">
+      <button type="button" class="button fa-expand-all" data-state="collapsed">Expand all</button>
+    </div>
+    {{/expandable}}
+    <div id="components">
+      {{#components}}
+      {{{component}}}
+      {{/components}}
+    </div>
   </div>
 </div>
+

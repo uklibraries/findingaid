@@ -1,19 +1,36 @@
-<div>
-{{#links}}
-  {{#image}}
-  <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="lazy" src="images/loading.gif" data-src="{{thumb}}"/></a>
-  {{/image}}
-  {{#extra}}
-  {{>image_controls}}
-  {{/extra}}
-  {{#image_overflow}}
-  <a id="{{href_id}}" class="image-sequence" href="{{full}}"><img class="image-overflow" data-src="{{thumb}}"/></a>
-  {{/image_overflow}}
-  {{#audio}}
-  <p class="click-to-play-audio" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-  {{/audio}}
-  {{#video}}
-  <p class="click-to-play-video" data-id="{{href_id}}" data-href="{{href}}"><span class="glyphicon glyphicon-play"></span><br>play</p>
-  {{/video}}
-{{/links}}
+{{#image}}
+<div class="image-gallery__block">
+  <a id="{{href_id}}" class="image-sequence" href="{{full}}">
+    <figure>
+      <img class="lazy media-top" src="images/loading.gif" data-src="{{thumb}}" alt="{{alt}}" />
+    </figure>
+  </a>
 </div>
+{{/image}}
+{{#image_overflow}}
+<div class="image-gallery__block image-gallery__block--overflow">
+  <a id="{{href_id}}" class="image-sequence" href="{{full}}">
+    <figure>
+      <img class="image-overflow media-top" data-src="{{thumb}}" alt="{{alt}}" />
+    </figure>
+  </a>
+</div>
+{{/image_overflow}}
+{{#audio}}
+<div class="image-gallery__block">
+  <button type="button" class="click-to-play-audio button" data-id="{{href_id}}" data-href="{{href}}"
+    aria-label="{{play_label}}">
+    <span class="ic ic--audio" aria-hidden="true"></span>
+    <span>play</span>
+  </button>
+</div>
+{{/audio}}
+{{#video}}
+<div class="image-gallery__block">
+  <button type="button" class="click-to-play-video button" data-id="{{href_id}}" data-href="{{href}}"
+    aria-label="{{play_label}}">
+    <span class="ic ic--video" aria-hidden="true"></span>
+    <span>play</span>
+  </button>
+</div>
+{{/video}}

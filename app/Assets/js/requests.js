@@ -2,7 +2,6 @@ var requests = (function() {
     var $ = jQuery;
     var count = 0;
     var request_type = null;
-    var datepicker_initialized = false;
     var collection_title;
 
     function sortkey(label) {
@@ -23,12 +22,15 @@ var requests = (function() {
 
     function update_count() {
         var count = model.get_count();
+        $('.fa-request-count').text(count);
         if (count > 0) {
             if (count == 1) {
                $('.fa-request-summary-note').html('You are requesting 1 item.');
+               $('.fa-request-announce').text('1 item selected');
             }
             else {
                $('.fa-request-summary-note').html('You are requesting ' + count + ' items.');
+               $('.fa-request-announce').text(count + ' items selected');
             }
            $('.fa-request-options').removeClass('fa-request-hidden');
            $('.fa-extra-options').removeClass('fa-request-hidden');
@@ -36,6 +38,7 @@ var requests = (function() {
         }
         else {
            $('.fa-request-summary-note').html('No items have been requested.');
+           $('.fa-request-announce').text('No items selected');
            $('.fa-request-options').addClass('fa-request-hidden');
            $('.fa-extra-options').addClass('fa-request-hidden');
            $('#fa-request-submit').addClass('fa-request-hidden');
@@ -71,15 +74,25 @@ var requests = (function() {
         }
         else {
             request_type = model.get_request_type();
-            $('button.fa-request-option').addClass('btn-default').removeClass('btn-primary');
-            $('button[data-option="' + request_type + '"]').addClass('btn-primary').removeClass('btn-default');
+
+            //handle form radio select options
+            $('.fa-request-option').each(function () {
+                var $this = $(this);
+                var isSelected = ($this.attr('data-option') === request_type);
+
+                //set radio property
+                if ($this.is(':radio')) {
+                    $this.prop('checked', isSelected);
+                }
+            });
+
             $('div.fa-request-option').addClass('fa-request-hidden');
             if (model.get_count() > 0) {
                 $('[data-option="' + request_type + '"]').removeClass('fa-request-hidden');
             }
         }
     }
-
+    
     function toggle(id) {
         var jid;
         var target;
@@ -91,7 +104,7 @@ var requests = (function() {
         if (model.has(id)) {
             item = model.remove(id);
             jid = '#' + id;
-            $(jid).addClass('btn-warning').removeClass('btn-success').html($(jid).attr('data-inactive'));
+            $(jid).addClass('button--ghost').removeClass('button--wildcat-blue').html($(jid).attr('data-inactive'));
             target = $(jid).attr('data-target') + '-remove';
 
             /* Remove hidden inputs */
@@ -99,7 +112,7 @@ var requests = (function() {
             $('input[data-root="' + reqid + '"]').remove();
             $('#' + reqid).remove();
 
-            /* Remove removal control */
+            /* Remove removal control */ 
             $('#' + target).remove();
         }
         else {
@@ -123,9 +136,9 @@ var requests = (function() {
             pos = model.add(item);
             if (pos !== false) {
                 count = model.get_count();
-                $(jid).addClass('btn-success').removeClass('btn-warning').html($(jid).attr('data-active'));
+                $(jid).addClass('button--wildcat-blue').removeClass('button--ghost').html($(jid).attr('data-active'));
 
-                /* Display selected item and add toggle control */
+                /* Display selected item in summary list and add toggle control*/ 
                 removable_element = requests_view.render({
                     id: target + '-remove',
                     label: item["label"],
@@ -147,6 +160,24 @@ var requests = (function() {
                     $('#' + target).after(removable_element);
                 }
             }
+        }
+
+        /* sync duplicate buttons  */
+        var baseTarget = $('#' + id).attr('data-target') || target;
+        if (baseTarget) {
+            var isSelected = model.has(id);
+            $('[data-target="' + baseTarget + '"].fa-request').each(function (){
+                var $btn = $(this);
+                if (isSelected) {
+                    $btn.addClass('button--wildcat-blue')
+                        .removeClass('button--ghost')
+                        .html($btn.attr('data-active') || 'Remove');
+                } else {
+                    $btn.addClass('button--ghost')
+                        .removeClass('button--wildcat-blue')
+                        .html($btn.attr('data-inactive') || 'Request');
+                }
+            });
         }
     }
 
@@ -171,7 +202,6 @@ var requests = (function() {
             "request-reproductions"
         ];
         var default_request_type = "schedule-retrieval";
-        /*var default_request_type = "save-for-later";*/
         var request_type;
         var pages_items_to_be_reproduced = '';
         var formats = [
@@ -182,17 +212,22 @@ var requests = (function() {
         ];
         var format = "";
         var service_levels = [
+            "Broadcast",
             "Commercial/For-profit",
+            "Documentary",
             "Educational/Non-profit",
-            "For Publication",
+            "ILL",
             "Other",
+            "Personal Use",
+            "Personal/Non-profit",
             "Press/Journalism/Public Relations",
+            "Print Publication",
             "Social Media"
         ];
         var service_level = '';
 
         var ids = [
-            'fa-datepicker',
+            'fa-schedule-retrieval-subform',
             'fa-save-for-later',
             ''
         ];
@@ -200,7 +235,6 @@ var requests = (function() {
         var subforms = [
             (function () {
                 var id;
-                var jid;
                 var hidden;
                 var enabled = false;
                 var initialized = false;
@@ -219,15 +253,12 @@ var requests = (function() {
                             'name', ''
                         );
                     }
-                    $(jid).attr('name', '');
                     $('#fa-schedule-retrieval-options').hide();
-                    $(jid).hide();
                     enabled = false;
                 }
 
                 return {
                   init: function (id) {
-                      jid = '#' + id;
                       hidden = id + '-hidden';
 
                       var subform_template = '<div id="__HIDDEN__"><input id="__HIDDEN__-visit" type="hidden" name value="on"><input id="__HIDDEN__-user-review" type="hidden" name value="No"></div>';
@@ -247,9 +278,7 @@ var requests = (function() {
                                 'name', hidden_names[hidden_fields[i]]
                             );
                         }
-                        $(jid).attr('name', 'ScheduledDate');
                         $('#fa-schedule-retrieval-options').show();
-                        $(jid).show();
                         $('input[name="RequestType"]').val('Loan');
                         enabled = true;
                     },
@@ -257,15 +286,7 @@ var requests = (function() {
                         disable_form();
                     },
                     valid: function () {
-                        if (!initialized) {
-                            return false;
-                        }
-                        if ($(jid).val() === "01/01/1901") {
-                            return false;
-                        }
-                        else {
-                            return true;
-                        }
+                        return initialized;
                     }
                 }
             })(),
@@ -562,11 +583,10 @@ var requests = (function() {
             render: function (item) {
                 var pieces = [];
                 pieces.push('<li id="' + item["id"] + '">');
-                pieces.push('<p class="fa-summary-item">');
+                pieces.push('<p class="fa-summary-item">' + item["label"] + '</br>');
                 if (("removable" in item) && item["removable"]) {
-                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> ');
+                    pieces.push(' <a href="#" class="fa-request-delete" data-target="' + item["target"] + '" aria-label="Remove ' + item["label"] + '"><b>Remove<b></a>');
                 }
-                pieces.push(item["label"]);
                 pieces.push('</p></li>');
                 return pieces.join('');
             }
@@ -648,13 +668,11 @@ var requests = (function() {
             collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
-            button_toc_active = options["button_toc_active"];
-            button_toc_inactive = options["button_toc_inactive"];
 
             model.init();
             update();
 
-            $('.fa-request-option').click(function () {
+            $('.fa-request-option').on('click change', function () {
                 var option = $(this).attr('data-option');
                 model.set_request_type(option);
                 update();
@@ -699,24 +717,8 @@ var requests = (function() {
 
             $('.fa-requestable').each(function () {
                 var id = $(this).attr('id');
-                if ($(this).hasClass('fa-toc')) {
                     $(this).after([
-                        '<button type="button" class="btn btn-warning fa-request fa-requestable-toc" data-status="inactive" data-active="',
-                        button_toc_active,
-                        '" data-inactive="',
-                        button_toc_inactive,
-                        '" data-target="',
-                        id,
-                        '" id="',
-                        id,
-                        '-button">',
-                        button_toc_inactive,
-                        '</button>'
-                    ].join(''));
-                }
-                else {
-                    $(this).after([
-                        '<button type="button" class="btn btn-warning fa-request fa-requestable-contents" data-status="inactive" data-active="',
+                        '<button type="button" class="button button--ghost fa-request fa-requestable-contents fa-request__button" data-status="inactive" data-active="',
                         button_active,
                         '" data-inactive="',
                         button_inactive,
@@ -728,7 +730,7 @@ var requests = (function() {
                         button_inactive,
                         '</button>'
                     ].join(''));
-                }
+                //}
             });
 
             $('form.fa-request-fieldset').submit(function () {

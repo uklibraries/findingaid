@@ -54,18 +54,26 @@ function fa_render_extref_ns($node, $ns)
     }
 
     $href = $node->getAttribute($href_attr);
+    $show = $node->getAttribute($show_attr);
+    $text = (string) $node->textContent;
 
-    $show_new = true;
-    if ($node->hasAttribute($show_attr)) {
-        $show_desire = $node->getAttribute($show_attr);
-        if ($show_desire === 'replace') {
-            $show_new = false;
-        }
+    if (strlen($href) === 0 || strlen(trim($text)) === 0) {
+        return $text;
     }
-    $link = '<a href="' . $href . '"';
-    if ($show_new) {
-        $link .= ' target="_blank" rel="nooopener noreferrer"';
+    return fa_render_link($href, $text, $show === 'new');
+}
+
+function fa_render_link($href, $content, $open_new_tab = false)
+{
+    $attributes = ['href="' . htmlspecialchars((string) $href, ENT_QUOTES) . '"'];
+    if ($open_new_tab) {
+        $attributes[] = 'target="_blank"';
+        $attributes[] = 'rel="noopener noreferrer"';
     }
-    $link .= '>' . $node->textContent . '</a>';
-    return $link;
+    $note = $open_new_tab ? 'external link, opens in a new tab' : 'external link';
+
+    return '<a class="underline-link" ' . implode(' ', $attributes) . '>'
+        . htmlspecialchars((string) $content, ENT_QUOTES)
+        . ' <span class="ic ic--popup" aria-hidden="true"></span>'
+        . ' <span class="show-for-sr">(' . $note . ')</span></a>';
 }
