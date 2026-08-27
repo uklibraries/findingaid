@@ -384,6 +384,12 @@ button:focus:hover.button--ghost,
     content: "\2715"; /* ✕ */
 }
 
+.uklib-footer-fdlp {
+    width: 144px;
+    height: auto;
+    margin: 0 auto;
+}
+
 @media screen and (min-width: 58rem) {
  .image-gallery__block-sizer,
  .image-gallery__block {
