@@ -32,6 +32,15 @@ class Component extends Model
         }
     }
 
+    public static function catalogUrl($dao)
+    {
+        $dao = trim((string) ($dao ?? ''));
+        if ($dao === '') {
+            return null;
+        }
+        return '/catalog/' . rawurlencode($dao);
+    }
+
     public function links()
     {
         global $g_minter;
@@ -124,6 +133,14 @@ class Component extends Model
                         break;
                     default:
                         break;
+                }
+            }
+            // The dao describes the whole $link_raw record. Iterating $link's
+            // keys avoids re-deriving the image/image_overflow choice above.
+            $catalog_url = self::catalogUrl($link_raw['dao'] ?? null);
+            if ($catalog_url !== null) {
+                foreach (array_keys($link) as $field) {
+                    $link[$field]['catalog_url'] = $catalog_url;
                 }
             }
             $links[] = $link;
