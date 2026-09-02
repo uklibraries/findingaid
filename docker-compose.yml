@@ -23,6 +23,7 @@ services:
       - app_net
     depends_on:
       - findingaid
+    restart: unless-stopped
 
 volumes:
   app:
