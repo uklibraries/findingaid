@@ -1,17 +1,88 @@
 #!/bin/bash
 set -euo pipefail
 
-# The environment should provide these variables
-# SOLR_URL: e.g. https://solrhost.example.com/solr/select
+usage() {
+  cat <<'EOF'
+Usage: fa-full-regen [-v|--verbose]
+
+Regenerate the cached page for every finding aid Solr lists as a collection.
+
+Options:
+  -v, --verbose  List every ARK that could not be regenerated. Without it only
+                 the count is reported
+  -h, --help     Show this help.
+
+Environment:
+  SOLR_URL       Required, e.g. https://solrhost.example.com/solr/select
+EOF
+}
+
+VERBOSE=0
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -v|--verbose) VERBOSE=1 ;;
+    -h|--help)    usage; exit 0 ;;
+    *)
+      echo "fa-full-regen: unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
 
 ARKS_FILE="$(mktemp)"
 export ARKS_FILE
 
-trap 'rm -f "$ARKS_FILE"' EXIT
+ERRORS_FILE="$(mktemp)"
 
-echo "Attempting generation of a list of finding aids to reprocess"
+trap 'rm -f "$ARKS_FILE" "$ERRORS_FILE"' EXIT
+
+echo "Attempting generation of a list of finding aids to regenerate"
 fetch-ead-arks
-echo "List generated"
-echo "Reprocessing finding aids"
-xargs -n 1 -P 4 fa-regen < "$ARKS_FILE"
+FOUND=$(wc -l < "$ARKS_FILE")
+
+PROCESSED=0
+
+if [ "$FOUND" -le 0 ]; then
+  echo "$FOUND findingaid records found. Exiting..."
+  exit 0
+fi
+
+function print_progress {
+  PROCESSED=$((PROCESSED + 1))
+  local PROGRESS_PERCENTAGE=$(( 100 * PROCESSED / FOUND ))
+  local PROGRESS_STR="["
+  local HASH_COUNT=$(( PROGRESS_PERCENTAGE / 5 ))
+  local i
+  for i in {1..20}; do
+    if [ "$i" -le $HASH_COUNT ]; then
+      PROGRESS_STR+="#"
+    else
+      PROGRESS_STR+=" "
+    fi
+  done
+  PROGRESS_STR+="] "
+  PROGRESS_STR+="($PROGRESS_PERCENTAGE)%"
+  echo -ne "$PROGRESS_STR\r"
+}
+
+xargs -n 1 -P 4 fa-regen < "$ARKS_FILE" 2> "$ERRORS_FILE" | while read -r _; do
+  print_progress
+done
+printf '\n'
+
+# Missing EADs are a data condition, not a failed run, so report and exit 0.
+if [ -s "$ERRORS_FILE" ]; then
+  MISSING=$(wc -l < "$ERRORS_FILE")
+  if [ "$VERBOSE" -eq 1 ]; then
+    echo "$MISSING of $FOUND finding aids could not be regenerated:" >&2
+    cat "$ERRORS_FILE" >&2
+  else
+    echo "$MISSING of $FOUND finding aids could not be regenerated" \
+         "(re-run with --verbose for the list)" >&2
+  fi
+fi
+
 echo "Finding aids reprocessed"

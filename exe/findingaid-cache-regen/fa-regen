@@ -6,4 +6,15 @@ TARGET_URL=http://web
 ID=$1
 BASE="$TARGET_URL/fa/findingaid/?id=$ID&invalidate_cache=1"
 echo "$BASE"
-curl "$BASE" >/dev/null
+
+# A finding aid whose EAD is missing from the pairtree redirects to /
+STATUS=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE") || STATUS=000
+
+case "$STATUS" in
+    2??) ;;
+    302) echo "$ID: not found (redirected to /); no EAD in the pairtree" >&2 ;;
+    000) echo "$ID: request to $TARGET_URL failed" >&2 ;;
+    *)   echo "$ID: unexpected HTTP $STATUS" >&2 ;;
+esac
+
+exit 0
