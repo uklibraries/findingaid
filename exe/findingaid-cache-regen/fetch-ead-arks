@@ -13,8 +13,6 @@ if ! [[ "$NUM_FOUND" =~ ^[0-9]+$ ]]; then
   exit 1
 fi
 
-echo "$NUM_FOUND records found"
-
 echo "Fetching ids"
 EADS_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=${NUM_FOUND}"
 curl -s "$EADS_URL" | jq -r '.response.docs[] | .id' > "$ARKS_FILE"
