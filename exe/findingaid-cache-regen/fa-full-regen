@@ -9,9 +9,38 @@ export ARKS_FILE
 
 trap 'rm -f "$ARKS_FILE"' EXIT
 
-echo "Attempting generation of a list of finding aids to reprocess"
+echo "Attempting generation of a list of finding aids to regenerate"
 fetch-ead-arks
-echo "List generated"
-echo "Reprocessing finding aids"
-xargs -n 1 -P 4 fa-regen < "$ARKS_FILE"
+FOUND=$(wc -l < "$ARKS_FILE")
+
+PROCESSED=0
+
+if [ "$FOUND" -le 0 ]; then
+  echo "$FOUND findingaid records found. Exiting..."
+  exit 0
+fi
+
+function print_progress {
+  PROCESSED=$((PROCESSED + 1))
+  local PROGRESS_PERCENTAGE=$(( 100 * PROCESSED / FOUND ))
+  local PROGRESS_STR="["
+  local HASH_COUNT=$(( PROGRESS_PERCENTAGE / 5 ))
+  local i
+  for i in {1..20}; do
+    if [ "$i" -le $HASH_COUNT ]; then
+      PROGRESS_STR+="#"
+    else
+      PROGRESS_STR+=" "
+    fi
+  done
+  PROGRESS_STR+="] "
+  PROGRESS_STR+="($PROGRESS_PERCENTAGE)%"
+  echo -ne "$PROGRESS_STR\r"
+}
+
+xargs -n 1 -P 4 fa-regen < "$ARKS_FILE" | while read -r _; do
+  print_progress
+done
+printf '\n'
+
 echo "Finding aids reprocessed"

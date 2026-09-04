@@ -5,12 +5,18 @@ set -euo pipefail
 # SOLR_URL: e.g. https://solrhost.example.com/solr/select
 # ARKS_FILE: where ARKs should be written
 
-COUNT_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections"
-numFound=$(curl -s "$COUNT_URL" | jq -r .response.numFound)
-echo "Found $numFound collections"
+COUNT_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=0"
+NUM_FOUND=$(curl -s "$COUNT_URL" | jq -r '.response.numFound')
+
+if ! [[ "$NUM_FOUND" =~ ^[0-9]+$ ]]; then
+  echo "fa-get-count: unexpected response from Solr: $NUM_FOUND" >&2
+  exit 1
+fi
+
+echo "$NUM_FOUND records found"
 
 echo "Fetching ids"
-EADS_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=${numFound}"
+EADS_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=${NUM_FOUND}"
 curl -s "$EADS_URL" | jq -r '.response.docs[] | .id' > "$ARKS_FILE"
 
 echo "IDs written to $ARKS_FILE"
