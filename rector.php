@@ -10,6 +10,7 @@ return RectorConfig::configure()
 
 # Ensures Rector runs with whatever PHP version it finds in composer.json
 ->withPhpSets()
+->withComposerBased(phpunit: true)
 ->withTypeCoverageLevel(0)
 ->withDeadCodeLevel(0)
 ->withCodeQualityLevel(0);
