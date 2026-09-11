@@ -2,12 +2,12 @@
 set -euo pipefail
 
 if [[ -z "$SOLR_URL" ]]; then
-  echo "fetch-ead-arks: SOLR_URL must be set, e.g. https://solrhost.example.com/solr/select" >&2
+  echo "fetch-ead-arks: SOLR_URL must not be empty, e.g. https://solrhost.example.com/solr/select" >&2
   exit 1
 fi
 
 if [[ -z "$ARKS_FILE" ]]; then
-  echo "fetch-ead-arks: ARKS_FILE must be set to the file ARKs should be written to" >&2
+  echo "fetch-ead-arks: ARKS_FILE must not be empty" >&2
   exit 1
 fi
 
