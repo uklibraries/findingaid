@@ -1,9 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
-# The environment should provide these variables
-# SOLR_URL: e.g. https://solrhost.example.com/solr/select
-# ARKS_FILE: where ARKs should be written
+if [[ -z "$SOLR_URL" ]]; then
+  echo "fetch-ead-arks: SOLR_URL must be set, e.g. https://solrhost.example.com/solr/select" >&2
+  exit 1
+fi
+
+if [[ -z "$ARKS_FILE" ]]; then
+  echo "fetch-ead-arks: ARKS_FILE must be set to the file ARKs should be written to" >&2
+  exit 1
+fi
 
 COUNT_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=0"
 NUM_FOUND=$(curl -s "$COUNT_URL" | jq -r '.response.numFound')
