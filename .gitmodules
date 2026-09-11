@@ -1,0 +1,3 @@
+[submodule "app/Assets/frontpage-assets"]
+	path = app/Assets/frontpage-assets
+	url = https://github.com/uklibraries/exploreuk-frontpage-assets

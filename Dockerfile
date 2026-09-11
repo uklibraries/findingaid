@@ -92,6 +92,9 @@ COPY ./app ./app
 COPY ./public ./public
 COPY ./exe ./exe
 
+RUN test -f public/shared/images/imls.png || \
+    (echo "exploreuk-frontpage-assets submodule missing; check out with submodules" && exit 1)
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 

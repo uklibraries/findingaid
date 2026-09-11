@@ -19,11 +19,19 @@ Developer installations have been tested on Linux (through Windows with
 ### Quickstart
 
 ```shell
-git clone https://github.com/uklibraries/findingaid.git
+git clone --recurse-submodules https://github.com/uklibraries/findingaid.git
 cd findingaid
 make sample
 make dev
 ```
+
+Images shared between findingaid and
+[exploreuk-web-app](https://github.com/uklibraries/exploreuk-web-app) come
+from the
+[exploreuk-frontpage-assets](https://github.com/uklibraries/exploreuk-frontpage-assets)
+submodule at `app/Assets/frontpage-assets`, served through the `public/shared`
+symlink. If you have cloned without `--recurse-submodules`, run
+`git submodule update --init`.
 
 The application should then be available at `http://localhost:8080/?id=<id>`.
 Developers should run `make help` to see a list of helper commands through
