@@ -23,4 +23,4 @@ echo "Fetching ids"
 EADS_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=${NUM_FOUND}"
 curl -s "$EADS_URL" | jq -r '.response.docs[] | .id' > "$ARKS_FILE"
 
-echo "IDs written to $ARKS_FILE"
+echo "List of IDs fetched successfully"

@@ -50,6 +50,8 @@ if [ "$FOUND" -le 0 ]; then
   exit 0
 fi
 
+echo "$FOUND findingaid IDs found. Regenerating findingaids..."
+
 function print_progress {
   PROCESSED=$((PROCESSED + 1))
   local PROGRESS_PERCENTAGE=$(( 100 * PROCESSED / FOUND ))
@@ -85,4 +87,4 @@ if [ -s "$ERRORS_FILE" ]; then
   fi
 fi
 
-echo "Finding aids reprocessed"
+echo "$((FOUND - MISSING)) finding aids reprocessed"
