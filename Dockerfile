@@ -14,7 +14,9 @@ FROM php:8.3-fpm-alpine AS development
 # add other deps for dev here
 RUN apk add --no-cache \
     libzip-dev \
-    bash
+    bash \
+    jq \
+    curl
 
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
@@ -29,6 +31,13 @@ COPY ./composer.lock .
 RUN composer install --no-interaction
 
 COPY /exe ./exe
+
+RUN chmod +x /opt/findingaid/exe/findingaid-cache-regen/fa-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-regen /usr/local/bin/fa-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen /usr/local/bin/fa-full-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks /usr/local/bin/fetch-ead-arks
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
