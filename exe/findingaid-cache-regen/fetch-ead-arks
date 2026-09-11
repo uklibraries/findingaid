@@ -15,7 +15,7 @@ COUNT_URL="${SOLR_URL}?wt=json&fl=id&fq=format:collections&rows=0"
 NUM_FOUND=$(curl -s "$COUNT_URL" | jq -r '.response.numFound')
 
 if ! [[ "$NUM_FOUND" =~ ^[0-9]+$ ]]; then
-  echo "fa-get-count: unexpected response from Solr: $NUM_FOUND" >&2
+  echo "fetch-ead-arks: unexpected response from Solr: $NUM_FOUND" >&2
   exit 1
 fi
 
