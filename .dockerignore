@@ -10,3 +10,5 @@ docker-compose.yml
 README.md
 LICENSE.txt
 public/cache
+app/Assets/frontpage-assets/.git
+app/Assets/frontpage-assets/files
