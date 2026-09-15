@@ -441,6 +441,17 @@ button:focus:hover.button--ghost,
     }
 }
 
+/* Libraries sponsor logo slab */
+.grid.grid--5-up.sponsor-logo {
+    align-items: center;
+}
+.sponsor-logo-short {
+    max-height: 150px;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
 /* Style request form */
 @scope (.fa-request-fieldset){
   padding: 1.25rem;
