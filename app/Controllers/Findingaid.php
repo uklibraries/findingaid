@@ -32,6 +32,11 @@ class Findingaid extends Controller
             return;
         }
 
+        $css = [
+            'extra_version' => $this->assetVersion('css/extra.css'),
+            'mediaelementplayer_version' => $this->assetVersion('css/mediaelementplayer.min.css'),
+        ];
+
         /* First, fill out top-level metadata, including the
          * table of contents.
          */
@@ -305,17 +310,10 @@ class Findingaid extends Controller
                     'content' => $content,
                     'toc' => $toc,
                     'requests' => $requests,
+                    'css' => $css,
                     'js' => [[
                         'href' => 'js/app.js',
-                        'hash' => hash_file('sha256', implode(
-                            DIRECTORY_SEPARATOR,
-                            [
-                                ROOT,
-                                'public',
-                                'js',
-                                'app.js',
-                            ]
-                        )),
+                        'version' => $this->assetVersion('js/app.js'),
                     ]],
                     'title' => $model->title(),
                     'requestable' => $requestable,
@@ -353,6 +351,7 @@ class Findingaid extends Controller
                         [
                             'title' => $meta['title'],
                             'repository' => $meta['repository'],
+                            'css' => $css,
                         ]
                     );
                 } else {
@@ -362,6 +361,7 @@ class Findingaid extends Controller
                             'title' => $meta['title'],
                             'repository' => $meta['repository'],
                             'repo_url' => $repo_url,
+                            'css' => $css,
                         ]
                     );
                 }
