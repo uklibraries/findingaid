@@ -1,0 +1,45 @@
+<?php
+
+define('FA_MAX_LENGTH', 1000);
+define('FA_AEON_MAX', 80);
+
+function fa_brevity($message, $length = 0)
+{
+    if ($length == 0) {
+        $length = FA_MAX_LENGTH;
+    }
+    if (strlen((string) $message) > $length) {
+        $source_words = preg_split('/\b/', (string) $message);
+        $target_words = [];
+        $current_length = 0;
+        foreach ($source_words as $word) {
+            if (($current_length == 0) || $current_length + strlen($word) <= $length) {
+                $target_words[] = $word;
+                $current_length += strlen($word);
+            } else {
+                break;
+            }
+        }
+        $count = count($target_words);
+        if ($count == 0) {
+            $message = '…';
+        } else {
+            $terminal = $target_words[$count - 1];
+            if (preg_match('/^\W+$/', $terminal)) {
+                array_pop($target_words);
+            }
+            $message = implode('', $target_words) . '…';
+        }
+    }
+    return $message;
+}
+
+function fa_heading_context($level)
+{
+    $level = max(1, (int) $level);
+    return [
+        'level' => $level,          // true aria-level for level > 6
+        'native' => $level <= 6,    // can we use a real heading?
+        'tag' => 'h' . min($level, 6),
+    ];
+}

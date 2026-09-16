@@ -14,11 +14,14 @@ FROM php:8.3-fpm-alpine AS development
 # add other deps for dev here
 RUN apk add --no-cache \
     libzip-dev \
-    bash
+    bash \
+    jq \
+    curl
 
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 
 WORKDIR /opt/findingaid
 
@@ -28,6 +31,13 @@ COPY ./composer.lock .
 RUN composer install --no-interaction
 
 COPY /exe ./exe
+
+RUN chmod +x /opt/findingaid/exe/findingaid-cache-regen/fa-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen \
+        /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-regen /usr/local/bin/fa-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fa-full-regen /usr/local/bin/fa-full-regen && \
+    ln -s /opt/findingaid/exe/findingaid-cache-regen/fetch-ead-arks /usr/local/bin/fetch-ead-arks
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
@@ -60,6 +70,7 @@ WORKDIR /app
 
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=development /opt/findingaid/vendor /opt/findingaid/vendor
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 COPY ./phpunit.xml /opt/findingaid/phpunit.xml
 COPY /app .
 
@@ -82,12 +93,16 @@ RUN apk add --no-cache \
 COPY --from=jsmin /usr/bin/jsmin /usr/bin/jsmin
 COPY --from=prod-builder /composer/vendor /opt/findingaid/vendor
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+COPY php-fpm/99-findingaid.ini $PHP_INI_DIR/conf.d/
 
 WORKDIR /opt/findingaid
 
 COPY ./app ./app
 COPY ./public ./public
 COPY ./exe ./exe
+
+RUN test -f public/shared/images/imls.png || \
+    (echo "exploreuk-frontpage-assets submodule missing; check out with submodules" && exit 1)
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

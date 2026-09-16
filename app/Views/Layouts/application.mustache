@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>{{title}}{{^title}}Welcome to ExploreUK{{/title}}</title>
+  {{> head-common}}
+</head>
+<body>
+  {{> maintenance_notice}}
+  {{> nav}}
+  <div class="slab slab--wildcat-white page-header page-header--text">
+    <div class="slab__wrapper">
+      <h1 class="headline-group">
+        <span class="headline-group__head">
+          {{title}}{{^title}}Welcome to ExploreUK{{/title}}
+        </span>
+      </h1>
+    </div>
+  </div>
+
+  {{> breadcrumbs}}
+
+  <main id="content">
+    <div class="slab">
+      <div class="slab__wrapper">
+        <div class="grid grid--major-right">
+          <div class="grid__column grid__column--minor">
+            {{{toc}}}
+            {{#requestable}}
+            {{> contact_info}}
+            {{/requestable}}
+            {{#requestable}}
+            {{{requests}}}
+            {{/requestable}}
+          </div>
+          <!--<div class="grid__column grid__column--major">-->
+              {{{content}}}
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+    <div class="slab slab--wildcat-white">
+        {{> harmful_language_statement}}
+    </div>
+    {{> sponsors}}
+  </main>
+  {{> global-footer}}
+  {{> universal-footer}}
+  {{> limestone-resources}}
+  {{#js}}
+  <script src="{{href}}?{{version}}"></script>
+  {{/js}}
+  {{#requestable}}
+  <script>
+  requests.init({
+      title: "{{title}}",
+      button_active: "Remove",
+      button_inactive: "Request"
+  });
+  </script>
+  {{/requestable}}
+  {{>viewer}}
+</body>
+</html>

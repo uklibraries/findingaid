@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROOT="$( cd -P "$( dirname "$( dirname "${BASH_SOURCE[0]}" )" )" && pwd )"
-JS_DIR="$ROOT/app/assets/js"
+JS_DIR="$ROOT/app/Assets/js"
 JS_MANIFEST="$JS_DIR/manifest.txt"
 PUBLIC_JS_DIR="$ROOT/public/js"
 APP="$PUBLIC_JS_DIR/app.js"

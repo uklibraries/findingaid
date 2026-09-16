@@ -1,0 +1,24 @@
+<div class="slab slab--thin slab--wildcat-white">
+    <div class="slab__wrapper">
+        <nav class="breadcrumbs">
+            <ul class="no-decoration">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                {{#back_to_search}}
+                <li>
+                    <a href="{{back_to_search}}">{{back_to_search_text}}</a>
+                </li>
+                {{/back_to_search}}
+                {{^back_to_search}}
+                <li class="back-to-search fa-hidden">
+                    <a href="#" data-back-to-search>Back to search results</a>
+                </li>
+                {{/back_to_search}}
+                {{#title}}
+                <li aria-current="page">{{title}}</li>
+                {{/title}}
+            </ul>
+        </nav>
+    </div>
+</div>
