@@ -76,8 +76,8 @@ done
 printf '\n'
 
 # Missing EADs are a data condition, not a failed run, so report and exit 0.
-if [ -s "$ERRORS_FILE" ]; then
-  MISSING=$(wc -l < "$ERRORS_FILE")
+MISSING=$(wc -l < "$ERRORS_FILE")
+if [ "$MISSING" -gt 0 ]; then
   if [ "$VERBOSE" -eq 1 ]; then
     echo "$MISSING of $FOUND finding aids could not be regenerated:" >&2
     cat "$ERRORS_FILE" >&2
