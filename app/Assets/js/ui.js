@@ -214,7 +214,8 @@
             var refUrl;
             try { refUrl = new URL(document.referrer); } catch (e) { return; }
             if (refUrl.origin !== window.location.origin) return;
-            if (refUrl.pathname !== '/catalog/' || !refUrl.search) return;
+            var searchPaths = ['/', '/catalog', '/catalog/'];
+            if (searchPaths.indexOf(refUrl.pathname) === -1 || !refUrl.search) return;
             var li = document.querySelector('.breadcrumbs .back-to-search');
             var a  = li && li.querySelector('[data-back-to-search]');
             if (!li || !a) return;
