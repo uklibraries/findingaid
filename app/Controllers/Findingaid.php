@@ -245,10 +245,9 @@ class Findingaid extends Controller
             $repository = $model->repository();
             $requestable = ($repository === 'University of Kentucky');
 
-            $toc_component = false;
+            $collection_request = false;
             if ($requestable and ($component_count == 0)) {
-                $toc_component = [
-                    'summary' => '',
+                $collection_request = [
                     'id' => 'fa-no-components-request',
                     'container_list' => fa_brevity($model->title()),
                     'volume' => '',
@@ -262,7 +261,6 @@ class Findingaid extends Controller
                 'entries' => $toc_entries,
                 'links' => $links,
                 'requestable' => $requestable,
-                'toc_component' => $toc_component,
             ];
 
             $toc = $m->render(
@@ -283,6 +281,7 @@ class Findingaid extends Controller
                         'id' => $requests_config['summary']['id'],
                         'label' => fa_brevity($requests_config['summary']['label']),
                         'list_id' => $requests_config['summary']['list_id'],
+                        'collection_request' => $collection_request,
                         'title' => $this->cleanup($model->unittitle()),
                         'collection_id' => $model->id(),
                         'call_number' => $model->unitid(),

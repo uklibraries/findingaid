@@ -102,5 +102,9 @@
         <button id="fa-request-submit" class="button button--wildcat-blue" type="submit" disabled="disabled">Submit Request</button>
       </form>
     </div>
+    {{#collection_request}}{{> checkered_divider}}{{/collection_request}}
   </div>
+  {{#collection_request}}
+  <input type="hidden" class="fa-requestable fa-collection" id="{{id}}" value="{{container_list}}" data-volume="{{volume}}" data-container="{{container}}">
+  {{/collection_request}}
 </div>

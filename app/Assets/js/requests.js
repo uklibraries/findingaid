@@ -122,8 +122,8 @@ var requests = (function() {
             container = $('#' + target).attr('data-container');
             label = $('#' + target).val();
             title_pieces = [];
-            title_pieces.push(volume);
-            title_pieces.push(container);
+            if (volume) title_pieces.push(volume);
+            if (container) title_pieces.push(container);
             title = title_pieces.join(', ');
 
             item = {
@@ -639,7 +639,7 @@ var requests = (function() {
                 });
                 add_input({
                   name: "ItemTitle_" + id,
-                  value: collection_title + ': ' + folder["title"],
+                  value: collection_title + (folder["title"] ? ': ' + folder["title"] : ''),
                   root: id
                 });
                 add_input({
@@ -668,6 +668,8 @@ var requests = (function() {
             collection_title = options["title"];
             button_active = options["button_active"];
             button_inactive = options["button_inactive"];
+            var button_collection_active = options["button_collection_active"];
+            var button_collection_inactive = options["button_collection_inactive"];
 
             model.init();
             update();
@@ -717,20 +719,24 @@ var requests = (function() {
 
             $('.fa-requestable').each(function () {
                 var id = $(this).attr('id');
-                    $(this).after([
-                        '<button type="button" class="button button--ghost fa-request fa-requestable-contents fa-request__button" data-status="inactive" data-active="',
-                        button_active,
-                        '" data-inactive="',
-                        button_inactive,
-                        '" data-target="',
-                        id,
-                        '" id="',
-                        id,
-                        '-button">',
-                        button_inactive,
-                        '</button>'
-                    ].join(''));
-                //}
+                var isCollection = $(this).hasClass('fa-collection');
+                var active = isCollection ? button_collection_active : button_active;
+                var inactive = isCollection ? button_collection_inactive : button_inactive;
+                $(this).after([
+                    '<button type="button" class="button button--ghost fa-request fa-request__button ',
+                    isCollection ? 'fa-requestable-collection' : 'fa-requestable-contents',
+                    '" data-status="inactive" data-active="',
+                    active,
+                    '" data-inactive="',
+                    inactive,
+                    '" data-target="',
+                    id,
+                    '" id="',
+                    id,
+                    '-button">',
+                    inactive,
+                    '</button>'
+                ].join(''));
             });
 
             $('form.fa-request-fieldset').submit(function () {
