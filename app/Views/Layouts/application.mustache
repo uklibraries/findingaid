@@ -20,8 +20,13 @@
   {{> breadcrumbs}}
 
   <main id="content">
-    <div class="slab">
+    <div class="slab{{#reproductions_only}} fa-restricted-collection{{/reproductions_only}}">
       <div class="slab__wrapper">
+        {{#reproductions_only}}
+        <div class="fa-reproductions-only-notice">
+          {{> reproductions_only_notice}}
+        </div>
+        {{/reproductions_only}}
         <div class="grid grid--major-right">
           <div class="grid__column grid__column--minor">
             {{{toc}}}
@@ -56,7 +61,8 @@
       button_active: "Remove",
       button_inactive: "Request",
       button_collection_active: "Remove Collection",
-      button_collection_inactive: "Add Collection to Request"
+      button_collection_inactive: "Add Collection to Request",
+      reproductions_only: {{#reproductions_only}}true{{/reproductions_only}}{{^reproductions_only}}false{{/reproductions_only}}
   });
   </script>
   {{/requestable}}
