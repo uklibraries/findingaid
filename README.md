@@ -117,7 +117,8 @@ get a report of linting violations, and `make lint-fix` to fix those that can be
 automatically fixed. These deliberately exclude line length as a fix.
 
 ## Contributors
-Sarah Dorpinghaus, Neal Powers, Nicole Sand, and MLE Slone. For details, consult [CONTRIBUTORS](CONTRIBUTORS.md).
+Sarah Dorpinghaus, Neal Powers, Nicole Sand, and MLE Slone. For details, consult
+[CONTRIBUTORS](CONTRIBUTORS.md).
 
 ## Copyright
 
@@ -134,3 +135,14 @@ This program uses the following software:
 - [Bootstrap](https://getbootstrap.com)
 - [jQuery](https://jquery.org)
 - [Fontawesome](https://fontawesome.com/)
+
+### Renovation reproduction restrictions
+
+`app/Config/microfilm.csv` identifies collections available only for scanning
+during the
+[King Library renovation](https://libraries.uky.edu/king-library-renovation-impacts).
+Docker builds compile
+`ead_location` URLs into `/opt/findingaid/generated/reproductions-only.php` for
+development, CI, and production. This directory is outside the application bind
+mount. The builder accepts both finding aid query URLs and `/catalog/<id>`
+URLs.
