@@ -26,7 +26,6 @@
 }
 
 :root {
-    /* Limestone values */
     /* Limestone brand colors */
     --color-wildcat-blue: #0033a0;
     --color-wildcat-white: #fff;
@@ -34,6 +33,11 @@
     --color-cool-neutral: #dcddde;
     --color-sky: #b1c9e8;
     --color-dark-gray: #515664;
+
+    /* Custom colors */
+    --color-alert-blue: #1e8aff;
+    --color-alert-amber: #996000;
+    --color-alert-amber-background: #fff4d6;
 
     /* Type scale */
     --font-size-base: 1.1667rem;
@@ -292,8 +296,8 @@ button:focus:hover.button--ghost,
 @scope(.in-page-alert){ 
     :scope{
       background-color: var(--color-blue-gray);
-      border-left: 7px solid #1E8AFF;
-      padding: 1rem;
+      border-left: 7px solid var(--color-alert-blue);
+      padding: var(--space-md);
       display: flex;
       align-items: center;
     }
@@ -318,8 +322,27 @@ button:focus:hover.button--ghost,
     }
 
     .icon-wrapper{
-      margin-right: 2rem;
+      margin-right: var(--space-xl);
+      color: var(--color-alert-blue);
     }
+}
+
+.in-page-alert.in-page-alert--amber {
+    background-color: var(--color-alert-amber-background);
+    border-left-color: var(--color-alert-amber);
+}
+
+.in-page-alert--amber h2,
+.in-page-alert--amber .icon-wrapper {
+    color: var(--color-alert-amber);
+}
+
+.slab.fa-restricted-collection {
+    padding-top: var(--space-md);
+}
+
+.fa-reproductions-only-notice {
+    margin-bottom: var(--space-xl);
 }
 
 .heading-section {

@@ -14,6 +14,7 @@
               <legend class="js-form-required form-required">Select request type</legend>
             </div>
             
+            {{^reproductions_only}}
             <div class="fa-request-option-group">
               <input type="radio" id="fa-schedule-retrieval" class="fa-request-option" data-option="schedule-retrieval" name="request_option">
               <label for="fa-schedule-retrieval">Request retrieval</label>
@@ -24,6 +25,7 @@
               <label for="fa-save-for-later">Save for later</label>
             </div>
 
+            {{/reproductions_only}}
             <div class="fa-request-option-group">
               <input type="radio" id="fa-request-reproductions" class="fa-request-option" data-option="request-reproductions" name="request_option">
               <label for="fa-request-reproductions">Request reproductions</label>
@@ -81,7 +83,7 @@
           </div>
             <input type="hidden" id="fa-skip-estimate" name="SkipOrderEstimate" value="Yes">
         </div>
-        <input type="hidden" name="RequestType" value="Loan">
+        <input type="hidden" name="RequestType" value="{{#reproductions_only}}Copy{{/reproductions_only}}{{^reproductions_only}}Loan{{/reproductions_only}}">
         <input type="hidden" name="AeonForm" value="EADRequest">
         <input type="hidden" name="ItemTitle" value="{{title}}">
         <input type="hidden" name="EADNumber" value="{{call_number}}">
