@@ -135,19 +135,16 @@ class Component extends Model
 
     public function title()
     {
-        $pieces = [];
-        if (count($this->xpath('did/unitdate')) > 0) {
-            $pieces = array_merge(
-                $pieces,
-                $this->xpath('did/unittitle'),
-                $this->xpath('did/unitdate')
-            );
-        } else {
-            $pieces = array_merge($pieces, $this->xpath('did/unittitle'));
-        }
+        $pieces = array_merge(
+            $this->xpath('did/unittitle'),
+            $this->xpath('did/unitdate')
+        );
         $segments = [];
         foreach ($pieces as $piece) {
-            $segments[] = fa_render($piece);
+            $segment = fa_render($piece);
+            if ($segment !== '') {
+                $segments[] = $segment;
+            }
         }
         return implode(', ', $segments);
     }
