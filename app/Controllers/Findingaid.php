@@ -214,7 +214,7 @@ class Findingaid extends Controller
                                 }
                             }
                         }
-                        $url = '/?' . $search_field . '=' . urlencode($raw_search);
+                        $url = $this->appPath('/?' . $search_field . '=' . urlencode($raw_search));
                     } else {
                         $data = $model->xpath("//{$link['field']}");
                         $url = false;
@@ -293,16 +293,7 @@ class Findingaid extends Controller
                 $requests = '';
             }
 
-            $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_CascadingLoader([
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
-                    ),
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
-                    ),
-                ]),
-            ]);
+            $layout = $this->layoutEngine();
             $page = $layout->render(
                 load_template('Layouts/application'),
                 [
@@ -321,16 +312,7 @@ class Findingaid extends Controller
             );
             set_cache($id, $page);
         } else {
-            $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_CascadingLoader([
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
-                    ),
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
-                    ),
-                ]),
-            ]);
+            $layout = $this->layoutEngine();
             $meta = $this->config->getNonUK($id);
             if ($meta) {
                 $repo = $meta['repository'];
@@ -366,7 +348,7 @@ class Findingaid extends Controller
                 }
             } else {
                 # This is probably a deleted ExploreUK finding aid
-                header("Location: /");
+                header('Location: ' . $this->appPath('/'));
                 die();
             }
         }
@@ -467,6 +449,22 @@ class Findingaid extends Controller
                 ],
             ],
         ];
+    }
+
+    public function layoutEngine()
+    {
+        return new Mustache_Engine([
+            'partials_loader' => new Mustache_Loader_CascadingLoader([
+                new Mustache_Loader_FilesystemLoader(
+                    implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
+                ),
+                new Mustache_Loader_FilesystemLoader(
+                    implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
+                ),
+            ]),
+            # app_base reaches every partial; the shared chrome links back into ExploreUK
+            'helpers' => ['app_base' => $this->config->basePath()],
+        ]);
     }
 
     private function cleanup($message)

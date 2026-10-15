@@ -214,7 +214,9 @@
             var refUrl;
             try { refUrl = new URL(document.referrer); } catch (e) { return; }
             if (refUrl.origin !== window.location.origin) return;
-            var searchPaths = ['/', '/catalog', '/catalog/'];
+            var meta = document.querySelector('meta[name="app-base"]');
+            var base = meta ? meta.content : '';
+            var searchPaths = [base + '/', base + '/catalog', base + '/catalog/'];
             if (searchPaths.indexOf(refUrl.pathname) === -1 || !refUrl.search) return;
             var li = document.querySelector('.breadcrumbs .back-to-search');
             var a  = li && li.querySelector('[data-back-to-search]');
