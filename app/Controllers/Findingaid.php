@@ -293,16 +293,7 @@ class Findingaid extends Controller
                 $requests = '';
             }
 
-            $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_CascadingLoader([
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
-                    ),
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
-                    ),
-                ]),
-            ]);
+            $layout = $this->layoutEngine();
             $page = $layout->render(
                 load_template('Layouts/application'),
                 [
@@ -317,21 +308,11 @@ class Findingaid extends Controller
                     'title' => $model->title(),
                     'requestable' => $requestable,
                     'repository' => $this->config->getRepo($repository),
-                    'app_base' => $this->config->basePath(),
                 ]
             );
             set_cache($id, $page);
         } else {
-            $layout = new Mustache_Engine([
-                'partials_loader' => new Mustache_Loader_CascadingLoader([
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
-                    ),
-                    new Mustache_Loader_FilesystemLoader(
-                        implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
-                    ),
-                ]),
-            ]);
+            $layout = $this->layoutEngine();
             $meta = $this->config->getNonUK($id);
             if ($meta) {
                 $repo = $meta['repository'];
@@ -352,7 +333,6 @@ class Findingaid extends Controller
                             'title' => $meta['title'],
                             'repository' => $meta['repository'],
                             'css' => $css,
-                            'app_base' => $this->config->basePath(),
                         ]
                     );
                 } else {
@@ -363,7 +343,6 @@ class Findingaid extends Controller
                             'repository' => $meta['repository'],
                             'repo_url' => $repo_url,
                             'css' => $css,
-                            'app_base' => $this->config->basePath(),
                         ]
                     );
                 }
@@ -470,6 +449,22 @@ class Findingaid extends Controller
                 ],
             ],
         ];
+    }
+
+    public function layoutEngine()
+    {
+        return new Mustache_Engine([
+            'partials_loader' => new Mustache_Loader_CascadingLoader([
+                new Mustache_Loader_FilesystemLoader(
+                    implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Layouts'])
+                ),
+                new Mustache_Loader_FilesystemLoader(
+                    implode(DIRECTORY_SEPARATOR, [APP, 'Views', 'Euk_Shared'])
+                ),
+            ]),
+            # app_base reaches every partial; the shared chrome links back into ExploreUK
+            'helpers' => ['app_base' => $this->config->basePath()],
+        ]);
     }
 
     private function cleanup($message)
