@@ -214,7 +214,7 @@ class Findingaid extends Controller
                                 }
                             }
                         }
-                        $url = '/?' . $search_field . '=' . urlencode($raw_search);
+                        $url = $this->appPath('/?' . $search_field . '=' . urlencode($raw_search));
                     } else {
                         $data = $model->xpath("//{$link['field']}");
                         $url = false;
@@ -317,6 +317,7 @@ class Findingaid extends Controller
                     'title' => $model->title(),
                     'requestable' => $requestable,
                     'repository' => $this->config->getRepo($repository),
+                    'app_base' => $this->config->basePath(),
                 ]
             );
             set_cache($id, $page);
@@ -351,6 +352,7 @@ class Findingaid extends Controller
                             'title' => $meta['title'],
                             'repository' => $meta['repository'],
                             'css' => $css,
+                            'app_base' => $this->config->basePath(),
                         ]
                     );
                 } else {
@@ -361,12 +363,13 @@ class Findingaid extends Controller
                             'repository' => $meta['repository'],
                             'repo_url' => $repo_url,
                             'css' => $css,
+                            'app_base' => $this->config->basePath(),
                         ]
                     );
                 }
             } else {
                 # This is probably a deleted ExploreUK finding aid
-                header("Location: /");
+                header('Location: ' . $this->appPath('/'));
                 die();
             }
         }
