@@ -8,9 +8,12 @@ class Config
     private $repo = [];
     private $redirects = [];
     private $nonuk = null;
+    private $base_path = '';
 
     public function __construct()
     {
+        $this->base_path = self::normalizeBasePath(getenv('APP_BASE_PATH') ?: '');
+
         $config_file = implode(DIRECTORY_SEPARATOR, [
             APP,
             'Config',
@@ -44,6 +47,24 @@ class Config
         } else {
             return null;
         }
+    }
+
+    # External prefix shared with ExploreUK, e.g. /review/euk-118; empty at the root.
+    public function basePath()
+    {
+        return $this->base_path;
+    }
+
+    private static function normalizeBasePath($base)
+    {
+        $base = rtrim((string) $base, '/');
+        # It is printed into pages and Location headers, so allow only plain path segments.
+        if ($base !== '' && !preg_match('#^(?:/[A-Za-z0-9_-]+)+$#D', $base)) {
+            throw new \RuntimeException(
+                'APP_BASE_PATH must be an absolute path of letters, numbers, underscores or hyphens'
+            );
+        }
+        return $base;
     }
 
     public function getRepo($key)
