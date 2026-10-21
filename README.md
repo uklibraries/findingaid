@@ -51,8 +51,8 @@ particular functionality:
 We use [Docker](https://www.docker.com/) for reproducible environments.
 Developers will want to consult the
 [docker documentation for installation](https://docs.docker.com/engine/install/).
-We make use of [make](https://www.gnu.org/software/make/) to manage commands,
-which is a standard Linux utility and an old (but functional) version is
+We use the standard Linux utility [make](https://www.gnu.org/software/make/)
+to manage commands. An old (but functional) version is
 included with macOS. Developers can also optionally use
 [watchexec](https://github.com/watchexec/watchexec) to run tests on every file
 change, which will require separate installation. [Homebrew](https://brew.sh/)
