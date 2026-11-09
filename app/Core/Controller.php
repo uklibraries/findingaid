@@ -12,6 +12,12 @@ class Controller
         $this->config = $g_config;
     }
 
+    # For links back into ExploreUK, which shares the review prefix.
+    public function appPath($path)
+    {
+        return $this->config->basePath() . '/' . ltrim((string) $path, '/');
+    }
+
     public function assetVersion($path)
     {
         $file_path = implode(DIRECTORY_SEPARATOR, [
