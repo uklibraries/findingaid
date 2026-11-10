@@ -9,7 +9,16 @@ RUN git clone https://github.com/douglascrockford/JSMin /tmp/jsmin && \
     gcc /tmp/jsmin/jsmin.c -o /usr/bin/jsmin && \
     rm -rf /tmp/jsmin
 
+FROM php:8.3-fpm-alpine AS collection-config
+
+COPY ./app/Config/microfilm.csv /tmp/microfilm.csv
+COPY ./exe/build-reproductions-only.php /tmp/build-reproductions-only.php
+RUN mkdir -p /generated && \
+    php /tmp/build-reproductions-only.php /tmp/microfilm.csv /generated/reproductions-only.php
+
 FROM php:8.3-fpm-alpine AS development
+
+COPY --from=collection-config /generated /opt/findingaid/generated
 
 # add other deps for dev here
 RUN apk add --no-cache \
@@ -62,6 +71,8 @@ RUN composer install --no-interaction --no-dev
 
 FROM php:8.3-fpm-alpine AS ci
 
+COPY --from=collection-config /generated /opt/findingaid/generated
+
 RUN apk add --no-cache \
     libzip-dev \
     bash
@@ -75,6 +86,7 @@ COPY ./phpunit.xml /opt/findingaid/phpunit.xml
 COPY /app .
 
 COPY exe/build.sh /opt/findingaid/exe/build.sh
+COPY exe/build-reproductions-only.php /opt/findingaid/exe/build-reproductions-only.php
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
@@ -83,6 +95,8 @@ EXPOSE 9000
 CMD ["php-fpm", "-F"]
 
 FROM php:8.3-fpm-alpine AS production
+
+COPY --from=collection-config /generated /opt/findingaid/generated
 
 RUN apk add --no-cache \
     libzip-dev \

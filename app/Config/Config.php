@@ -8,6 +8,7 @@ class Config
     private $repo = [];
     private $redirects = [];
     private $nonuk = null;
+    private $reproductionsOnly = null;
 
     public function __construct()
     {
@@ -35,6 +36,14 @@ class Config
         if (file_exists($redirects_file)) {
             $this->redirects = json_decode(file_get_contents($redirects_file), true);
         }
+    }
+
+    public function isReproductionsOnly($id)
+    {
+        if ($this->reproductionsOnly === null) {
+            $this->reproductionsOnly = require ROOT . '/generated/reproductions-only.php';
+        }
+        return isset($this->reproductionsOnly[$id]);
     }
 
     public function get($key)

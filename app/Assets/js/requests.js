@@ -3,6 +3,7 @@ var requests = (function() {
     var count = 0;
     var request_type = null;
     var collection_title;
+    var reproductions_only = false;
 
     function sortkey(label) {
         return label.replace(/\d+/g, function (number) {
@@ -518,6 +519,9 @@ var requests = (function() {
                 return request_type;
             },
             set_request_type: function (new_request_type) {
+                if (reproductions_only && new_request_type !== 'request-reproductions') {
+                    return false;
+                }
                 if (request_type === new_request_type) {
                     return false;
                 }
@@ -570,7 +574,7 @@ var requests = (function() {
                 for (var i = 0; i < request_types.length; ++i) {
                     subforms[i].init(ids[i]);
                 }
-                request_type = default_request_type;
+                request_type = reproductions_only ? 'request-reproductions' : default_request_type;
                 enable_current();
             },
             enable_current: enable_current,
@@ -671,6 +675,7 @@ var requests = (function() {
             var button_collection_active = options["button_collection_active"];
             var button_collection_inactive = options["button_collection_inactive"];
 
+            reproductions_only = options["reproductions_only"] === true;
             model.init();
             update();
 

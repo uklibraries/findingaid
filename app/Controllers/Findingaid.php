@@ -244,6 +244,7 @@ class Findingaid extends Controller
 
             $repository = $model->repository();
             $requestable = ($repository === 'University of Kentucky');
+            $reproductions_only = $requestable && $this->config->isReproductionsOnly($model->id());
 
             $collection_request = false;
             if ($requestable and ($component_count == 0)) {
@@ -284,6 +285,7 @@ class Findingaid extends Controller
                         'collection_request' => $collection_request,
                         'title' => $this->cleanup($model->unittitle()),
                         'collection_id' => $model->id(),
+                        'reproductions_only' => $reproductions_only,
                         'call_number' => $model->unitid(),
                         'item_date' => $model->unitdate(),
                         'item_url' => '/catalog/' . $model->id() . '/',
@@ -316,6 +318,7 @@ class Findingaid extends Controller
                     ]],
                     'title' => $model->title(),
                     'requestable' => $requestable,
+                    'reproductions_only' => $reproductions_only,
                     'repository' => $this->config->getRepo($repository),
                 ]
             );
